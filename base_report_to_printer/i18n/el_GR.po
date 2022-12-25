@@ -67,6 +67,16 @@ msgid "Are you sure to want to print a test page?"
 msgstr ""
 
 #. module: base_report_to_printer
+#: model:ir.model.fields,field_description:base_report_to_printer.field_wizard_print_attachment_line__attachment_id
+msgid "Attachment"
+msgstr ""
+
+#. module: base_report_to_printer
+#: model:ir.model.fields,field_description:base_report_to_printer.field_wizard_print_attachment__attachment_line_ids
+msgid "Attachments to print"
+msgstr ""
+
+#. module: base_report_to_printer
 #: model:ir.model.fields.selection,name:base_report_to_printer.selection__printing_printer__status__available
 msgid "Available"
 msgstr ""
@@ -94,6 +104,7 @@ msgstr ""
 #. module: base_report_to_printer
 #: model_terms:ir.ui.view,arch_db:base_report_to_printer.printer_update_wizard
 #: model_terms:ir.ui.view,arch_db:base_report_to_printer.printing_job_view_form
+#: model_terms:ir.ui.view,arch_db:base_report_to_printer.wizard_print_attachment_form
 msgid "Cancel"
 msgstr ""
 
@@ -153,7 +164,12 @@ msgid "Compressed using an unknown algorithm"
 msgstr ""
 
 #. module: base_report_to_printer
-#. openerp-web
+#: model:ir.model.fields,field_description:base_report_to_printer.field_wizard_print_attachment_line__copies
+msgid "Copies"
+msgstr ""
+
+#. module: base_report_to_printer
+#. odoo-javascript
 #: code:addons/base_report_to_printer/static/src/js/qweb_action_manager.esm.js:0
 #, python-format
 msgid "Could not sent to printer!"
@@ -167,6 +183,8 @@ msgstr ""
 #: model:ir.model.fields,field_description:base_report_to_printer.field_printing_report_xml_action__create_uid
 #: model:ir.model.fields,field_description:base_report_to_printer.field_printing_server__create_uid
 #: model:ir.model.fields,field_description:base_report_to_printer.field_printing_tray__create_uid
+#: model:ir.model.fields,field_description:base_report_to_printer.field_wizard_print_attachment__create_uid
+#: model:ir.model.fields,field_description:base_report_to_printer.field_wizard_print_attachment_line__create_uid
 msgid "Created by"
 msgstr "Δημιουργήθηκε από "
 
@@ -178,6 +196,8 @@ msgstr "Δημιουργήθηκε από "
 #: model:ir.model.fields,field_description:base_report_to_printer.field_printing_report_xml_action__create_date
 #: model:ir.model.fields,field_description:base_report_to_printer.field_printing_server__create_date
 #: model:ir.model.fields,field_description:base_report_to_printer.field_printing_tray__create_date
+#: model:ir.model.fields,field_description:base_report_to_printer.field_wizard_print_attachment__create_date
+#: model:ir.model.fields,field_description:base_report_to_printer.field_wizard_print_attachment_line__create_date
 msgid "Created on"
 msgstr "Δημιουργήθηκε στις"
 
@@ -255,6 +275,8 @@ msgstr ""
 #: model:ir.model.fields,field_description:base_report_to_printer.field_printing_report_xml_action__display_name
 #: model:ir.model.fields,field_description:base_report_to_printer.field_printing_server__display_name
 #: model:ir.model.fields,field_description:base_report_to_printer.field_printing_tray__display_name
+#: model:ir.model.fields,field_description:base_report_to_printer.field_wizard_print_attachment__display_name
+#: model:ir.model.fields,field_description:base_report_to_printer.field_wizard_print_attachment_line__display_name
 msgid "Display Name"
 msgstr ""
 
@@ -289,6 +311,7 @@ msgid "Error in the document"
 msgstr ""
 
 #. module: base_report_to_printer
+#. odoo-python
 #: code:addons/base_report_to_printer/models/printing_server.py:0
 #, python-format
 msgid ""
@@ -304,6 +327,16 @@ msgstr ""
 #. module: base_report_to_printer
 #: model:ir.model.fields.selection,name:base_report_to_printer.selection__printing_job__job_state_reason__submission-interrupted
 msgid "Files were not received in full"
+msgstr ""
+
+#. module: base_report_to_printer
+#. odoo-python
+#: code:addons/base_report_to_printer/wizards/print_attachment_report.py:0
+#, python-format
+msgid ""
+"Following attachments could not be printed:\n"
+"\n"
+"%s"
 msgstr ""
 
 #. module: base_report_to_printer
@@ -339,6 +372,8 @@ msgstr ""
 #: model:ir.model.fields,field_description:base_report_to_printer.field_printing_report_xml_action__id
 #: model:ir.model.fields,field_description:base_report_to_printer.field_printing_server__id
 #: model:ir.model.fields,field_description:base_report_to_printer.field_printing_tray__id
+#: model:ir.model.fields,field_description:base_report_to_printer.field_wizard_print_attachment__id
+#: model:ir.model.fields,field_description:base_report_to_printer.field_wizard_print_attachment_line__id
 msgid "ID"
 msgstr "Κωδικός"
 
@@ -386,6 +421,8 @@ msgstr ""
 #: model:ir.model.fields,field_description:base_report_to_printer.field_printing_report_xml_action____last_update
 #: model:ir.model.fields,field_description:base_report_to_printer.field_printing_server____last_update
 #: model:ir.model.fields,field_description:base_report_to_printer.field_printing_tray____last_update
+#: model:ir.model.fields,field_description:base_report_to_printer.field_wizard_print_attachment____last_update
+#: model:ir.model.fields,field_description:base_report_to_printer.field_wizard_print_attachment_line____last_update
 msgid "Last Modified on"
 msgstr ""
 
@@ -397,6 +434,8 @@ msgstr ""
 #: model:ir.model.fields,field_description:base_report_to_printer.field_printing_report_xml_action__write_uid
 #: model:ir.model.fields,field_description:base_report_to_printer.field_printing_server__write_uid
 #: model:ir.model.fields,field_description:base_report_to_printer.field_printing_tray__write_uid
+#: model:ir.model.fields,field_description:base_report_to_printer.field_wizard_print_attachment__write_uid
+#: model:ir.model.fields,field_description:base_report_to_printer.field_wizard_print_attachment_line__write_uid
 msgid "Last Updated by"
 msgstr "Τελευταία ενημέρωση από"
 
@@ -408,6 +447,8 @@ msgstr "Τελευταία ενημέρωση από"
 #: model:ir.model.fields,field_description:base_report_to_printer.field_printing_report_xml_action__write_date
 #: model:ir.model.fields,field_description:base_report_to_printer.field_printing_server__write_date
 #: model:ir.model.fields,field_description:base_report_to_printer.field_printing_tray__write_date
+#: model:ir.model.fields,field_description:base_report_to_printer.field_wizard_print_attachment__write_date
+#: model:ir.model.fields,field_description:base_report_to_printer.field_wizard_print_attachment_line__write_date
 msgid "Last Updated on"
 msgstr "Τελευταία ενημέρωση στις"
 
@@ -451,6 +492,7 @@ msgid "No data has been received"
 msgstr ""
 
 #. module: base_report_to_printer
+#. odoo-python
 #: code:addons/base_report_to_printer/models/ir_actions_report.py:0
 #, python-format
 msgid "No printer configured to print this report."
@@ -514,7 +556,24 @@ msgstr ""
 
 #. module: base_report_to_printer
 #: model_terms:ir.ui.view,arch_db:base_report_to_printer.act_report_xml_view
+#: model_terms:ir.ui.view,arch_db:base_report_to_printer.wizard_print_attachment_form
 msgid "Print"
+msgstr ""
+
+#. module: base_report_to_printer
+#: model:ir.model,name:base_report_to_printer.model_wizard_print_attachment
+msgid "Print Attachment"
+msgstr ""
+
+#. module: base_report_to_printer
+#: model:ir.model,name:base_report_to_printer.model_wizard_print_attachment_line
+msgid "Print Attachment line"
+msgstr ""
+
+#. module: base_report_to_printer
+#: model:ir.actions.act_window,name:base_report_to_printer.action_wizard_print_attachment
+#: model:ir.ui.menu,name:base_report_to_printer.menu_action_wizard_print_attachment
+msgid "Print Attachments"
 msgstr ""
 
 #. module: base_report_to_printer
@@ -528,10 +587,16 @@ msgid "Print Test Page"
 msgstr ""
 
 #. module: base_report_to_printer
+#: model_terms:ir.ui.view,arch_db:base_report_to_printer.wizard_print_attachment_form
+msgid "Print attachments"
+msgstr ""
+
+#. module: base_report_to_printer
 #: model:ir.model,name:base_report_to_printer.model_printing_printer
 #: model:ir.model.fields,field_description:base_report_to_printer.field_printing_job__printer_id
 #: model:ir.model.fields,field_description:base_report_to_printer.field_printing_report_xml_action__printer_id
 #: model:ir.model.fields,field_description:base_report_to_printer.field_printing_tray__printer_id
+#: model:ir.model.fields,field_description:base_report_to_printer.field_wizard_print_attachment__printer_id
 msgid "Printer"
 msgstr ""
 
@@ -558,6 +623,11 @@ msgstr ""
 #. module: base_report_to_printer
 #: model:ir.model.fields,help:base_report_to_printer.field_printing_job__printer_id
 msgid "Printer used for this job."
+msgstr ""
+
+#. module: base_report_to_printer
+#: model:ir.model.fields,help:base_report_to_printer.field_wizard_print_attachment__printer_id
+msgid "Printer used to print the attachments."
 msgstr ""
 
 #. module: base_report_to_printer
@@ -661,6 +731,11 @@ msgid "Reports"
 msgstr ""
 
 #. module: base_report_to_printer
+#: model:ir.model.fields,field_description:base_report_to_printer.field_wizard_print_attachment_line__record_name
+msgid "Resource Name"
+msgstr ""
+
+#. module: base_report_to_printer
 #: model:ir.model.fields.selection,name:base_report_to_printer.selection__printing_job__job_state_reason__resources-are-not-ready
 msgid "Resources not available to print the job"
 msgstr ""
@@ -730,7 +805,7 @@ msgid "Status Message"
 msgstr ""
 
 #. module: base_report_to_printer
-#. openerp-web
+#. odoo-javascript
 #: code:addons/base_report_to_printer/static/src/js/qweb_action_manager.esm.js:0
 #, python-format
 msgid "Successfully sent to printer!"
@@ -761,6 +836,13 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:base_report_to_printer.printer_update_wizard
 msgid ""
 "This process will create all missing printers from the current CUPS server.\""
+msgstr ""
+
+#. module: base_report_to_printer
+#. odoo-python
+#: code:addons/base_report_to_printer/models/ir_actions_report.py:0
+#, python-format
+msgid "This report type (%s) is not supported by direct printing!"
 msgstr ""
 
 #. module: base_report_to_printer
@@ -832,7 +914,6 @@ msgstr ""
 #. module: base_report_to_printer
 #: model:ir.actions.server,name:base_report_to_printer.ir_cron_update_printers_ir_actions_server
 #: model:ir.cron,cron_name:base_report_to_printer.ir_cron_update_printers
-#: model:ir.cron,name:base_report_to_printer.ir_cron_update_printers
 msgid "Update Printers Jobs"
 msgstr ""
 
@@ -844,6 +925,7 @@ msgid "Update Printers from CUPS"
 msgstr ""
 
 #. module: base_report_to_printer
+#: model:ir.model,name:base_report_to_printer.model_res_users
 #: model:ir.model.fields,field_description:base_report_to_printer.field_printing_report_xml_action__user_id
 #: model:ir.model.fields,field_description:base_report_to_printer.field_printing_server__user
 msgid "User"
@@ -855,6 +937,13 @@ msgid "User name to connect to the server. Empty by default."
 msgstr ""
 
 #. module: base_report_to_printer
-#: model:ir.model,name:base_report_to_printer.model_res_users
-msgid "Users"
+#: model:ir.model.fields,field_description:base_report_to_printer.field_wizard_print_attachment_line__wizard_id
+msgid "Wizard"
+msgstr ""
+
+#. module: base_report_to_printer
+#. odoo-python
+#: code:addons/base_report_to_printer/wizards/print_attachment_report.py:0
+#, python-format
+msgid "{name} ({copies} copies)"
 msgstr ""
