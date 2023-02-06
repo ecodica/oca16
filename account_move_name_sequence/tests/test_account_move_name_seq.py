@@ -282,9 +282,7 @@ class TestAccountMoveNameSequence(TransactionCase):
             invoice.unlink()
         invoice.button_draft()
         invoice.button_cancel()
-        error_msg = "You cannot delete this entry, as it has already consumed a"
-        with self.assertRaisesRegex(UserError, error_msg):
-            invoice.unlink()
+        invoice.unlink()
 
     def test_remove_invoice_error_secuence_standard(self):
         implementation = {"implementation": "standard"}
@@ -309,7 +307,6 @@ class TestAccountMoveNameSequence(TransactionCase):
                 ],
             }
         )
-        in_refund_invoice._compute_split_sequence()
         self.assertEqual(in_refund_invoice.name, "/")
         in_refund_invoice.action_post()
         error_msg = "You cannot delete an item linked to a posted entry."

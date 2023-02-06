@@ -1,8 +1,8 @@
 # Copyright 2013 - Guadaltech - Alberto Martín Cortada
 # Copyright 2015 - AvanzOSC - Ainara Galdona
 # Copyright 2016 Tecnativa - Antonio Espinosa
-# Copyright 2014-2021 Tecnativa - Pedro M. Baeza
 # Copyright 2020 Sygel - Valentin Vinagre
+# Copyright 2014-2023 Tecnativa - Pedro M. Baeza
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html)
 
 from odoo import _, api, exceptions, fields, models
@@ -14,7 +14,6 @@ _ACCOUNT_PATTERN_MAP = {
     "N": "4700",
     "I": "4750",
 }
-
 NON_EDITABLE_ON_DONE = {"done": [("readonly", True)]}
 NON_EDITABLE_EXCEPT_DRAFT = {
     "done": [("readonly", True)],
@@ -23,6 +22,15 @@ NON_EDITABLE_EXCEPT_DRAFT = {
     "cancelled": [("readonly", True)],
 }
 EDITABLE_ON_DRAFT = {"draft": [("readonly", False)]}
+ACTIVITY_CODE_DOMAIN = (
+    "["
+    "   '|',"
+    "   ('period_type', '=', False), ('period_type', '=', period_type),"
+    "   '&',"
+    "   '|', ('date_start', '=', False), ('date_start', '<=', date_start),"
+    "   '|', ('date_end', '=', False), ('date_end', '>=', date_end),"
+    "]"
+)
 
 
 class L10nEsAeatMod303Report(models.Model):
@@ -185,7 +193,7 @@ class L10nEsAeatMod303Report(models.Model):
     )
     main_activity_code = fields.Many2one(
         comodel_name="l10n.es.aeat.mod303.report.activity.code",
-        domain="[('period_type', '=', period_type)]",
+        domain=ACTIVITY_CODE_DOMAIN,
         states=NON_EDITABLE_ON_DONE,
         string="Código actividad principal",
     )
@@ -196,7 +204,7 @@ class L10nEsAeatMod303Report(models.Model):
     )
     other_first_activity_code = fields.Many2one(
         comodel_name="l10n.es.aeat.mod303.report.activity.code",
-        domain="[('period_type', '=', period_type)]",
+        domain=ACTIVITY_CODE_DOMAIN,
         states=NON_EDITABLE_ON_DONE,
         string="Código 1ª actividad",
     )
@@ -207,7 +215,7 @@ class L10nEsAeatMod303Report(models.Model):
     )
     other_second_activity_code = fields.Many2one(
         comodel_name="l10n.es.aeat.mod303.report.activity.code",
-        domain="[('period_type', '=', period_type)]",
+        domain=ACTIVITY_CODE_DOMAIN,
         states=NON_EDITABLE_ON_DONE,
         string="Código 2ª actividad",
     )
@@ -218,7 +226,7 @@ class L10nEsAeatMod303Report(models.Model):
     )
     other_third_activity_code = fields.Many2one(
         comodel_name="l10n.es.aeat.mod303.report.activity.code",
-        domain="[('period_type', '=', period_type)]",
+        domain=ACTIVITY_CODE_DOMAIN,
         states=NON_EDITABLE_ON_DONE,
         string="Código 3ª actividad",
     )
@@ -229,7 +237,7 @@ class L10nEsAeatMod303Report(models.Model):
     )
     other_fourth_activity_code = fields.Many2one(
         comodel_name="l10n.es.aeat.mod303.report.activity.code",
-        domain="[('period_type', '=', period_type)]",
+        domain=ACTIVITY_CODE_DOMAIN,
         states=NON_EDITABLE_ON_DONE,
         string="Código 4ª actividad",
     )
@@ -240,7 +248,7 @@ class L10nEsAeatMod303Report(models.Model):
     )
     other_fifth_activity_code = fields.Many2one(
         comodel_name="l10n.es.aeat.mod303.report.activity.code",
-        domain="[('period_type', '=', period_type)]",
+        domain=ACTIVITY_CODE_DOMAIN,
         states=NON_EDITABLE_ON_DONE,
         string="Código 5ª actividad",
     )
@@ -528,16 +536,12 @@ class L10nEsAeatMod303ReportActivityCode(models.Model):
     _order = "period_type,code,id"
     _description = "AEAT 303 Report Activities Codes"
 
-    period_type = fields.Selection(
-        selection=[("4T", "4T"), ("12", "December")],
-        required=True,
-    )
-    code = fields.Integer(
-        string="Activity code",
-        required=True,
-    )
+    period_type = fields.Selection(selection=[("4T", "4T"), ("12", "December")])
+    code = fields.Char(string="Activity code", required=True)
     name = fields.Char(
         string="Activity name",
         translate=True,
         required=True,
     )
+    date_start = fields.Date(string="Starting date")
+    date_end = fields.Date(string="Ending date")
