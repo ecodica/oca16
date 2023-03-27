@@ -13,11 +13,12 @@
 # Copyright 2022-2023 Moduon - Eduardo de Miguel
 # Copyright 2017-2023 Tecnativa - Pedro M. Baeza
 # Copyright 2023 Aures Tic - Jose Zambudio <jose@aurestic.es>
+# Copyright 2023 Pol Reig <pol.reig@qubiq.es>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 {
     "name": "Suministro Inmediato de Información en el IVA",
-    "version": "16.0.1.0.1",
+    "version": "16.0.1.1.0",
     "category": "Accounting & Finance",
     "website": "https://github.com/OCA/l10n-spain",
     "author": "Acysos S.L.,"
@@ -48,6 +49,7 @@
         "views/res_company_view.xml",
         "views/account_move_views.xml",
         "wizards/account_move_reversal_views.xml",
+        "wizards/account_move_send_sii_views.xml",
         "views/aeat_sii_mapping_registration_keys_view.xml",
         "data/aeat_sii_mapping_registration_keys_data.xml",
         "views/aeat_sii_map_view.xml",
