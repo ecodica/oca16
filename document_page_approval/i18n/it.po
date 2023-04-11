@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: Odoo Server 10.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-04-24 22:33+0000\n"
-"PO-Revision-Date: 2023-02-14 15:23+0000\n"
+"PO-Revision-Date: 2023-04-10 20:24+0000\n"
 "Last-Translator: mymage <stefano.consolaro@mymage.it>\n"
 "Language-Team: Italian (https://www.transifex.com/oca/teams/23907/it/)\n"
 "Language: it\n"
@@ -99,7 +99,7 @@ msgstr ""
 #. module: document_page_approval
 #: model:ir.model.fields,field_description:document_page_approval.field_document_page_history__message_needaction
 msgid "Action Needed"
-msgstr "Richiesta un'azione"
+msgstr "Azione richiesta"
 
 #. module: document_page_approval
 #: model:ir.model.fields,field_description:document_page_approval.field_document_page__am_i_approver
@@ -252,7 +252,7 @@ msgstr "Gruppi che possono approvare modifiche a questo documento"
 #. module: document_page_approval
 #: model:ir.model.fields,field_description:document_page_approval.field_document_page_history__has_message
 msgid "Has Message"
-msgstr "Ha messaggio"
+msgstr "Ha un messaggio"
 
 #. module: document_page_approval
 #: model:ir.model.fields,field_description:document_page_approval.field_document_page__has_changes_pending_approval
