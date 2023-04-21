@@ -89,6 +89,7 @@ class TierValidation(models.AbstractModel):
                     ("review_ids.status", "=", "pending"),
                     ("review_ids.can_review", "=", True),
                     ("rejected", "=", False),
+                    ("active", "in", [True, False]),
                 ]
             )
             .filtered("can_review")
@@ -249,6 +250,7 @@ class TierValidation(models.AbstractModel):
                 and not vals.get(self._state_field)
                 in (self._state_to + [self._cancel_state])
                 and not rec._check_allow_write_under_validation(vals)
+                and not rec._context.get("skip_validation_check")
             ):
                 raise ValidationError(_("The operation is under validation."))
         if vals.get(self._state_field) in self._state_from:
