@@ -3,7 +3,7 @@
     <template id="product_price" inherit_id="website_sale.product_price">
         <xpath expr="//div[@itemprop='offers']" position="attributes">
             <attribute name="t-if">
-                    website.website_show_price and not product.website_hide_price
+                    website and website.website_show_price and not product.website_hide_price
                 </attribute>
         </xpath>
     </template>
@@ -29,7 +29,7 @@
         </xpath>
         <xpath expr="//a[@id='add_to_cart']" position="attributes">
             <attribute name="t-if">
-                    website.website_show_price and not product.website_hide_price
+                    website and website.website_show_price and not product.website_hide_price
                 </attribute>
         </xpath>
     </template>
@@ -39,8 +39,24 @@
             position="attributes"
         >
             <attribute name="t-if">
-                    website.website_show_price and not product.website_hide_price
+                    website and website.website_show_price and not product.website_hide_price
                 </attribute>
+        </xpath>
+    </template>
+    <!-- Hide buy now button if "Buy Now Button" option is enabled and not website_show_price -->
+    <template id="product_buy_now" inherit_id="website_sale.product_buy_now">
+        <xpath expr="//a[hasclass('o_we_buy_now')]" position="attributes">
+            <attribute name="t-if">
+                website.website_show_price and not product.website_hide_price
+            </attribute>
+        </xpath>
+    </template>
+    <!-- Hide add to cart button if "Add to cart" option is enabled and not website_show_price -->
+    <template id="products_add_to_cart" inherit_id="website_sale.products_add_to_cart">
+        <xpath expr="//a[hasclass('a-submit')]" position="attributes">
+            <attribute name="t-if">
+                website.website_show_price and not product.website_hide_price
+            </attribute>
         </xpath>
     </template>
     <template id="website_search_box" inherit_id="website.website_search_box">
@@ -50,21 +66,11 @@
             >website and website.website_show_price</attribute>
         </xpath>
     </template>
-    <template
-        id="price_dynamic_filter_template_product_product"
-        inherit_id="website_sale.price_dynamic_filter_template_product_product"
-    >
-        <xpath expr="//span[hasclass('fw-bold')]" position="attributes">
-            <attribute
-                name="t-if"
-            >user_id.partner_id.website_show_price and not data['website_hide_price']</attribute>
-        </xpath>
-    </template>
     <template id="badge_extra_price" inherit_id="sale.badge_extra_price">
         <xpath expr="//t[@t-name='sale.badge_extra_price']" position="attributes">
             <attribute
                 name="t-if"
-            >website.website_show_price and not product.website_hide_price</attribute>
+            >website and website.website_show_price and not product.website_hide_price</attribute>
         </xpath>
     </template>
 </odoo>
