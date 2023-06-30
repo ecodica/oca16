@@ -525,9 +525,14 @@ returned by the <strong>_get_fastapi_routers</strong> method of your fastapi_end
 <p>Now, you can start adding routes to your router. For example, let’s add a route
 that returns a list of partners.</p>
 <pre class="code python literal-block">
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Annotated</span>
+
 <span class="kn">from</span> <span class="nn">fastapi</span> <span class="kn">import</span> <span class="n">APIRouter</span>
 <span class="kn">from</span> <span class="nn">pydantic</span> <span class="kn">import</span> <span class="n">BaseModel</span>
+
 <span class="kn">from</span> <span class="nn">odoo</span> <span class="kn">import</span> <span class="n">api</span><span class="p">,</span> <span class="n">fields</span><span class="p">,</span> <span class="n">models</span>
+<span class="kn">from</span> <span class="nn">odoo.api</span> <span class="kn">import</span> <span class="n">Environment</span>
+
 <span class="kn">from</span> <span class="nn">odoo.addons.fastapi.dependencies</span> <span class="kn">import</span> <span class="n">odoo_env</span>
 
 <span class="k">class</span> <span class="nc">FastapiEndpoint</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
@@ -551,7 +556,7 @@ that returns a list of partners.</p>
     <span class="n">email</span><span class="p">:</span> <span class="nb">str</span>
 
 <span class="nd">&#64;demo_api_router</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;/partners&quot;</span><span class="p">,</span> <span class="n">response_model</span><span class="o">=</span><span class="nb">list</span><span class="p">[</span><span class="n">PartnerInfo</span><span class="p">])</span>
-<span class="k">def</span> <span class="nf">get_partners</span><span class="p">(</span><span class="n">env</span><span class="o">=</span><span class="n">Depends</span><span class="p">(</span><span class="n">odoo_env</span><span class="p">))</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">PartnerInfo</span><span class="p">]:</span>
+<span class="k">def</span> <span class="nf">get_partners</span><span class="p">(</span><span class="n">env</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span><span class="n">Environment</span><span class="p">,</span> <span class="n">Depends</span><span class="p">(</span><span class="n">odoo_env</span><span class="p">)])</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">PartnerInfo</span><span class="p">]:</span>
     <span class="k">return</span> <span class="p">[</span>
         <span class="n">PartnerInfo</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">partner</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">email</span><span class="o">=</span><span class="n">partner</span><span class="o">.</span><span class="n">email</span><span class="p">)</span>
         <span class="k">for</span> <span class="n">partner</span> <span class="ow">in</span> <span class="n">env</span><span class="p">[</span><span class="s2">&quot;res.partner&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">search</span><span class="p">([])</span>
@@ -616,10 +621,13 @@ to inject reusable dependencies into your routes. For example, the <strong>‘od
 function returns the current odoo environment. You can use it to access the
 odoo models and the database from your route handlers.</p>
 <pre class="code python literal-block">
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Annotated</span>
+
+<span class="kn">from</span> <span class="nn">odoo.api</span> <span class="kn">import</span> <span class="n">Environment</span>
 <span class="kn">from</span> <span class="nn">odoo.addons.fastapi.dependencies</span> <span class="kn">import</span> <span class="n">odoo_env</span>
 
 <span class="nd">&#64;demo_api_router</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;/partners&quot;</span><span class="p">,</span> <span class="n">response_model</span><span class="o">=</span><span class="nb">list</span><span class="p">[</span><span class="n">PartnerInfo</span><span class="p">])</span>
-<span class="k">def</span> <span class="nf">get_partners</span><span class="p">(</span><span class="n">env</span><span class="o">=</span><span class="n">Depends</span><span class="p">(</span><span class="n">odoo_env</span><span class="p">))</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">PartnerInfo</span><span class="p">]:</span>
+<span class="k">def</span> <span class="nf">get_partners</span><span class="p">(</span><span class="n">env</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span><span class="n">Environment</span><span class="p">,</span> <span class="n">Depends</span><span class="p">(</span><span class="n">odoo_env</span><span class="p">)])</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">PartnerInfo</span><span class="p">]:</span>
     <span class="k">return</span> <span class="p">[</span>
         <span class="n">PartnerInfo</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">partner</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">email</span><span class="o">=</span><span class="n">partner</span><span class="o">.</span><span class="n">email</span><span class="p">)</span>
         <span class="k">for</span> <span class="n">partner</span> <span class="ow">in</span> <span class="n">env</span><span class="p">[</span><span class="s2">&quot;res.partner&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">search</span><span class="p">([])</span>
@@ -676,8 +684,8 @@ of these parameters are dependencies themselves.</p>
 
 
 <span class="k">def</span> <span class="nf">fastapi_endpoint</span><span class="p">(</span>
-    <span class="n">_id</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">Depends</span><span class="p">(</span><span class="n">fastapi_endpoint_id</span><span class="p">),</span>  <span class="c1"># noqa: B008</span>
-    <span class="n">env</span><span class="p">:</span> <span class="n">Environment</span> <span class="o">=</span> <span class="n">Depends</span><span class="p">(</span><span class="n">odoo_env</span><span class="p">),</span>  <span class="c1"># noqa: B008</span>
+    <span class="n">_id</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">Depends</span><span class="p">(</span><span class="n">fastapi_endpoint_id</span><span class="p">)],</span>
+    <span class="n">env</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span><span class="n">Environment</span><span class="p">,</span> <span class="n">Depends</span><span class="p">(</span><span class="n">odoo_env</span><span class="p">)],</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;FastapiEndpoint&quot;</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;Return the fastapi.endpoint record&quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="n">env</span><span class="p">[</span><span class="s2">&quot;fastapi.endpoint&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">browse</span><span class="p">(</span><span class="n">_id</span><span class="p">)</span>
@@ -712,9 +720,12 @@ we will use the <strong>‘authenticated_partner’</strong> dependency. As for 
 <p>When you define a route handler, you can inject the <strong>‘authenticated_partner’</strong>
 dependency as a parameter of your route handler.</p>
 <pre class="code python literal-block">
+<span class="kn">from</span> <span class="nn">odoo.addons.base.models.res_partner</span> <span class="kn">import</span> <span class="n">Partner</span>
+
+
 <span class="nd">&#64;demo_api_router</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;/partners&quot;</span><span class="p">,</span> <span class="n">response_model</span><span class="o">=</span><span class="nb">list</span><span class="p">[</span><span class="n">PartnerInfo</span><span class="p">])</span>
 <span class="k">def</span> <span class="nf">get_partners</span><span class="p">(</span>
-    <span class="n">env</span><span class="o">=</span><span class="n">Depends</span><span class="p">(</span><span class="n">odoo_env</span><span class="p">),</span> <span class="n">partner</span><span class="o">=</span><span class="n">Depends</span><span class="p">(</span><span class="n">authenticated_partner</span><span class="p">)</span>
+    <span class="n">env</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span><span class="n">Environment</span><span class="p">,</span> <span class="n">Depends</span><span class="p">(</span><span class="n">odoo_env</span><span class="p">)],</span> <span class="n">partner</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span><span class="n">Partner</span><span class="p">,</span> <span class="n">Depends</span><span class="p">(</span><span class="n">authenticated_partner</span><span class="p">)]</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">PartnerInfo</span><span class="p">]:</span>
     <span class="k">return</span> <span class="p">[</span>
         <span class="n">PartnerInfo</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">partner</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">email</span><span class="o">=</span><span class="n">partner</span><span class="o">.</span><span class="n">email</span><span class="p">)</span>
@@ -730,8 +741,8 @@ The fastapi addon provides a default authentication mechanism using the
 by the <strong>‘fastapi.security’</strong> module.</p>
 <pre class="code python literal-block">
 <span class="k">def</span> <span class="nf">authenticated_partner</span><span class="p">(</span>
-    <span class="n">env</span><span class="p">:</span> <span class="n">Environment</span> <span class="o">=</span> <span class="n">Depends</span><span class="p">(</span><span class="n">odoo_env</span><span class="p">),</span>
-    <span class="n">security</span><span class="p">:</span> <span class="n">HTTPBasicCredentials</span> <span class="o">=</span> <span class="n">Depends</span><span class="p">(</span><span class="n">HTTPBasic</span><span class="p">()),</span>
+    <span class="n">env</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span><span class="n">Environment</span><span class="p">,</span> <span class="n">Depends</span><span class="p">(</span><span class="n">odoo_env</span><span class="p">)],</span>
+    <span class="n">security</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span><span class="n">HTTPBasicCredentials</span><span class="p">,</span> <span class="n">Depends</span><span class="p">(</span><span class="n">HTTPBasic</span><span class="p">())],</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;res.partner&quot;</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;Return the authenticated partner&quot;&quot;&quot;</span>
     <span class="n">partner</span> <span class="o">=</span> <span class="n">env</span><span class="p">[</span><span class="s2">&quot;res.partner&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">search</span><span class="p">(</span>
@@ -770,13 +781,13 @@ implemented, we will only implement the api key authentication mechanism.</p>
 <span class="kn">from</span> <span class="nn">fastapi.security</span> <span class="kn">import</span> <span class="n">APIKeyHeader</span>
 
 <span class="k">def</span> <span class="nf">api_key_based_authenticated_partner_impl</span><span class="p">(</span>
-    <span class="n">api_key</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">Depends</span><span class="p">(</span>  <span class="c1"># noqa: B008</span>
+    <span class="n">api_key</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Depends</span><span class="p">(</span>
         <span class="n">APIKeyHeader</span><span class="p">(</span>
             <span class="n">name</span><span class="o">=</span><span class="s2">&quot;api-key&quot;</span><span class="p">,</span>
             <span class="n">description</span><span class="o">=</span><span class="s2">&quot;In this demo, you can use a user's login as api key.&quot;</span><span class="p">,</span>
         <span class="p">)</span>
-    <span class="p">),</span>
-    <span class="n">env</span><span class="p">:</span> <span class="n">Environment</span> <span class="o">=</span> <span class="n">Depends</span><span class="p">(</span><span class="n">odoo_env</span><span class="p">),</span>  <span class="c1"># noqa: B008</span>
+    <span class="p">)],</span>
+    <span class="n">env</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span><span class="n">Environment</span><span class="p">,</span> <span class="n">Depends</span><span class="p">(</span><span class="n">odoo_env</span><span class="p">)],</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Partner</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;A dummy implementation that look for a user with the same login
     as the provided api key
@@ -890,7 +901,7 @@ current request.</p>
       <span class="n">dependencies</span><span class="o">=</span><span class="p">[</span><span class="n">Depends</span><span class="p">(</span><span class="n">authenticated_partner</span><span class="p">)],</span>
   <span class="p">)</span>
   <span class="k">async</span> <span class="k">def</span> <span class="nf">endpoint_app_info</span><span class="p">(</span>
-      <span class="n">endpoint</span><span class="p">:</span> <span class="n">FastapiEndpoint</span> <span class="o">=</span> <span class="n">Depends</span><span class="p">(</span><span class="n">fastapi_endpoint</span><span class="p">),</span>  <span class="c1"># noqa: B008</span>
+      <span class="n">endpoint</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span><span class="n">FastapiEndpoint</span><span class="p">,</span> <span class="n">Depends</span><span class="p">(</span><span class="n">fastapi_endpoint</span><span class="p">)],</span>
   <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">EndpointAppInfo</span><span class="p">:</span>
       <span class="sd">&quot;&quot;&quot;Returns the current endpoint configuration&quot;&quot;&quot;</span>
       <span class="c1"># This method show you how to get access to current endpoint configuration</span>
@@ -1002,7 +1013,7 @@ method <strong>‘echo’</strong>.</p>
 <span class="p">)</span>
 <span class="k">async</span> <span class="k">def</span> <span class="nf">echo</span><span class="p">(</span>
     <span class="n">message</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
-    <span class="n">odoo_env</span><span class="p">:</span> <span class="n">OdooEnv</span> <span class="o">=</span> <span class="n">Depends</span><span class="p">(</span><span class="n">odoo_env</span><span class="p">),</span>
+    <span class="n">odoo_env</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span><span class="n">Environment</span><span class="p">,</span> <span class="n">Depends</span><span class="p">(</span><span class="n">odoo_env</span><span class="p">)],</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">EchoResponse</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;Echo the message&quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="n">EchoResponse</span><span class="p">(</span><span class="n">message</span><span class="o">=</span><span class="n">odoo_env</span><span class="p">[</span><span class="s2">&quot;demo.fastapi.endpoint&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">echo</span><span class="p">(</span><span class="n">message</span><span class="p">))</span>
@@ -1062,7 +1073,7 @@ it.</p>
 <span class="p">)</span>
 <span class="k">async</span> <span class="k">def</span> <span class="nf">echo2</span><span class="p">(</span>
     <span class="n">message</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
-    <span class="n">odoo_env</span><span class="p">:</span> <span class="n">OdooEnv</span> <span class="o">=</span> <span class="n">Depends</span><span class="p">(</span><span class="n">odoo_env</span><span class="p">),</span>
+    <span class="n">odoo_env</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span><span class="n">Environment</span><span class="p">,</span> <span class="n">Depends</span><span class="p">(</span><span class="n">odoo_env</span><span class="p">)],</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">EchoResponse</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;Echo the message&quot;&quot;&quot;</span>
     <span class="n">echo</span> <span class="o">=</span> <span class="n">odoo_env</span><span class="p">[</span><span class="s2">&quot;demo.fastapi.endpoint&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">echo2</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
@@ -1094,7 +1105,7 @@ returned by the method <strong>‘_get_fastapi_routers’</strong> of the model
 <span class="p">)</span>
 <span class="k">async</span> <span class="k">def</span> <span class="nf">echo2</span><span class="p">(</span>
     <span class="n">message</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
-    <span class="n">odoo_env</span><span class="p">:</span> <span class="n">OdooEnv</span> <span class="o">=</span> <span class="n">Depends</span><span class="p">(</span><span class="n">odoo_env</span><span class="p">),</span>
+    <span class="n">odoo_env</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span><span class="n">Environment</span><span class="p">,</span> <span class="n">Depends</span><span class="p">(</span><span class="n">odoo_env</span><span class="p">)],</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">EchoResponse</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;Echo the message&quot;&quot;&quot;</span>
     <span class="n">echo</span> <span class="o">=</span> <span class="n">odoo_env</span><span class="p">[</span><span class="s2">&quot;demo.fastapi.endpoint&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">echo2</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
@@ -1134,7 +1145,7 @@ pydantic.</p>
     <span class="n">dependencies</span><span class="o">=</span><span class="p">[</span><span class="n">Depends</span><span class="p">(</span><span class="n">authenticated_partner</span><span class="p">)],</span>
 <span class="p">)</span>
 <span class="k">async</span> <span class="k">def</span> <span class="nf">partner</span><span class="p">(</span>
-    <span class="n">partner</span><span class="p">:</span> <span class="n">ResPartner</span> <span class="o">=</span> <span class="n">Depends</span><span class="p">(</span><span class="n">authenticated_partner</span><span class="p">),</span>
+    <span class="n">partner</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span><span class="n">ResPartner</span><span class="p">,</span> <span class="n">Depends</span><span class="p">(</span><span class="n">authenticated_partner</span><span class="p">)],</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Partner</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;Return the location&quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="n">Partner</span><span class="o">.</span><span class="n">from_orm</span><span class="p">(</span><span class="n">partner</span><span class="p">)</span>
@@ -1254,47 +1265,57 @@ normally provided by the normal processing of the request by the fastapi app.
 (for example, you can inject a mock of the dependency ‘authenticated_partner’
 to test the behavior of your route handlers when the partner is not authenticated,
 you can also inject a mock for the odoo_env etc…)</p>
-<p>With all these features, writing a test for the ‘Hello world’ route handler
-defined into the demo app is as simple as</p>
+<p>The fastapi addon provides a base class for the test cases that you can use to
+write your tests. This base class is <strong>‘odoo.fastapi.tests.common.FastAPITransactionCase’</strong>.
+This class mainly provides the method <strong>‘_create_test_client’</strong> that you can
+use to create a test client for your fastapi app. This method encapsulates the
+creation of the test client and the injection of the dependencies. It also
+ensures that the odoo environment is make available into the context of the
+route handlers. This method is designed to be used when you need to test your
+app or when you need to test a specific router (It’s therefore easy to defines
+tests for routers in an addon that doesn’t provide a fastapi endpoint).</p>
+<p>With this base class, writing a test for a route handler is as simple as:</p>
 <pre class="code python literal-block">
-<span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">partial</span>
+<span class="kn">from</span> <span class="nn">odoo.fastapi.tests.common</span> <span class="kn">import</span> <span class="n">FastAPITransactionCase</span>
 
-<span class="kn">from</span> <span class="nn">requests</span> <span class="kn">import</span> <span class="n">Response</span>
+<span class="kn">from</span> <span class="nn">odoo.addons.fastapi</span> <span class="kn">import</span> <span class="n">dependencies</span>
+<span class="kn">from</span> <span class="nn">odoo.addons.fastapi.routers</span> <span class="kn">import</span> <span class="n">demo_router</span>
 
-<span class="kn">from</span> <span class="nn">odoo.tests.common</span> <span class="kn">import</span> <span class="n">TransactionCase</span>
-
-<span class="kn">from</span> <span class="nn">fastapi.testclient</span> <span class="kn">import</span> <span class="n">TestClient</span>
-
-<span class="kn">from</span> <span class="nn">..</span> <span class="kn">import</span> <span class="n">dependencies</span>
-<span class="kn">from</span> <span class="nn">..context</span> <span class="kn">import</span> <span class="n">odoo_env_ctx</span>
-
-
-<span class="k">class</span> <span class="nc">FastAPIDemoCase</span><span class="p">(</span><span class="n">TransactionCase</span><span class="p">):</span>
+<span class="k">class</span> <span class="nc">FastAPIDemoCase</span><span class="p">(</span><span class="n">FastAPITransactionCase</span><span class="p">):</span>
 
     <span class="nd">&#64;classmethod</span>
     <span class="k">def</span> <span class="nf">setUpClass</span><span class="p">(</span><span class="bp">cls</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">setUpClass</span><span class="p">()</span>
-        <span class="bp">cls</span><span class="o">.</span><span class="n">test_partner</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">env</span><span class="p">[</span><span class="s2">&quot;res.partner&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">create</span><span class="p">({</span><span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;FastAPI Demo&quot;</span><span class="p">})</span>
-        <span class="bp">cls</span><span class="o">.</span><span class="n">fastapi_demo_app</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">env</span><span class="o">.</span><span class="n">ref</span><span class="p">(</span><span class="s2">&quot;fastapi.fastapi_endpoint_demo&quot;</span><span class="p">)</span>
-        <span class="bp">cls</span><span class="o">.</span><span class="n">app</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">fastapi_demo_app</span><span class="o">.</span><span class="n">_get_app</span><span class="p">()</span>
-        <span class="bp">cls</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">dependency_overrides</span><span class="p">[</span><span class="n">dependencies</span><span class="o">.</span><span class="n">authenticated_partner_impl</span><span class="p">]</span> <span class="o">=</span> <span class="n">partial</span><span class="p">(</span>
-            <span class="k">lambda</span> <span class="n">a</span><span class="p">:</span> <span class="n">a</span><span class="p">,</span> <span class="bp">cls</span><span class="o">.</span><span class="n">test_partner</span>
-        <span class="p">)</span>
-        <span class="bp">cls</span><span class="o">.</span><span class="n">client</span> <span class="o">=</span> <span class="n">TestClient</span><span class="p">(</span><span class="bp">cls</span><span class="o">.</span><span class="n">app</span><span class="p">)</span>
-        <span class="bp">cls</span><span class="o">.</span><span class="n">_ctx_token</span> <span class="o">=</span> <span class="n">odoo_env_ctx</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="bp">cls</span><span class="o">.</span><span class="n">env</span><span class="p">)</span>
-
-    <span class="nd">&#64;classmethod</span>
-    <span class="k">def</span> <span class="nf">tearDownClass</span><span class="p">(</span><span class="bp">cls</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="n">odoo_env_ctx</span><span class="o">.</span><span class="n">reset</span><span class="p">(</span><span class="bp">cls</span><span class="o">.</span><span class="n">_ctx_token</span><span class="p">)</span>
-        <span class="bp">cls</span><span class="o">.</span><span class="n">fastapi_demo_app</span><span class="o">.</span><span class="n">_reset_app</span><span class="p">()</span>
-
-        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">tearDownClass</span><span class="p">()</span>
-
-    <span class="k">def</span> <span class="nf">_get_path</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">fastapi_demo_app</span><span class="o">.</span><span class="n">root_path</span> <span class="o">+</span> <span class="n">path</span>
+        <span class="bp">cls</span><span class="o">.</span><span class="n">default_fastapi_running_user</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">env</span><span class="o">.</span><span class="n">ref</span><span class="p">(</span><span class="s2">&quot;fastapi.my_demo_app_user&quot;</span><span class="p">)</span>
+        <span class="bp">cls</span><span class="o">.</span><span class="n">default_fastapi_authenticated_partner</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">env</span><span class="p">[</span><span class="s2">&quot;res.partner&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">create</span><span class="p">({</span><span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;FastAPI Demo&quot;</span><span class="p">})</span>
 
     <span class="k">def</span> <span class="nf">test_hello_world</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="n">response</span><span class="p">:</span> <span class="n">Response</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_get_path</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">))</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">_create_test_client</span><span class="p">(</span><span class="n">router</span><span class="o">=</span><span class="n">demo_router</span><span class="p">)</span> <span class="k">as</span> <span class="n">test_client</span><span class="p">:</span>
+            <span class="n">response</span><span class="p">:</span> <span class="n">Response</span> <span class="o">=</span> <span class="n">test_client</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;/demo/&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">status_code</span><span class="p">,</span> <span class="n">status</span><span class="o">.</span><span class="n">HTTP_200_OK</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertDictEqual</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">json</span><span class="p">(),</span> <span class="p">{</span><span class="s2">&quot;Hello&quot;</span><span class="p">:</span> <span class="s2">&quot;World&quot;</span><span class="p">})</span>
+</pre>
+<p>In the previous example, we created a test client for the demo_router. We could
+have created a test client for the whole app by not specifying the router but
+the app instead.</p>
+<pre class="code python literal-block">
+<span class="kn">from</span> <span class="nn">odoo.fastapi.tests.common</span> <span class="kn">import</span> <span class="n">FastAPITransactionCase</span>
+
+<span class="kn">from</span> <span class="nn">odoo.addons.fastapi</span> <span class="kn">import</span> <span class="n">dependencies</span>
+<span class="kn">from</span> <span class="nn">odoo.addons.fastapi.routers</span> <span class="kn">import</span> <span class="n">demo_router</span>
+
+<span class="k">class</span> <span class="nc">FastAPIDemoCase</span><span class="p">(</span><span class="n">FastAPITransactionCase</span><span class="p">):</span>
+
+    <span class="nd">&#64;classmethod</span>
+    <span class="k">def</span> <span class="nf">setUpClass</span><span class="p">(</span><span class="bp">cls</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">setUpClass</span><span class="p">()</span>
+        <span class="bp">cls</span><span class="o">.</span><span class="n">default_fastapi_running_user</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">env</span><span class="o">.</span><span class="n">ref</span><span class="p">(</span><span class="s2">&quot;fastapi.my_demo_app_user&quot;</span><span class="p">)</span>
+        <span class="bp">cls</span><span class="o">.</span><span class="n">default_fastapi_authenticated_partner</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">env</span><span class="p">[</span><span class="s2">&quot;res.partner&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">create</span><span class="p">({</span><span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;FastAPI Demo&quot;</span><span class="p">})</span>
+
+    <span class="k">def</span> <span class="nf">test_hello_world</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">demo_endpoint</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">env</span><span class="o">.</span><span class="n">ref</span><span class="p">(</span><span class="s2">&quot;fastapi.fastapi_endpoint_demo&quot;</span><span class="p">)</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">_create_test_client</span><span class="p">(</span><span class="n">app</span><span class="o">=</span><span class="n">demo_endpoint</span><span class="o">.</span><span class="n">_get_app</span><span class="p">())</span> <span class="k">as</span> <span class="n">test_client</span><span class="p">:</span>
+            <span class="n">response</span><span class="p">:</span> <span class="n">Response</span> <span class="o">=</span> <span class="n">test_client</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">demo_endpoint</span><span class="o">.</span><span class="n">root_path</span><span class="si">}</span><span class="s2">/demo/&quot;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">status_code</span><span class="p">,</span> <span class="n">status</span><span class="o">.</span><span class="n">HTTP_200_OK</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">assertDictEqual</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">json</span><span class="p">(),</span> <span class="p">{</span><span class="s2">&quot;Hello&quot;</span><span class="p">:</span> <span class="s2">&quot;World&quot;</span><span class="p">})</span>
 </pre>
@@ -1423,6 +1444,7 @@ way for all the search route handlers: <strong>‘odoo.addons.fastapi.paging’<
 handler enclosed in a json document that contains the total number of records.</li>
 </ol>
 <pre class="code python literal-block">
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Annotated</span>
 <span class="kn">from</span> <span class="nn">pydantic</span> <span class="kn">import</span> <span class="n">BaseModel</span>
 
 <span class="kn">from</span> <span class="nn">odoo.api</span> <span class="kn">import</span> <span class="n">Environment</span>
@@ -1440,8 +1462,8 @@ handler enclosed in a json document that contains the total number of records.</
     <span class="n">response_model_exclude_unset</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
 <span class="p">)</span>
 <span class="k">def</span> <span class="nf">get_sale_orders</span><span class="p">(</span>
-    <span class="n">paging</span><span class="p">:</span> <span class="n">Paging</span> <span class="o">=</span> <span class="n">Depends</span><span class="p">(</span><span class="n">paging</span><span class="p">),</span>
-    <span class="n">env</span><span class="p">:</span> <span class="n">Environment</span> <span class="o">=</span> <span class="n">Depends</span><span class="p">(</span><span class="n">authenticated_partner_env</span><span class="p">),</span>
+    <span class="n">paging</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span><span class="n">Paging</span><span class="p">,</span> <span class="n">Depends</span><span class="p">(</span><span class="n">paging</span><span class="p">)],</span>
+    <span class="n">env</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span><span class="n">Environment</span><span class="p">,</span> <span class="n">Depends</span><span class="p">(</span><span class="n">authenticated_partner_env</span><span class="p">)],</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">PagedCollection</span><span class="p">[</span><span class="n">SaleOrder</span><span class="p">]:</span>
     <span class="sd">&quot;&quot;&quot;Get the list of sale orders.&quot;&quot;&quot;</span>
     <span class="n">count</span> <span class="o">=</span> <span class="n">env</span><span class="p">[</span><span class="s2">&quot;sale.order&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">search_count</span><span class="p">([])</span>
