@@ -9,15 +9,14 @@ msgstr ""
 "Project-Id-Version: Odoo Server 9.0c\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-11-18 05:26+0000\n"
-"PO-Revision-Date: 2023-07-07 17:10+0000\n"
-"Last-Translator: Ivorra78 <informatica@totmaterial.es>\n"
+"PO-Revision-Date: 2017-11-18 05:26+0000\n"
+"Last-Translator: OCA Transbot <transbot@odoo-community.org>, 2017\n"
 "Language-Team: Spanish (https://www.transifex.com/oca/teams/23907/es/)\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
-"Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.17\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #. module: mgmtsystem_hazard
 #: model:ir.model.fields,field_description:mgmtsystem_hazard.field_mgmtsystem_hazard__acceptability
@@ -32,7 +31,7 @@ msgstr "Aceptado"
 #. module: mgmtsystem_hazard
 #: model:ir.model.fields,field_description:mgmtsystem_hazard.field_mgmtsystem_hazard__message_needaction
 msgid "Action Needed"
-msgstr "Acción necesaria"
+msgstr ""
 
 #. module: mgmtsystem_hazard
 #: model_terms:ir.ui.view,arch_db:mgmtsystem_hazard.view_mgmtsystem_hazard_form
@@ -42,7 +41,7 @@ msgstr "Análisis"
 #. module: mgmtsystem_hazard
 #: model:ir.model.fields,field_description:mgmtsystem_hazard.field_mgmtsystem_hazard__message_attachment_count
 msgid "Attachment Count"
-msgstr "recuento de archivos adjuntos"
+msgstr ""
 
 #. module: mgmtsystem_hazard
 #: model:mgmtsystem.hazard.hazard,name:mgmtsystem_hazard.hazard_breakage
@@ -156,17 +155,17 @@ msgstr "Nombre mostrado"
 #. module: mgmtsystem_hazard
 #: model:mgmtsystem.hazard.type,name:mgmtsystem_hazard.type_ems_action
 msgid "EMS - Action"
-msgstr "EMS - Acción"
+msgstr ""
 
 #. module: mgmtsystem_hazard
 #: model:mgmtsystem.hazard.type,name:mgmtsystem_hazard.type_ems_position
 msgid "EMS - Position"
-msgstr "EMS - Posición"
+msgstr ""
 
 #. module: mgmtsystem_hazard
 #: model:mgmtsystem.hazard.hazard,name:mgmtsystem_hazard.hazard_electric_bilge
 msgid "Electric Bilge"
-msgstr "Sentina eléctrica"
+msgstr ""
 
 #. module: mgmtsystem_hazard
 #: model:ir.model.fields,field_description:mgmtsystem_hazard.field_mgmtsystem_hazard_test__executed
@@ -186,12 +185,12 @@ msgstr "Fuego o explosión"
 #. module: mgmtsystem_hazard
 #: model:ir.model.fields,field_description:mgmtsystem_hazard.field_mgmtsystem_hazard__message_follower_ids
 msgid "Followers"
-msgstr "Seguidores/as"
+msgstr ""
 
 #. module: mgmtsystem_hazard
 #: model:ir.model.fields,field_description:mgmtsystem_hazard.field_mgmtsystem_hazard__message_partner_ids
 msgid "Followers (Partners)"
-msgstr "Seguidores (socios)"
+msgstr ""
 
 #. module: mgmtsystem_hazard
 #: model:mgmtsystem.hazard.origin,name:mgmtsystem_hazard.origin_leak
@@ -206,7 +205,7 @@ msgstr "Agrupar por..."
 #. module: mgmtsystem_hazard
 #: model:ir.model.fields,field_description:mgmtsystem_hazard.field_mgmtsystem_hazard__has_message
 msgid "Has Message"
-msgstr "tiene un mensaje"
+msgstr ""
 
 #. module: mgmtsystem_hazard
 #: model:ir.model,name:mgmtsystem_hazard.model_mgmtsystem_hazard_hazard
@@ -257,13 +256,13 @@ msgstr "ID"
 #. module: mgmtsystem_hazard
 #: model:ir.model.fields,help:mgmtsystem_hazard.field_mgmtsystem_hazard__message_needaction
 msgid "If checked, new messages require your attention."
-msgstr "Si está marcada, nuevos mensajes requieren tu atención."
+msgstr ""
 
 #. module: mgmtsystem_hazard
 #: model:ir.model.fields,help:mgmtsystem_hazard.field_mgmtsystem_hazard__message_has_error
 #: model:ir.model.fields,help:mgmtsystem_hazard.field_mgmtsystem_hazard__message_has_sms_error
 msgid "If checked, some messages have a delivery error."
-msgstr "Si está marcada, algunos mensajes tienen un error de entrega."
+msgstr ""
 
 #. module: mgmtsystem_hazard
 #: model:mgmtsystem.hazard.origin,name:mgmtsystem_hazard.origin_ignition_gas
@@ -273,7 +272,7 @@ msgstr "Ignición de gas inflamable"
 #. module: mgmtsystem_hazard
 #: model_terms:ir.ui.view,arch_db:mgmtsystem_hazard.view_mgmtsystem_hazard_test_form
 msgid "Implementation Test"
-msgstr "Prueba de implementación"
+msgstr ""
 
 #. module: mgmtsystem_hazard
 #: model:ir.actions.act_window,name:mgmtsystem_hazard.open_mgmtsystem_hazard_test_list
@@ -281,12 +280,12 @@ msgstr "Prueba de implementación"
 #: model_terms:ir.ui.view,arch_db:mgmtsystem_hazard.view_mgmtsystem_hazard_form
 #: model_terms:ir.ui.view,arch_db:mgmtsystem_hazard.view_mgmtsystem_hazard_test_filter
 msgid "Implementation Tests"
-msgstr "Pruebas de implementación"
+msgstr ""
 
 #. module: mgmtsystem_hazard
 #: model:ir.model,name:mgmtsystem_hazard.model_mgmtsystem_hazard_test
 msgid "Implementation Tests of hazard"
-msgstr "Implementación de Pruebas de peligrosidad"
+msgstr ""
 
 #. module: mgmtsystem_hazard
 #: model:mgmtsystem.hazard.hazard,name:mgmtsystem_hazard.hazard_intoxication
@@ -296,7 +295,7 @@ msgstr "Intoxicación"
 #. module: mgmtsystem_hazard
 #: model:ir.model.fields,field_description:mgmtsystem_hazard.field_mgmtsystem_hazard__message_is_follower
 msgid "Is Follower"
-msgstr "es seguidor/a"
+msgstr ""
 
 #. module: mgmtsystem_hazard
 #: model:ir.model.fields,field_description:mgmtsystem_hazard.field_mgmtsystem_hazard__justification
@@ -351,7 +350,7 @@ msgstr "Bajo"
 #. module: mgmtsystem_hazard
 #: model:ir.model.fields,field_description:mgmtsystem_hazard.field_mgmtsystem_hazard__message_main_attachment_id
 msgid "Main Attachment"
-msgstr "Archivo adjunto principal"
+msgstr ""
 
 #. module: mgmtsystem_hazard
 #: model:mgmtsystem.hazard.origin,name:mgmtsystem_hazard.origin_aging
@@ -372,12 +371,12 @@ msgstr "Medio"
 #. module: mgmtsystem_hazard
 #: model:ir.model.fields,field_description:mgmtsystem_hazard.field_mgmtsystem_hazard__message_has_error
 msgid "Message Delivery error"
-msgstr "Error de entrega del mensaje"
+msgstr ""
 
 #. module: mgmtsystem_hazard
 #: model:ir.model.fields,field_description:mgmtsystem_hazard.field_mgmtsystem_hazard__message_ids
 msgid "Messages"
-msgstr "Mensajes"
+msgstr ""
 
 #. module: mgmtsystem_hazard
 #: model:ir.model.fields,field_description:mgmtsystem_hazard.field_mgmtsystem_hazard__name
@@ -387,22 +386,22 @@ msgstr "Nombre"
 #. module: mgmtsystem_hazard
 #: model:ir.model.fields,field_description:mgmtsystem_hazard.field_mgmtsystem_hazard__message_needaction_counter
 msgid "Number of Actions"
-msgstr "número de acciones"
+msgstr ""
 
 #. module: mgmtsystem_hazard
 #: model:ir.model.fields,field_description:mgmtsystem_hazard.field_mgmtsystem_hazard__message_has_error_counter
 msgid "Number of errors"
-msgstr "número de errores"
+msgstr ""
 
 #. module: mgmtsystem_hazard
 #: model:ir.model.fields,help:mgmtsystem_hazard.field_mgmtsystem_hazard__message_needaction_counter
 msgid "Number of messages which requires an action"
-msgstr "Número de mensajes que requieren una acción"
+msgstr ""
 
 #. module: mgmtsystem_hazard
 #: model:ir.model.fields,help:mgmtsystem_hazard.field_mgmtsystem_hazard__message_has_error_counter
 msgid "Number of messages with delivery error"
-msgstr "número de mensajes con error de entrega"
+msgstr ""
 
 #. module: mgmtsystem_hazard
 #: model:mgmtsystem.hazard.type,name:mgmtsystem_hazard.type_ohsas_action
@@ -491,7 +490,7 @@ msgstr "Fecha de revisión"
 #. module: mgmtsystem_hazard
 #: model:ir.model.fields,field_description:mgmtsystem_hazard.field_mgmtsystem_hazard__message_has_sms_error
 msgid "SMS Delivery error"
-msgstr "error en la entrega de sms"
+msgstr ""
 
 #. module: mgmtsystem_hazard
 #: model:ir.actions.act_window,name:mgmtsystem_hazard.open_mgmtsystem_hazard_severity_list
@@ -515,7 +514,7 @@ msgstr "Severidad del riesgo"
 #. module: mgmtsystem_hazard
 #: model:mgmtsystem.hazard.severity,name:mgmtsystem_hazard.severity_simple
 msgid "Simple"
-msgstr "sencillo/a"
+msgstr "Simple"
 
 #. module: mgmtsystem_hazard
 #: model:mgmtsystem.hazard.hazard,name:mgmtsystem_hazard.hazard_spilling
@@ -577,9 +576,9 @@ msgstr "Muy bajo"
 #. module: mgmtsystem_hazard
 #: model:ir.model.fields,field_description:mgmtsystem_hazard.field_mgmtsystem_hazard__website_message_ids
 msgid "Website Messages"
-msgstr "mensajes de la página web"
+msgstr ""
 
 #. module: mgmtsystem_hazard
 #: model:ir.model.fields,help:mgmtsystem_hazard.field_mgmtsystem_hazard__website_message_ids
 msgid "Website communication history"
-msgstr "historial de la comunicación en la web"
+msgstr ""

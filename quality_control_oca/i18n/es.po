@@ -9,20 +9,20 @@ msgstr ""
 "Project-Id-Version: Odoo Server 10.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-01-15 01:44+0000\n"
-"PO-Revision-Date: 2023-07-08 09:10+0000\n"
-"Last-Translator: Ivorra78 <informatica@totmaterial.es>\n"
+"PO-Revision-Date: 2019-03-01 14:52+0000\n"
+"Last-Translator: Marta Vázquez Rodríguez <vazrodmar@gmail.com>\n"
 "Language-Team: Spanish (https://www.transifex.com/oca/teams/23907/es/)\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.17\n"
+"X-Generator: Weblate 3.4\n"
 
 #. module: quality_control_oca
 #: model_terms:ir.ui.view,arch_db:quality_control_oca.qc_test_question_form_view
 msgid "<span> - </span>"
-msgstr "<span> - </span>"
+msgstr ""
 
 #. module: quality_control_oca
 #: model:ir.model,name:quality_control_oca.model_qc_trigger_line
@@ -42,7 +42,7 @@ msgstr "Aceptar"
 #: model:ir.model.fields,field_description:quality_control_oca.field_qc_trigger_product_line__message_needaction
 #: model:ir.model.fields,field_description:quality_control_oca.field_qc_trigger_product_template_line__message_needaction
 msgid "Action Needed"
-msgstr "Acción Necesaria"
+msgstr ""
 
 #. module: quality_control_oca
 #: model:ir.model.fields,field_description:quality_control_oca.field_qc_test__active
@@ -59,7 +59,7 @@ msgstr "Actividades"
 #. module: quality_control_oca
 #: model:ir.model.fields,field_description:quality_control_oca.field_qc_inspection__activity_exception_decoration
 msgid "Activity Exception Decoration"
-msgstr "decoración de actividad de excepción"
+msgstr ""
 
 #. module: quality_control_oca
 #: model:ir.model.fields,field_description:quality_control_oca.field_qc_inspection__activity_state
@@ -69,7 +69,7 @@ msgstr "Estado de actividad"
 #. module: quality_control_oca
 #: model:ir.model.fields,field_description:quality_control_oca.field_qc_inspection__activity_type_icon
 msgid "Activity Type Icon"
-msgstr "Icono de tipo de actividad"
+msgstr ""
 
 #. module: quality_control_oca
 #: model:ir.model.fields,field_description:quality_control_oca.field_qc_inspection_line__possible_ql_values
@@ -90,7 +90,7 @@ msgstr "Aprobar"
 #: model:ir.model.fields,field_description:quality_control_oca.field_qc_trigger_product_line__message_attachment_count
 #: model:ir.model.fields,field_description:quality_control_oca.field_qc_trigger_product_template_line__message_attachment_count
 msgid "Attachment Count"
-msgstr "recuento de archivos adjuntos"
+msgstr ""
 
 #. module: quality_control_oca
 #: model:ir.model.fields,field_description:quality_control_oca.field_qc_inspection__auto_generated
@@ -224,12 +224,12 @@ msgstr "Borrador"
 #: code:addons/quality_control_oca/models/qc_test_category.py:0
 #, python-format
 msgid "Error! You can not create recursive categories."
-msgstr "¡Error! No puedes crear categorías recursivas."
+msgstr ""
 
 #. module: quality_control_oca
 #: model:ir.model.fields,field_description:quality_control_oca.field_qc_inspection__external_notes
 msgid "External Notes"
-msgstr "Notas externas"
+msgstr ""
 
 #. module: quality_control_oca
 #: model_terms:ir.ui.view,arch_db:quality_control_oca.qc_inspection_form_view
@@ -244,7 +244,7 @@ msgstr "Notas externas"
 #: model:ir.model.fields,field_description:quality_control_oca.field_qc_trigger_product_line__message_follower_ids
 #: model:ir.model.fields,field_description:quality_control_oca.field_qc_trigger_product_template_line__message_follower_ids
 msgid "Followers"
-msgstr "seguidores/as"
+msgstr ""
 
 #. module: quality_control_oca
 #: model:ir.model.fields,field_description:quality_control_oca.field_qc_inspection__message_partner_ids
@@ -254,12 +254,12 @@ msgstr "seguidores/as"
 #: model:ir.model.fields,field_description:quality_control_oca.field_qc_trigger_product_line__message_partner_ids
 #: model:ir.model.fields,field_description:quality_control_oca.field_qc_trigger_product_template_line__message_partner_ids
 msgid "Followers (Partners)"
-msgstr "seguidores (socios)"
+msgstr ""
 
 #. module: quality_control_oca
 #: model:ir.model.fields,help:quality_control_oca.field_qc_inspection__activity_type_icon
 msgid "Font awesome icon e.g. fa-tasks"
-msgstr "fuente iconos sorprendentes , por ejemplo fa-tasks"
+msgstr ""
 
 #. module: quality_control_oca
 #: model:ir.model.fields,field_description:quality_control_oca.field_qc_test_category__complete_name
@@ -296,7 +296,7 @@ msgstr "Agrupar por..."
 #: model:ir.model.fields,field_description:quality_control_oca.field_qc_trigger_product_line__has_message
 #: model:ir.model.fields,field_description:quality_control_oca.field_qc_trigger_product_template_line__has_message
 msgid "Has Message"
-msgstr "Tienes un mensaje"
+msgstr ""
 
 #. module: quality_control_oca
 #: model:ir.model.fields,field_description:quality_control_oca.field_qc_inspection__id
@@ -316,18 +316,17 @@ msgstr "ID"
 #. module: quality_control_oca
 #: model:ir.model.fields,field_description:quality_control_oca.field_qc_inspection__activity_exception_icon
 msgid "Icon"
-msgstr "Icono"
+msgstr ""
 
 #. module: quality_control_oca
 #: model:ir.model.fields,help:quality_control_oca.field_qc_inspection__activity_exception_icon
 msgid "Icon to indicate an exception activity."
-msgstr "icono para indicar una actividad por excepción."
+msgstr ""
 
 #. module: quality_control_oca
 #: model:ir.model.fields,help:quality_control_oca.field_qc_inspection__auto_generated
 msgid "If an inspection is auto-generated, it can be canceled but not removed."
 msgstr ""
-"Si es una inspección auto-generada, puede ser cancelada pero no eliminada."
 
 #. module: quality_control_oca
 #: model:ir.model.fields,help:quality_control_oca.field_qc_inspection__message_needaction
@@ -337,7 +336,7 @@ msgstr ""
 #: model:ir.model.fields,help:quality_control_oca.field_qc_trigger_product_line__message_needaction
 #: model:ir.model.fields,help:quality_control_oca.field_qc_trigger_product_template_line__message_needaction
 msgid "If checked, new messages require your attention."
-msgstr "Si está marcado, nuevos mensajes necesitan su atención."
+msgstr ""
 
 #. module: quality_control_oca
 #: model:ir.model.fields,help:quality_control_oca.field_qc_inspection__message_has_error
@@ -353,7 +352,7 @@ msgstr "Si está marcado, nuevos mensajes necesitan su atención."
 #: model:ir.model.fields,help:quality_control_oca.field_qc_trigger_product_template_line__message_has_error
 #: model:ir.model.fields,help:quality_control_oca.field_qc_trigger_product_template_line__message_has_sms_error
 msgid "If checked, some messages have a delivery error."
-msgstr "si está marcada, algunos mensajes tienen un error de entrega."
+msgstr ""
 
 #. module: quality_control_oca
 #: model:ir.model.fields,help:quality_control_oca.field_qc_trigger_line__partners
@@ -383,7 +382,7 @@ msgstr "Inspección"
 #. module: quality_control_oca
 #: model:ir.model.fields,field_description:quality_control_oca.field_qc_inspection__inspection_lines
 msgid "Inspection Lines"
-msgstr "Líneas de Inspección"
+msgstr ""
 
 #. module: quality_control_oca
 #: model:ir.actions.act_window,name:quality_control_oca.action_qc_inspection_line
@@ -417,7 +416,7 @@ msgstr "Notas internas"
 #: model:ir.model.fields,field_description:quality_control_oca.field_qc_trigger_product_line__message_is_follower
 #: model:ir.model.fields,field_description:quality_control_oca.field_qc_trigger_product_template_line__message_is_follower
 msgid "Is Follower"
-msgstr "es seguidor/a"
+msgstr ""
 
 #. module: quality_control_oca
 #: model:ir.model.fields,field_description:quality_control_oca.field_qc_inspection____last_update
@@ -472,7 +471,7 @@ msgstr "Última actualización en"
 #: model:ir.model.fields,field_description:quality_control_oca.field_qc_trigger_product_line__message_main_attachment_id
 #: model:ir.model.fields,field_description:quality_control_oca.field_qc_trigger_product_template_line__message_main_attachment_id
 msgid "Main Attachment"
-msgstr "Archivo adjunto principal"
+msgstr ""
 
 #. module: quality_control_oca
 #: model:res.groups,name:quality_control_oca.group_quality_control_manager
@@ -503,7 +502,7 @@ msgstr "El valor máximo valido para una pregunta cuantitativa."
 #: model:ir.model.fields,field_description:quality_control_oca.field_qc_trigger_product_line__message_has_error
 #: model:ir.model.fields,field_description:quality_control_oca.field_qc_trigger_product_template_line__message_has_error
 msgid "Message Delivery error"
-msgstr "Error en entrega de mensajes"
+msgstr ""
 
 #. module: quality_control_oca
 #: model:ir.model.fields,field_description:quality_control_oca.field_qc_inspection__message_ids
@@ -513,7 +512,7 @@ msgstr "Error en entrega de mensajes"
 #: model:ir.model.fields,field_description:quality_control_oca.field_qc_trigger_product_line__message_ids
 #: model:ir.model.fields,field_description:quality_control_oca.field_qc_trigger_product_template_line__message_ids
 msgid "Messages"
-msgstr "Mensajes"
+msgstr ""
 
 #. module: quality_control_oca
 #: model:ir.model.fields,field_description:quality_control_oca.field_qc_inspection_line__min_value
@@ -529,7 +528,7 @@ msgstr "El valor mínimo valido para una pregunta cuantitativa."
 #. module: quality_control_oca
 #: model:ir.model.fields,field_description:quality_control_oca.field_qc_inspection__my_activity_date_deadline
 msgid "My Activity Deadline"
-msgstr "Fecha límite de mi actividad"
+msgstr ""
 
 #. module: quality_control_oca
 #: model:ir.model.fields,field_description:quality_control_oca.field_qc_test__name
@@ -543,17 +542,17 @@ msgstr "Nombre"
 #. module: quality_control_oca
 #: model:ir.model.fields,field_description:quality_control_oca.field_qc_inspection__activity_date_deadline
 msgid "Next Activity Deadline"
-msgstr "Fecha límite de la siguiente actividad"
+msgstr ""
 
 #. module: quality_control_oca
 #: model:ir.model.fields,field_description:quality_control_oca.field_qc_inspection__activity_summary
 msgid "Next Activity Summary"
-msgstr "Resumen de la Siguiente Actividad"
+msgstr ""
 
 #. module: quality_control_oca
 #: model:ir.model.fields,field_description:quality_control_oca.field_qc_inspection__activity_type_id
 msgid "Next Activity Type"
-msgstr "Tipo de la Siguiente Actividad"
+msgstr ""
 
 #. module: quality_control_oca
 #: model:ir.model.fields,field_description:quality_control_oca.field_qc_inspection_line__notes
@@ -570,7 +569,7 @@ msgstr "Notas"
 #: model:ir.model.fields,field_description:quality_control_oca.field_qc_trigger_product_line__message_needaction_counter
 #: model:ir.model.fields,field_description:quality_control_oca.field_qc_trigger_product_template_line__message_needaction_counter
 msgid "Number of Actions"
-msgstr "Número de acciones"
+msgstr ""
 
 #. module: quality_control_oca
 #: model:ir.model.fields,field_description:quality_control_oca.field_qc_inspection__message_has_error_counter
@@ -580,7 +579,7 @@ msgstr "Número de acciones"
 #: model:ir.model.fields,field_description:quality_control_oca.field_qc_trigger_product_line__message_has_error_counter
 #: model:ir.model.fields,field_description:quality_control_oca.field_qc_trigger_product_template_line__message_has_error_counter
 msgid "Number of errors"
-msgstr "Número de errores"
+msgstr ""
 
 #. module: quality_control_oca
 #: model:ir.model.fields,help:quality_control_oca.field_qc_inspection__message_needaction_counter
@@ -590,7 +589,7 @@ msgstr "Número de errores"
 #: model:ir.model.fields,help:quality_control_oca.field_qc_trigger_product_line__message_needaction_counter
 #: model:ir.model.fields,help:quality_control_oca.field_qc_trigger_product_template_line__message_needaction_counter
 msgid "Number of messages which requires an action"
-msgstr "Número de mensajes que requieren una acción"
+msgstr ""
 
 #. module: quality_control_oca
 #: model:ir.model.fields,help:quality_control_oca.field_qc_inspection__message_has_error_counter
@@ -600,7 +599,7 @@ msgstr "Número de mensajes que requieren una acción"
 #: model:ir.model.fields,help:quality_control_oca.field_qc_trigger_product_line__message_has_error_counter
 #: model:ir.model.fields,help:quality_control_oca.field_qc_trigger_product_template_line__message_has_error_counter
 msgid "Number of messages with delivery error"
-msgstr "número de mensajes con error de entrega"
+msgstr ""
 
 #. module: quality_control_oca
 #: model:qc.test.question,name:quality_control_oca.qc_test_question_1
@@ -654,7 +653,7 @@ msgstr "Plantilla de producto"
 #. module: quality_control_oca
 #: model:ir.model,name:quality_control_oca.model_product_product
 msgid "Product Variant"
-msgstr "Variante de Producto"
+msgstr ""
 
 #. module: quality_control_oca
 #: model:ir.model.fields,help:quality_control_oca.field_qc_inspection__product_id
@@ -680,23 +679,27 @@ msgstr "Valores cualitativos"
 
 #. module: quality_control_oca
 #: model:ir.ui.menu,name:quality_control_oca.qc_menu
+#, fuzzy
 msgid "Quality Control"
 msgstr "Control de calidad"
 
 #. module: quality_control_oca
 #: model:ir.model,name:quality_control_oca.model_qc_trigger_product_category_line
+#, fuzzy
 msgid "Quality Control Trigger Product Category Line"
-msgstr "Línea de inspección del control de calidad del producto"
+msgstr "Línea de inspección del control de calidad"
 
 #. module: quality_control_oca
 #: model:ir.model,name:quality_control_oca.model_qc_trigger_product_line
+#, fuzzy
 msgid "Quality Control Trigger Product Line"
-msgstr "Disparador del control de calidad de la línea del producto"
+msgstr "Disparador del control de calidad"
 
 #. module: quality_control_oca
 #: model:ir.model,name:quality_control_oca.model_qc_trigger_product_template_line
+#, fuzzy
 msgid "Quality Control Trigger Product Template Line"
-msgstr "plantilla de inspección de control de calidad de la línea del producto"
+msgstr "Línea de inspección del control de calidad"
 
 #. module: quality_control_oca
 #: model:ir.module.category,name:quality_control_oca.module_category_quality_control
@@ -777,20 +780,18 @@ msgstr "Pregunta"
 msgid ""
 "Question '%s' is not valid: minimum value can't be higher than maximum value."
 msgstr ""
-"La pregunta '%s' no es válida: el valor mínimo no puede ser superior al "
-"valor máximo."
 
 #. module: quality_control_oca
 #. odoo-python
 #: code:addons/quality_control_oca/models/qc_test.py:0
 #, python-format
 msgid "Question '%s' is not valid: you have to mark at least one value as OK."
-msgstr "La pregunta '%s' no es válida: debe marcar al menos un valor como OK."
+msgstr ""
 
 #. module: quality_control_oca
 #: model:ir.model.fields,field_description:quality_control_oca.field_qc_inspection_line__question_type
 msgid "Question Type"
-msgstr "Tipo de pregunta"
+msgstr ""
 
 #. module: quality_control_oca
 #: model:ir.model.fields,field_description:quality_control_oca.field_qc_test__test_lines
@@ -847,7 +848,7 @@ msgstr "Responsable"
 #: model:ir.model.fields,field_description:quality_control_oca.field_qc_trigger_product_line__message_has_sms_error
 #: model:ir.model.fields,field_description:quality_control_oca.field_qc_trigger_product_template_line__message_has_sms_error
 msgid "SMS Delivery error"
-msgstr "Error en la entrega de SMS"
+msgstr ""
 
 #. module: quality_control_oca
 #: model_terms:ir.ui.view,arch_db:quality_control_oca.qc_inspection_search_view
@@ -904,10 +905,6 @@ msgid ""
 "Today: Activity date is today\n"
 "Planned: Future activities."
 msgstr ""
-"Estado basado en actividades\n"
-"Atrasada: La fecha de vencimiento ya ha pasado\n"
-"Hoy: La fecha de entrega es hoy\n"
-"Planificada: Futuras actividades."
 
 #. module: quality_control_oca
 #: model:ir.model.fields,field_description:quality_control_oca.field_qc_inspection__success
@@ -962,7 +959,7 @@ msgstr "Pregunta del test"
 #: model:ir.ui.menu,name:quality_control_oca.qc_menu_test_parent
 #: model:ir.ui.menu,name:quality_control_oca.qc_test_menu
 msgid "Tests"
-msgstr "pruebas"
+msgstr "Tests"
 
 #. module: quality_control_oca
 #: model:ir.model.fields,help:quality_control_oca.field_qc_test_category__active
@@ -978,7 +975,8 @@ msgstr "Este campo se marcará si todos los test han sido satisfactorios."
 #: model:ir.model.fields,help:quality_control_oca.field_qc_trigger__partner_selectable
 msgid "This technical field is to allow to filter by partner in triggers"
 msgstr ""
-"Este campo técnico es para habilitar el filtro por empresa en los activadores"
+"Este campo técnico es para habilitar el filtro por empresa en los "
+"disparadores."
 
 #. module: quality_control_oca
 #: model:ir.model.fields,field_description:quality_control_oca.field_qc_trigger_line__trigger
@@ -992,7 +990,7 @@ msgstr "Disparador"
 #: model:ir.actions.act_window,name:quality_control_oca.action_qc_trigger
 #: model:ir.ui.menu,name:quality_control_oca.qc_trigger_menu
 msgid "Triggers"
-msgstr "Activadores"
+msgstr ""
 
 #. module: quality_control_oca
 #: model:ir.model.fields,field_description:quality_control_oca.field_qc_test__type
@@ -1003,7 +1001,7 @@ msgstr "Tipo"
 #. module: quality_control_oca
 #: model:ir.model.fields,help:quality_control_oca.field_qc_inspection__activity_exception_decoration
 msgid "Type of the exception activity on record."
-msgstr "Tipo (o clase) de actividad excepcional registrada."
+msgstr ""
 
 #. module: quality_control_oca
 #: model:ir.model.fields,field_description:quality_control_oca.field_qc_inspection_line__uom_id
@@ -1058,7 +1056,7 @@ msgstr "Esperando la aprobación del supervisor"
 #: model:ir.model.fields,field_description:quality_control_oca.field_qc_trigger_product_line__website_message_ids
 #: model:ir.model.fields,field_description:quality_control_oca.field_qc_trigger_product_template_line__website_message_ids
 msgid "Website Messages"
-msgstr "mensajes de la página web"
+msgstr ""
 
 #. module: quality_control_oca
 #: model:ir.model.fields,help:quality_control_oca.field_qc_inspection__website_message_ids
@@ -1068,7 +1066,7 @@ msgstr "mensajes de la página web"
 #: model:ir.model.fields,help:quality_control_oca.field_qc_trigger_product_line__website_message_ids
 #: model:ir.model.fields,help:quality_control_oca.field_qc_trigger_product_template_line__website_message_ids
 msgid "Website communication history"
-msgstr "Historial de la comunicación del sitio web"
+msgstr ""
 
 #. module: quality_control_oca
 #: model:ir.model.fields,help:quality_control_oca.field_qc_test_question_value__ok

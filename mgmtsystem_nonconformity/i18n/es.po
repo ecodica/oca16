@@ -10,25 +10,24 @@ msgstr ""
 "Project-Id-Version: Odoo Server 10.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-02-10 07:38+0000\n"
-"PO-Revision-Date: 2023-07-07 14:10+0000\n"
-"Last-Translator: Ivorra78 <informatica@totmaterial.es>\n"
+"PO-Revision-Date: 2018-02-10 07:38+0000\n"
+"Last-Translator: enjolras <yo@miguelrevilla.com>, 2018\n"
 "Language-Team: Spanish (https://www.transifex.com/oca/teams/23907/es/)\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
-"Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.17\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #. module: mgmtsystem_nonconformity
 #: model:ir.model.fields,field_description:mgmtsystem_nonconformity.field_mgmtsystem_nonconformity__number_of_days_to_close
 msgid "# of days to close"
-msgstr "# Días para el cierre"
+msgstr ""
 
 #. module: mgmtsystem_nonconformity
 #: model:ir.model.fields,field_description:mgmtsystem_nonconformity.field_mgmtsystem_nonconformity__number_of_nonconformities
 msgid "# of nonconformities"
-msgstr "# de disconformidades"
+msgstr ""
 
 #. module: mgmtsystem_nonconformity
 #: model:ir.model.fields,help:mgmtsystem_nonconformity.field_mgmtsystem_nonconformity__kanban_state
@@ -39,11 +38,6 @@ msgid ""
 " * Ready for next stage indicates the task is ready to be pulled to the next "
 "stage"
 msgstr ""
-"Un estado kanban indica situaciones especiales que le afectan:\n"
-" * Normal es la situación por defecto\n"
-" * Bloqueado indica que algo está impidiendo el progreso de esta tarea\n"
-" * Listo para la siguiente fase indica que la tarea está lista para pasar a "
-"la siguiente fase"
 
 #. module: mgmtsystem_nonconformity
 #: model:ir.model,name:mgmtsystem_nonconformity.model_mgmtsystem_action
@@ -52,8 +46,9 @@ msgstr "Acción"
 
 #. module: mgmtsystem_nonconformity
 #: model:ir.model.fields,field_description:mgmtsystem_nonconformity.field_mgmtsystem_nonconformity__message_needaction
+#, fuzzy
 msgid "Action Needed"
-msgstr "acción necesaria"
+msgstr "Acción"
 
 #. module: mgmtsystem_nonconformity
 #. odoo-python
@@ -79,8 +74,6 @@ msgid ""
 "Action plan  comments are required in order to put a nonconformity In "
 "Progress."
 msgstr ""
-"Los comentarios del plan    de acción son necesarios para poner una no "
-"conformidad En curso."
 
 #. module: mgmtsystem_nonconformity
 #: model:ir.model.fields,field_description:mgmtsystem_nonconformity.field_mgmtsystem_nonconformity__action_ids
@@ -91,7 +84,7 @@ msgstr "Acciones"
 #. module: mgmtsystem_nonconformity
 #: model:ir.model.fields,field_description:mgmtsystem_nonconformity.field_mgmtsystem_nonconformity_origin__active
 msgid "Active"
-msgstr "Activado"
+msgstr ""
 
 #. module: mgmtsystem_nonconformity
 #: model:ir.model.fields,field_description:mgmtsystem_nonconformity.field_mgmtsystem_nonconformity_severity__active
@@ -100,23 +93,24 @@ msgstr "Activo?"
 
 #. module: mgmtsystem_nonconformity
 #: model:ir.model.fields,field_description:mgmtsystem_nonconformity.field_mgmtsystem_nonconformity__activity_ids
+#, fuzzy
 msgid "Activities"
-msgstr "actividades"
+msgstr "Activo?"
 
 #. module: mgmtsystem_nonconformity
 #: model:ir.model.fields,field_description:mgmtsystem_nonconformity.field_mgmtsystem_nonconformity__activity_exception_decoration
 msgid "Activity Exception Decoration"
-msgstr "Decoración de excepción de la actividad"
+msgstr ""
 
 #. module: mgmtsystem_nonconformity
 #: model:ir.model.fields,field_description:mgmtsystem_nonconformity.field_mgmtsystem_nonconformity__activity_state
 msgid "Activity State"
-msgstr "Estado de actividad"
+msgstr ""
 
 #. module: mgmtsystem_nonconformity
 #: model:ir.model.fields,field_description:mgmtsystem_nonconformity.field_mgmtsystem_nonconformity__activity_type_icon
 msgid "Activity Type Icon"
-msgstr "Tipo Icono Actividad"
+msgstr ""
 
 #. module: mgmtsystem_nonconformity
 #: model_terms:ir.ui.view,arch_db:mgmtsystem_nonconformity.view_mgmtsystem_nonconformity_form
@@ -129,7 +123,6 @@ msgstr "Añadir una descripción ..."
 #, python-format
 msgid "All actions must be done before closing a Nonconformity."
 msgstr ""
-"Todas las acciones deben estar realizadas antes de cerrar una no conformidad."
 
 #. module: mgmtsystem_nonconformity
 #. odoo-python
@@ -153,12 +146,12 @@ msgstr "Confirmación de análisis"
 #. module: mgmtsystem_nonconformity
 #: model_terms:ir.ui.view,arch_db:mgmtsystem_nonconformity.view_mgmtsystem_nonconformity_origin_form
 msgid "Archived"
-msgstr "archivado"
+msgstr ""
 
 #. module: mgmtsystem_nonconformity
 #: model:ir.model.fields,field_description:mgmtsystem_nonconformity.field_mgmtsystem_nonconformity__message_attachment_count
 msgid "Attachment Count"
-msgstr "recuento de archivos adjuntos"
+msgstr ""
 
 #. module: mgmtsystem_nonconformity
 #: model_terms:ir.ui.view,arch_db:mgmtsystem_nonconformity.view_mgmtsystem_nonconformity_filter
@@ -183,7 +176,7 @@ msgstr "Necesidad mal definida"
 #. module: mgmtsystem_nonconformity
 #: model:ir.model.fields.selection,name:mgmtsystem_nonconformity.selection__mgmtsystem_nonconformity__kanban_state__blocked
 msgid "Blocked"
-msgstr "Bloqueado"
+msgstr ""
 
 #. module: mgmtsystem_nonconformity
 #. odoo-python
@@ -251,7 +244,7 @@ msgstr "No conformidades cerradas"
 #. module: mgmtsystem_nonconformity
 #: model:ir.model.fields,field_description:mgmtsystem_nonconformity.field_mgmtsystem_nonconformity__closing_date
 msgid "Closing Date"
-msgstr "Fecha de Cierre"
+msgstr ""
 
 #. module: mgmtsystem_nonconformity
 #: model:ir.model.fields,help:mgmtsystem_nonconformity.field_mgmtsystem_nonconformity__action_comments
@@ -288,8 +281,9 @@ msgstr "Creado en"
 
 #. module: mgmtsystem_nonconformity
 #: model:ir.model.fields,field_description:mgmtsystem_nonconformity.field_mgmtsystem_nonconformity__days_since_updated
+#, fuzzy
 msgid "Days Since Updated"
-msgstr "Días transcurridos desde la actualización"
+msgstr "Ultima actualización por"
 
 #. module: mgmtsystem_nonconformity
 #: model:ir.model.fields,help:mgmtsystem_nonconformity.field_mgmtsystem_nonconformity_cause__sequence
@@ -338,7 +332,7 @@ msgstr "Borrador/Nuevas no conformidades"
 #. module: mgmtsystem_nonconformity
 #: model_terms:ir.ui.view,arch_db:mgmtsystem_nonconformity.view_mgmtsystem_nonconformity_kanban
 msgid "Dropdown menu"
-msgstr "Menú Desplegable"
+msgstr ""
 
 #. module: mgmtsystem_nonconformity
 #: model_terms:ir.ui.view,arch_db:mgmtsystem_nonconformity.view_mgmtsystem_nonconformity_kanban
@@ -362,7 +356,6 @@ msgstr "Comentarios de evaluación"
 #, python-format
 msgid "Evaluation Comments are required in order to close a Nonconformity."
 msgstr ""
-"Los comentarios de evaluación son necesarios para cerrar una no conformidad."
 
 #. module: mgmtsystem_nonconformity
 #: model:mgmtsystem.nonconformity.origin,name:mgmtsystem_nonconformity.nc_origin_extenal_audit
@@ -382,22 +375,22 @@ msgstr "Rellenado por"
 #. module: mgmtsystem_nonconformity
 #: model:ir.model.fields,field_description:mgmtsystem_nonconformity.field_mgmtsystem_nonconformity_stage__fold
 msgid "Folded in Kanban"
-msgstr "Doblado en Kanban"
+msgstr ""
 
 #. module: mgmtsystem_nonconformity
 #: model:ir.model.fields,field_description:mgmtsystem_nonconformity.field_mgmtsystem_nonconformity__message_follower_ids
 msgid "Followers"
-msgstr "seguidores"
+msgstr ""
 
 #. module: mgmtsystem_nonconformity
 #: model:ir.model.fields,field_description:mgmtsystem_nonconformity.field_mgmtsystem_nonconformity__message_partner_ids
 msgid "Followers (Partners)"
-msgstr "seguidores(socios)"
+msgstr ""
 
 #. module: mgmtsystem_nonconformity
 #: model:ir.model.fields,help:mgmtsystem_nonconformity.field_mgmtsystem_nonconformity__activity_type_icon
 msgid "Font awesome icon e.g. fa-tasks"
-msgstr "fuente iconos sorprendentes , por ejemplo fa-tasks"
+msgstr ""
 
 #. module: mgmtsystem_nonconformity
 #: model:ir.model.fields,field_description:mgmtsystem_nonconformity.field_mgmtsystem_nonconformity_cause__parent_id
@@ -413,7 +406,7 @@ msgstr "Agrupar por..."
 #. module: mgmtsystem_nonconformity
 #: model:ir.model.fields,field_description:mgmtsystem_nonconformity.field_mgmtsystem_nonconformity__has_message
 msgid "Has Message"
-msgstr "Tienes un mensaje"
+msgstr ""
 
 #. module: mgmtsystem_nonconformity
 #: model_terms:ir.actions.act_window,help:mgmtsystem_nonconformity.action_report_mgmtsystem_nonconformity
@@ -421,8 +414,6 @@ msgid ""
 "Have a general overview of all non conformities processed in the system by "
 "sorting them with specific criteria."
 msgstr ""
-"Disponga de una visión general de todas las no conformidades procesadas en "
-"el sistema clasificándolas con criterios específicos."
 
 #. module: mgmtsystem_nonconformity
 #: model:mgmtsystem.nonconformity.cause,name:mgmtsystem_nonconformity.hr_unavailable_inadequate
@@ -441,28 +432,28 @@ msgstr "ID"
 #. module: mgmtsystem_nonconformity
 #: model:ir.model.fields,field_description:mgmtsystem_nonconformity.field_mgmtsystem_nonconformity__activity_exception_icon
 msgid "Icon"
-msgstr "Icono"
+msgstr ""
 
 #. module: mgmtsystem_nonconformity
 #: model:ir.model.fields,help:mgmtsystem_nonconformity.field_mgmtsystem_nonconformity__activity_exception_icon
 msgid "Icon to indicate an exception activity."
-msgstr "Icono para indicar la excepción de la actividad."
+msgstr ""
 
 #. module: mgmtsystem_nonconformity
 #: model:ir.model.fields,help:mgmtsystem_nonconformity.field_mgmtsystem_nonconformity__message_needaction
 msgid "If checked, new messages require your attention."
-msgstr "si está marcada, los mensajes nuevos requieren su atención."
+msgstr ""
 
 #. module: mgmtsystem_nonconformity
 #: model:ir.model.fields,help:mgmtsystem_nonconformity.field_mgmtsystem_nonconformity__message_has_error
 #: model:ir.model.fields,help:mgmtsystem_nonconformity.field_mgmtsystem_nonconformity__message_has_sms_error
 msgid "If checked, some messages have a delivery error."
-msgstr "si está marcada, algunos mensajes tienen un error de entrega."
+msgstr ""
 
 #. module: mgmtsystem_nonconformity
 #: model:ir.model.fields,field_description:mgmtsystem_nonconformity.field_mgmtsystem_nonconformity__immediate_action_id
 msgid "Immediate Action"
-msgstr "Acción inmediata"
+msgstr ""
 
 #. module: mgmtsystem_nonconformity
 #. odoo-python
@@ -499,22 +490,22 @@ msgstr "Queja internal del cliente"
 #. module: mgmtsystem_nonconformity
 #: model:ir.model.fields,field_description:mgmtsystem_nonconformity.field_mgmtsystem_nonconformity__message_is_follower
 msgid "Is Follower"
-msgstr "Es seguidor/a"
+msgstr ""
 
 #. module: mgmtsystem_nonconformity
 #: model:ir.model.fields,field_description:mgmtsystem_nonconformity.field_mgmtsystem_nonconformity_stage__is_starting
 msgid "Is starting Stage"
-msgstr "Está comenzando la Etapa"
+msgstr ""
 
 #. module: mgmtsystem_nonconformity
 #: model:ir.model.fields,field_description:mgmtsystem_nonconformity.field_mgmtsystem_nonconformity__kanban_state
 msgid "Kanban State"
-msgstr "Estado de Kanban"
+msgstr ""
 
 #. module: mgmtsystem_nonconformity
 #: model:mgmtsystem.nonconformity.cause,name:mgmtsystem_nonconformity.demo_cause
 msgid "Lack of expertise"
-msgstr "Falta de experiencia"
+msgstr ""
 
 #. module: mgmtsystem_nonconformity
 #: model:ir.model.fields,field_description:mgmtsystem_nonconformity.field_mgmtsystem_nonconformity____last_update
@@ -546,7 +537,7 @@ msgstr "Ultima actualización en"
 #. module: mgmtsystem_nonconformity
 #: model:ir.model.fields,field_description:mgmtsystem_nonconformity.field_mgmtsystem_nonconformity__message_main_attachment_id
 msgid "Main Attachment"
-msgstr "Archivo adjunto principal"
+msgstr ""
 
 #. module: mgmtsystem_nonconformity
 #: model:mgmtsystem.nonconformity.severity,name:mgmtsystem_nonconformity.nonconformity_severity_maj
@@ -556,7 +547,7 @@ msgstr "Mayor"
 #. module: mgmtsystem_nonconformity
 #: model:ir.actions.act_window,name:mgmtsystem_nonconformity.action_report_mgmtsystem_nonconformity
 msgid "Management System Analysis"
-msgstr "Análisis del sistema de gestión"
+msgstr ""
 
 #. module: mgmtsystem_nonconformity
 #: model:ir.model.fields,field_description:mgmtsystem_nonconformity.field_mgmtsystem_nonconformity__manager_user_id
@@ -567,12 +558,13 @@ msgstr "Gestor"
 #. module: mgmtsystem_nonconformity
 #: model:ir.model.fields,field_description:mgmtsystem_nonconformity.field_mgmtsystem_nonconformity__message_has_error
 msgid "Message Delivery error"
-msgstr "Error de entrega del mensaje"
+msgstr ""
 
 #. module: mgmtsystem_nonconformity
 #: model:ir.model.fields,field_description:mgmtsystem_nonconformity.field_mgmtsystem_nonconformity__message_ids
+#, fuzzy
 msgid "Messages"
-msgstr "Mensajes"
+msgstr "Mensajes no leídos"
 
 #. module: mgmtsystem_nonconformity
 #: model:mgmtsystem.nonconformity.severity,name:mgmtsystem_nonconformity.nonconformity_severity_min
@@ -582,7 +574,7 @@ msgstr "Menor"
 #. module: mgmtsystem_nonconformity
 #: model:ir.model.fields,field_description:mgmtsystem_nonconformity.field_mgmtsystem_nonconformity__my_activity_date_deadline
 msgid "My Activity Deadline"
-msgstr "Mi fecha de límite de actividad"
+msgstr ""
 
 #. module: mgmtsystem_nonconformity
 #: model:ir.model.fields,field_description:mgmtsystem_nonconformity.field_mgmtsystem_nonconformity__name
@@ -592,38 +584,38 @@ msgstr "Nombre"
 #. module: mgmtsystem_nonconformity
 #: model:ir.model.fields,field_description:mgmtsystem_nonconformity.field_mgmtsystem_nonconformity__activity_calendar_event_id
 msgid "Next Activity Calendar Event"
-msgstr "Próximo evento del calendario de actividades"
+msgstr ""
 
 #. module: mgmtsystem_nonconformity
 #: model:ir.model.fields,field_description:mgmtsystem_nonconformity.field_mgmtsystem_nonconformity__activity_date_deadline
 msgid "Next Activity Deadline"
-msgstr "Fecha Límite para la Próxima Actividad"
+msgstr ""
 
 #. module: mgmtsystem_nonconformity
 #: model:ir.model.fields,field_description:mgmtsystem_nonconformity.field_mgmtsystem_nonconformity__activity_summary
 msgid "Next Activity Summary"
-msgstr "Resumen de la Siguiente Actividad"
+msgstr ""
 
 #. module: mgmtsystem_nonconformity
 #: model:ir.model.fields,field_description:mgmtsystem_nonconformity.field_mgmtsystem_nonconformity__activity_type_id
 msgid "Next Activity Type"
-msgstr "Tipo proxima actividad"
+msgstr ""
 
 #. module: mgmtsystem_nonconformity
 #: model:ir.model.fields,field_description:mgmtsystem_nonconformity.field_mgmtsystem_nonconformity_abstract__non_conformity_ids
 msgid "Non Conformity"
-msgstr "disconformidad"
+msgstr ""
 
 #. module: mgmtsystem_nonconformity
 #: model:ir.model.fields,field_description:mgmtsystem_nonconformity.field_mgmtsystem_nonconformity_abstract__non_conformity_count
 msgid "Non Conformity Count"
-msgstr "Recuento de disconformidades"
+msgstr ""
 
 #. module: mgmtsystem_nonconformity
 #: model_terms:ir.ui.view,arch_db:mgmtsystem_nonconformity.view_report_mgmtsystem_nonconformity_graph
 #: model_terms:ir.ui.view,arch_db:mgmtsystem_nonconformity.view_report_mgmtsystem_nonconformity_pivot
 msgid "Non conformity"
-msgstr "disconformidad"
+msgstr ""
 
 #. module: mgmtsystem_nonconformity
 #: model_terms:ir.ui.view,arch_db:mgmtsystem_nonconformity.view_mgmtsystem_nonconformity_form
@@ -652,42 +644,43 @@ msgstr "No conformidad"
 #. module: mgmtsystem_nonconformity
 #: model:ir.model,name:mgmtsystem_nonconformity.model_mgmtsystem_nonconformity_abstract
 msgid "Nonconformity Abstract"
-msgstr "Resumen de disconformidad"
+msgstr ""
 
 #. module: mgmtsystem_nonconformity
 #: model:ir.model.fields,field_description:mgmtsystem_nonconformity.field_mgmtsystem_action__nonconformity_immediate_id
+#, fuzzy
 msgid "Nonconformity Immediate"
-msgstr "Disconformidad Inmediata"
+msgstr "No conformidad id inmediata"
 
 #. module: mgmtsystem_nonconformity
 #: model_terms:ir.ui.view,arch_db:mgmtsystem_nonconformity.mgmtsystem_nonconformity_stage_form_view
 msgid "Nonconformity Stage"
-msgstr "Etapa de disconformidad"
+msgstr ""
 
 #. module: mgmtsystem_nonconformity
 #: model:ir.model,name:mgmtsystem_nonconformity.model_mgmtsystem_nonconformity_stage
 msgid "Nonconformity Stages"
-msgstr "Etapas de la disconformidad"
+msgstr ""
 
 #. module: mgmtsystem_nonconformity
 #: model:ir.model.fields,field_description:mgmtsystem_nonconformity.field_mgmtsystem_nonconformity__message_needaction_counter
 msgid "Number of Actions"
-msgstr "Número de acciones"
+msgstr ""
 
 #. module: mgmtsystem_nonconformity
 #: model:ir.model.fields,field_description:mgmtsystem_nonconformity.field_mgmtsystem_nonconformity__message_has_error_counter
 msgid "Number of errors"
-msgstr "Número de errores"
+msgstr ""
 
 #. module: mgmtsystem_nonconformity
 #: model:ir.model.fields,help:mgmtsystem_nonconformity.field_mgmtsystem_nonconformity__message_needaction_counter
 msgid "Number of messages which requires an action"
-msgstr "Número de mensajes que requieren una acción"
+msgstr ""
 
 #. module: mgmtsystem_nonconformity
 #: model:ir.model.fields,help:mgmtsystem_nonconformity.field_mgmtsystem_nonconformity__message_has_error_counter
 msgid "Number of messages with delivery error"
-msgstr "Número de mensajes con error de entrega"
+msgstr ""
 
 #. module: mgmtsystem_nonconformity
 #: model_terms:ir.ui.view,arch_db:mgmtsystem_nonconformity.view_mgmtsystem_nonconformity_filter
@@ -720,8 +713,9 @@ msgstr "Orígenes de la no conformidad"
 #. module: mgmtsystem_nonconformity
 #: model:ir.model.fields,field_description:mgmtsystem_nonconformity.field_mgmtsystem_nonconformity_cause__parent_path
 #: model:ir.model.fields,field_description:mgmtsystem_nonconformity.field_mgmtsystem_nonconformity_origin__parent_path
+#, fuzzy
 msgid "Parent Path"
-msgstr "recorrido parental"
+msgstr "Padres izquierda"
 
 #. module: mgmtsystem_nonconformity
 #: model:ir.model.fields,field_description:mgmtsystem_nonconformity.field_mgmtsystem_nonconformity__partner_id
@@ -774,7 +768,7 @@ msgstr "Comité de Calidad"
 #. module: mgmtsystem_nonconformity
 #: model:ir.model.fields.selection,name:mgmtsystem_nonconformity.selection__mgmtsystem_nonconformity__kanban_state__done
 msgid "Ready for next stage"
-msgstr "Listo para la siguiente etapa"
+msgstr ""
 
 #. module: mgmtsystem_nonconformity
 #: model:ir.model.fields,field_description:mgmtsystem_nonconformity.field_mgmtsystem_nonconformity__ref
@@ -800,12 +794,12 @@ msgstr "Relacionado con"
 #. module: mgmtsystem_nonconformity
 #: model:ir.model.fields,field_description:mgmtsystem_nonconformity.field_mgmtsystem_nonconformity__res_id
 msgid "Res"
-msgstr "Resolución"
+msgstr ""
 
 #. module: mgmtsystem_nonconformity
 #: model:ir.model.fields,field_description:mgmtsystem_nonconformity.field_mgmtsystem_nonconformity__res_model
 msgid "Res Model"
-msgstr "Modelo Res"
+msgstr ""
 
 #. module: mgmtsystem_nonconformity
 #: model:ir.model.fields,field_description:mgmtsystem_nonconformity.field_mgmtsystem_nonconformity__responsible_user_id
@@ -815,13 +809,14 @@ msgstr "Responsable"
 
 #. module: mgmtsystem_nonconformity
 #: model:ir.model.fields,field_description:mgmtsystem_nonconformity.field_mgmtsystem_nonconformity__activity_user_id
+#, fuzzy
 msgid "Responsible User"
-msgstr "Usuario Responsabele"
+msgstr "Responsable"
 
 #. module: mgmtsystem_nonconformity
 #: model:ir.model.fields,field_description:mgmtsystem_nonconformity.field_mgmtsystem_nonconformity__message_has_sms_error
 msgid "SMS Delivery error"
-msgstr "Error de entrega de SMS"
+msgstr ""
 
 #. module: mgmtsystem_nonconformity
 #: model:ir.model.fields,field_description:mgmtsystem_nonconformity.field_mgmtsystem_nonconformity_cause__sequence
@@ -874,10 +869,6 @@ msgid ""
 "Today: Activity date is today\n"
 "Planned: Future activities."
 msgstr ""
-"Estado basado en actividades\n"
-"Atrasado: La fecha de vencimiento ya ha pasado\n"
-"Hoy: La fecha de la actividad es hoy\n"
-"Planificado: Actividades futuras."
 
 #. module: mgmtsystem_nonconformity
 #: model:ir.model.fields,field_description:mgmtsystem_nonconformity.field_mgmtsystem_nonconformity__system_id
@@ -896,8 +887,6 @@ msgid ""
 "This stage is folded in the kanban view when there are \n"
 "no records in that stage to display."
 msgstr ""
-"Esta etapa se pliega en la vista kanban cuando no hay \n"
-"registros en esa etapa para mostrar."
 
 #. module: mgmtsystem_nonconformity
 #: model:ir.model.fields,field_description:mgmtsystem_nonconformity.field_mgmtsystem_nonconformity_severity__name
@@ -907,7 +896,7 @@ msgstr "Título"
 #. module: mgmtsystem_nonconformity
 #: model:ir.model.fields,help:mgmtsystem_nonconformity.field_mgmtsystem_nonconformity__activity_exception_decoration
 msgid "Type of the exception activity on record."
-msgstr "Tipo de la actividad de excepción registrada."
+msgstr ""
 
 #. module: mgmtsystem_nonconformity
 #: model:mgmtsystem.nonconformity.severity,name:mgmtsystem_nonconformity.nonconformity_severity_no
@@ -922,7 +911,7 @@ msgstr "Mensajes no leídos"
 #. module: mgmtsystem_nonconformity
 #: model:ir.model.fields,help:mgmtsystem_nonconformity.field_mgmtsystem_nonconformity_stage__sequence
 msgid "Used to order states. Lower is better."
-msgstr "Se utiliza para ordenar los estados. Cuanto más bajo, mejor."
+msgstr ""
 
 #. module: mgmtsystem_nonconformity
 #: model_terms:ir.ui.view,arch_db:mgmtsystem_nonconformity.view_mgmtsystem_nonconformity_filter
@@ -931,13 +920,15 @@ msgstr "Usuario"
 
 #. module: mgmtsystem_nonconformity
 #: model:ir.model.fields,field_description:mgmtsystem_nonconformity.field_mgmtsystem_nonconformity__website_message_ids
+#, fuzzy
 msgid "Website Messages"
-msgstr "mensajes de la página web"
+msgstr "Mensajes no leídos"
 
 #. module: mgmtsystem_nonconformity
 #: model:ir.model.fields,help:mgmtsystem_nonconformity.field_mgmtsystem_nonconformity__website_message_ids
+#, fuzzy
 msgid "Website communication history"
-msgstr "historial de la comunicación en la web"
+msgstr "Mala comunicación"
 
 #. module: mgmtsystem_nonconformity
 #: model:mgmtsystem.nonconformity.cause,name:mgmtsystem_nonconformity.work_conditions
@@ -950,8 +941,6 @@ msgid ""
 "select stis checkbox if this is the default stage \n"
 "for new nonconformities"
 msgstr ""
-"seleccione la casilla stis si esta es la etapa por defecto \n"
-"para nuevas disconformidades"
 
 #, fuzzy
 #~ msgid "Number of unread messages"
