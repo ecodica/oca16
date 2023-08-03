@@ -26,6 +26,8 @@ class ProductProduct(models.Model):
 
         if l10n_ro_records:
             company = self.env.company
+            # company_currency_id are compute method _compute_value_svl
+            l10n_ro_records.company_currency_id = company.currency_id
             use_svl_lot_config = (
                 company.l10n_ro_stock_account_svl_lot_allocation
                 or self.env.context.get("force_svl_lot_config", False)
@@ -100,7 +102,9 @@ class ProductProduct(models.Model):
                 vals["l10n_ro_tracking"] = fifo_vals.get("l10n_ro_tracking")
 
                 # In case of AVCO, fix rounding issue of standard price when needed.
-                if self.cost_method == "average":
+                if self.cost_method == "average" and not self.env.context.get(
+                    "origin_return_candidates"
+                ):
                     vals["value"] = currency.round(
                         vals["quantity"] * self.standard_price
                     )
@@ -126,7 +130,11 @@ class ProductProduct(models.Model):
                                 ),
                                 currency.symbol,
                             )
-                if self.cost_method == "fifo":
+
+                if self.cost_method == "fifo" or (
+                    self.cost_method == "average"
+                    and self.env.context.get("origin_return_candidates")
+                ):
                     vals.update(fifo_vals)
                 vals_list.append(vals)
         else:
