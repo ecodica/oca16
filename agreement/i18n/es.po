@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: Odoo Server 12.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-02-14 16:28+0000\n"
-"PO-Revision-Date: 2023-09-04 19:38+0000\n"
+"PO-Revision-Date: 2023-09-21 17:38+0000\n"
 "Last-Translator: Ivorra78 <informatica@totmaterial.es>\n"
 "Language-Team: none\n"
 "Language: es\n"
@@ -148,7 +148,7 @@ msgstr "Seguidores"
 #. module: agreement
 #: model:ir.model.fields,field_description:agreement.field_agreement__message_partner_ids
 msgid "Followers (Partners)"
-msgstr "Seguidores (Empresas)"
+msgstr "Seguidores (Socios)"
 
 #. module: agreement
 #: model:ir.model.fields,help:agreement.field_agreement__activity_type_icon
@@ -417,6 +417,16 @@ msgstr "Usar plantilla de acuerdo"
 #: model:res.groups,name:agreement.group_use_agreement_type
 msgid "Use agreement type"
 msgstr "Usar tipo de acuerdo"
+
+#. module: agreement
+#: model:ir.model.fields,field_description:agreement.field_agreement__website_message_ids
+msgid "Website Messages"
+msgstr "mensajes de la página web"
+
+#. module: agreement
+#: model:ir.model.fields,help:agreement.field_agreement__website_message_ids
+msgid "Website communication history"
+msgstr "Historial de la comunicación en lapágina web"
 
 #. module: agreement
 #: model:ir.model.fields,help:agreement.field_agreement__end_date
