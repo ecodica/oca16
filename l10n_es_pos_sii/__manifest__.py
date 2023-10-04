@@ -6,7 +6,7 @@
     "author": "Aures Tic, Odoo Community Association (OCA)",
     "website": "https://github.com/OCA/l10n-spain",
     "license": "AGPL-3",
-    "version": "16.0.1.0.0",
+    "version": "16.0.1.0.1",
     "depends": [
         "point_of_sale",
         "l10n_es_pos",
@@ -17,6 +17,11 @@
         "views/pos_order.xml",
         "views/res_company.xml",
     ],
+    "assets": {
+        "point_of_sale.assets": [
+            "l10n_es_pos_sii/static/src/js/**/*.js",
+        ],
+    },
     "installable": True,
     "autoinstall": True,
 }
