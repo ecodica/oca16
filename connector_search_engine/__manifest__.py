@@ -4,7 +4,7 @@
 
 {
     "name": "Connector Search Engine",
-    "version": "16.0.0.0.8",
+    "version": "16.0.0.1.1",
     "author": "Akretion,"
     "ACSONE SA/NV,"
     "Camptocamp,"
@@ -15,6 +15,7 @@
     "depends": ["queue_job", "mail", "server_environment"],
     "external_dependencies": {"python": ["unidecode"]},
     "data": [
+        "wizards/se_binding_state_updater.xml",
         "security/connector_search_engine_security.xml",
         "security/se_index_config.xml",
         "security/ir.model.access.csv",

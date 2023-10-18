@@ -6,15 +6,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-02-01 19:45+0000\n"
-"Last-Translator: Francesco Foresti <francesco.foresti@ooops404.com>\n"
+"PO-Revision-Date: 2023-10-10 16:37+0000\n"
+"Last-Translator: mymage <stefano.consolaro@mymage.it>\n"
 "Language-Team: none\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.14.1\n"
+"X-Generator: Weblate 4.17\n"
 
 #. module: helpdesk_mgmt_timesheet
 #: model:ir.model.fields,field_description:helpdesk_mgmt_timesheet.field_helpdesk_ticket__allow_timesheet
@@ -25,7 +25,7 @@ msgstr "Consenti foglio ore"
 #. module: helpdesk_mgmt_timesheet
 #: model:ir.model,name:helpdesk_mgmt_timesheet.model_account_analytic_line
 msgid "Analytic Line"
-msgstr "Riga Analitica"
+msgstr "Riga analitica"
 
 #. module: helpdesk_mgmt_timesheet
 #: model_terms:ir.ui.view,arch_db:helpdesk_mgmt_timesheet.timesheet_helpdesk_team_view_form
@@ -41,13 +41,6 @@ msgstr "Data"
 #: model:ir.model.fields,field_description:helpdesk_mgmt_timesheet.field_helpdesk_ticket_team__default_project_id
 msgid "Default Project"
 msgstr "Progetto predefinito"
-
-#. module: helpdesk_mgmt_timesheet
-#: model:ir.model.fields,field_description:helpdesk_mgmt_timesheet.field_account_analytic_line__display_name
-#: model:ir.model.fields,field_description:helpdesk_mgmt_timesheet.field_helpdesk_ticket__display_name
-#: model:ir.model.fields,field_description:helpdesk_mgmt_timesheet.field_helpdesk_ticket_team__display_name
-msgid "Display Name"
-msgstr "Nome visualizzato"
 
 #. module: helpdesk_mgmt_timesheet
 #: model_terms:ir.ui.view,arch_db:helpdesk_mgmt_timesheet.timesheet_helpdesk_ticket_view_form
@@ -72,23 +65,14 @@ msgid "Helpdesk Ticket Team"
 msgstr "Team Ticket Helpdesk"
 
 #. module: helpdesk_mgmt_timesheet
-#: model:ir.model.fields,field_description:helpdesk_mgmt_timesheet.field_account_analytic_line__id
-#: model:ir.model.fields,field_description:helpdesk_mgmt_timesheet.field_helpdesk_ticket__id
-#: model:ir.model.fields,field_description:helpdesk_mgmt_timesheet.field_helpdesk_ticket_team__id
-msgid "ID"
-msgstr "ID"
+#: model:project.project,name:helpdesk_mgmt_timesheet.project_1
+msgid "Helpdesk general project"
+msgstr ""
 
 #. module: helpdesk_mgmt_timesheet
 #: model:ir.model.fields,help:helpdesk_mgmt_timesheet.field_helpdesk_ticket__show_time_control
 msgid "Indicate which time control button to show, if any."
 msgstr "Indica se e quale pulsante di controllo tempo visualizzare."
-
-#. module: helpdesk_mgmt_timesheet
-#: model:ir.model.fields,field_description:helpdesk_mgmt_timesheet.field_account_analytic_line____last_update
-#: model:ir.model.fields,field_description:helpdesk_mgmt_timesheet.field_helpdesk_ticket____last_update
-#: model:ir.model.fields,field_description:helpdesk_mgmt_timesheet.field_helpdesk_ticket_team____last_update
-msgid "Last Modified on"
-msgstr "Ultima modifica il"
 
 #. module: helpdesk_mgmt_timesheet
 #: model:ir.model.fields,field_description:helpdesk_mgmt_timesheet.field_helpdesk_ticket__last_timesheet_activity
@@ -123,7 +107,7 @@ msgstr "Riprendi lavoro"
 #. module: helpdesk_mgmt_timesheet
 #: model:ir.model.fields,field_description:helpdesk_mgmt_timesheet.field_helpdesk_ticket__show_time_control
 msgid "Show Time Control"
-msgstr "Mostra controllo tempo"
+msgstr "Visualizza controllo orario"
 
 #. module: helpdesk_mgmt_timesheet
 #: model_terms:ir.ui.view,arch_db:helpdesk_mgmt_timesheet.helpdesk_ticket_kanban_view
@@ -146,15 +130,13 @@ msgstr "Lavori"
 
 #. module: helpdesk_mgmt_timesheet
 #: model:ir.model.fields,field_description:helpdesk_mgmt_timesheet.field_account_analytic_line__ticket_id
-#: model:ir.model.fields,field_description:helpdesk_mgmt_timesheet.field_hr_timesheet_switch__ticket_id
 #: model_terms:ir.ui.view,arch_db:helpdesk_mgmt_timesheet.hr_timesheet_line_search
-#: model_terms:ir.ui.view,arch_db:helpdesk_mgmt_timesheet.report_timesheet
+#: model_terms:ir.ui.view,arch_db:helpdesk_mgmt_timesheet.timesheet_table
 msgid "Ticket"
 msgstr "Ticket"
 
 #. module: helpdesk_mgmt_timesheet
 #: model:ir.model.fields,field_description:helpdesk_mgmt_timesheet.field_account_analytic_line__ticket_partner_id
-#: model:ir.model.fields,field_description:helpdesk_mgmt_timesheet.field_hr_timesheet_switch__ticket_partner_id
 #: model_terms:ir.ui.view,arch_db:helpdesk_mgmt_timesheet.hr_timesheet_line_search
 msgid "Ticket partner"
 msgstr "Ticket contatto"
@@ -196,3 +178,12 @@ msgstr "Con attività oggi"
 #: model_terms:ir.ui.view,arch_db:helpdesk_mgmt_timesheet.hr_timesheet_line_search
 msgid "With ticket"
 msgstr "Con ticket"
+
+#~ msgid "Display Name"
+#~ msgstr "Nome visualizzato"
+
+#~ msgid "ID"
+#~ msgstr "ID"
+
+#~ msgid "Last Modified on"
+#~ msgstr "Ultima modifica il"

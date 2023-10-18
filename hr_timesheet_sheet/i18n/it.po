@@ -17,8 +17,8 @@ msgstr ""
 "Project-Id-Version: Odoo Server 10.0c\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-09-07 08:56+0000\n"
-"PO-Revision-Date: 2023-09-04 18:39+0000\n"
-"Last-Translator: mymage <stefano.consolaro@mymage.it>\n"
+"PO-Revision-Date: 2023-10-13 11:39+0000\n"
+"Last-Translator: Francesco Foresti <francesco.foresti@ooops404.com>\n"
 "Language-Team: Italian (https://www.transifex.com/odoo/teams/41243/it/)\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
@@ -56,7 +56,7 @@ msgstr "Riga prospetto foglio ore astratto"
 #. module: hr_timesheet_sheet
 #: model:ir.model.fields,field_description:hr_timesheet_sheet.field_hr_timesheet_sheet__access_warning
 msgid "Access warning"
-msgstr "Allerta accesso"
+msgstr "Avviso accesso"
 
 #. module: hr_timesheet_sheet
 #: model:ir.model.fields,field_description:hr_timesheet_sheet.field_hr_timesheet_sheet__message_needaction
@@ -256,7 +256,7 @@ msgstr "Giorno"
 #. module: hr_timesheet_sheet
 #: model_terms:ir.ui.view,arch_db:hr_timesheet_sheet.view_hr_timesheet_sheet_kanban
 msgid "Delete"
-msgstr "Cancella"
+msgstr "Elimina"
 
 #. module: hr_timesheet_sheet
 #: model:ir.model,name:hr_timesheet_sheet.model_hr_department
@@ -549,6 +549,11 @@ msgid "New timesheet sheet."
 msgstr "Nuovo prospetto foglio ore."
 
 #. module: hr_timesheet_sheet
+#: model:ir.model.fields,field_description:hr_timesheet_sheet.field_hr_timesheet_sheet__activity_calendar_event_id
+msgid "Next Activity Calendar Event"
+msgstr "Evento calendario attività successiva"
+
+#. module: hr_timesheet_sheet
 #: model:ir.model.fields,field_description:hr_timesheet_sheet.field_hr_timesheet_sheet__activity_date_deadline
 msgid "Next Activity Deadline"
 msgstr "Scadenza prossima attività"
@@ -810,7 +815,7 @@ msgstr "L'azienda del prospetto foglio ore e del lavoro devono corrispondere."
 #: model:ir.model.fields,help:hr_timesheet_sheet.field_res_company__sheet_range
 #: model:ir.model.fields,help:hr_timesheet_sheet.field_res_config_settings__sheet_range
 msgid "The range of your Timesheet Sheet."
-msgstr "L'intervallo del prospetto foglio ore."
+msgstr "Periodo del prospetto foglio ore."
 
 #. module: hr_timesheet_sheet
 #. odoo-python
@@ -870,7 +875,7 @@ msgstr "Intervallo prospetto foglio ore"
 #: model:ir.model.fields,field_description:hr_timesheet_sheet.field_res_company__timesheet_sheet_review_policy
 #: model:ir.model.fields,field_description:hr_timesheet_sheet.field_res_config_settings__timesheet_sheet_review_policy
 msgid "Timesheet Sheet Review Policy"
-msgstr "Politica di revisione prospetto foglio ore"
+msgstr "Politica revisione prospetto foglio ore"
 
 #. module: hr_timesheet_sheet
 #: model:ir.actions.act_window,name:hr_timesheet_sheet.act_hr_employee_2_hr_timesheet
@@ -1066,8 +1071,8 @@ msgid ""
 " - %(sheet_name)s of %(sheet_company)s\n"
 " - %(name)s of %(company)s"
 msgstr ""
-"Non si può creare un foglio ore di un'azienda diversa da quella del foglio "
-"ore:\n"
+"Non si può creare un foglio ore di un'azienda diversa da quella del "
+"prospetto foglio ore:\n"
 " - %(sheet_name)s di %(sheet_company)s\n"
 " - %(name)s di %(company)s"
 
@@ -1099,7 +1104,7 @@ msgid ""
 " - %(names)s"
 msgstr ""
 "Non ci possono essere due o più fogli ore che si sovrappongono!\n"
-"Utilizzare il menu \"Foglio del foglio ore\" per evitare il problema.\n"
+"Utilizzare il menu \"Prospetto foglio ore\" per evitare il problema.\n"
 "Fogli in conflitto:\n"
 " - %(names)s"
 
@@ -1109,7 +1114,7 @@ msgstr ""
 #, python-format
 msgid "You cannot modify an entry in a confirmed timesheet sheet: %(names)s"
 msgstr ""
-"Non si può modificare una registrazione di un foglio di foglio ore "
+"Non si può modificare una registrazione di un prospetto foglio ore "
 "confermato: %(names)s"
 
 #. module: hr_timesheet_sheet
@@ -1120,9 +1125,9 @@ msgid ""
 "it should be\n"
 "            validated by a reviewer."
 msgstr ""
-"Bisogna compilare il fogli ore ogni giorno e confermarlo alla fine\n"
-"            del periodo del resoconto. Una volta che il foglio del foglio "
-"ore è confermato,\n"
+"Bisogna compilare i fogli ore ogni giorno e confermarlo alla fine\n"
+"            del periodo del resoconto. Una volta che il prospetto foglio ore "
+"è confermato,\n"
 "            deve essere validato da un revisore."
 
 #. module: hr_timesheet_sheet
@@ -1143,9 +1148,6 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:hr_timesheet_sheet.hr_timesheet_sheet_form
 msgid "to"
 msgstr "fino al"
-
-#~ msgid "Next Activity Calendar Event"
-#~ msgstr "Evento calendario attività successiva"
 
 #~ msgid "Number of messages which requires an action"
 #~ msgstr "Numero di messaggi che richiedono un'azione"

@@ -1,6 +1,8 @@
 # Copyright 2023 ACSONE SA/NV
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 
+from __future__ import annotations
+
 from odoo import _, api, fields, models, tools
 from odoo.exceptions import ValidationError
 from odoo.tools.safe_eval import const_eval
@@ -308,30 +310,38 @@ class FsStorage(models.Model):
         res_field = self.env.context.get("attachment_res_field")
         res_model = self.env.context.get("attachment_res_model")
         if res_field and res_model:
-            field = self.env["ir.model.fields"].search(
-                [("model", "=", res_model), ("name", "=", res_field)], limit=1
+            field = (
+                self.env["ir.model.fields"]
+                .sudo()
+                .search([("model", "=", res_model), ("name", "=", res_field)], limit=1)
             )
             if field:
                 storage = (
                     self.env["fs.storage"]
+                    .sudo()
                     .search([])
                     .filtered_domain([("field_ids", "in", [field.id])])
                 )
                 if storage:
                     return storage.code
         if res_model:
-            model = self.env["ir.model"].search([("model", "=", res_model)], limit=1)
+            model = (
+                self.env["ir.model"].sudo().search([("model", "=", res_model)], limit=1)
+            )
             if model:
                 storage = (
                     self.env["fs.storage"]
+                    .sudo()
                     .search([])
                     .filtered_domain([("model_ids", "in", [model.id])])
                 )
                 if storage:
                     return storage.code
 
-        storages = self.search([]).filtered_domain(
-            [("use_as_default_for_attachments", "=", True)]
+        storages = (
+            self.sudo()
+            .search([])
+            .filtered_domain([("use_as_default_for_attachments", "=", True)])
         )
         if storages:
             return storages[0].code
@@ -348,7 +358,11 @@ class FsStorage(models.Model):
         0 means no limit.
         """
         storage = self.get_by_code(code)
-        if storage and storage.force_db_for_default_attachment_rules:
+        if (
+            storage
+            and storage.use_as_default_for_attachments
+            and storage.force_db_for_default_attachment_rules
+        ):
             return const_eval(storage.force_db_for_default_attachment_rules)
         return {}
 

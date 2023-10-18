@@ -6,14 +6,14 @@
     "name": "Romania - Localization Config",
     "summary": "Romania - Localization Install and Config Applications",
     "license": "AGPL-3",
-    "version": "16.0.1.4.0",
+    "version": "16.0.1.5.0",
     "author": "NextERP Romania,"
     "Forest and Biomass Romania,"
     "Odoo Community Association (OCA)",
     "website": "https://github.com/OCA/l10n-romania",
     "depends": ["l10n_ro", "base_vat"],
     "data": [
-        "data/ro_menus_group.xml",
+        "security/ro_menus_group.xml",
         "views/account_journal.xml",
         "views/common_report.xml",
         "views/res_config_view.xml",

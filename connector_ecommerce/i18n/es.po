@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: odoo-connector-ecommerce\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-05-01 14:34+0000\n"
-"PO-Revision-Date: 2023-07-01 20:09+0000\n"
+"PO-Revision-Date: 2023-10-10 22:56+0000\n"
 "Last-Translator: Ivorra78 <informatica@totmaterial.es>\n"
 "Language-Team: Spanish <es@li.org>\n"
 "Language: es\n"
@@ -68,7 +68,7 @@ msgstr "Cancelar"
 #. module: connector_ecommerce
 #: model:ir.model.fields,field_description:connector_ecommerce.field_sale_order__canceled_in_backend
 msgid "Canceled In Backend"
-msgstr ""
+msgstr "Cancelado en el Servidor"
 
 #. module: connector_ecommerce
 #: model_terms:ir.ui.view,arch_db:connector_ecommerce.view_sales_order_filter
@@ -110,7 +110,7 @@ msgstr "Creado en"
 #. module: connector_ecommerce
 #: model:ir.model.fields,field_description:connector_ecommerce.field_account_payment_mode__days_before_cancel
 msgid "Days Before Cancel"
-msgstr ""
+msgstr "Días Antes de Cancelar"
 
 #. module: connector_ecommerce
 #. odoo-python
@@ -186,7 +186,7 @@ msgstr "Importar Reglas"
 #. module: connector_ecommerce
 #: model:ir.model,name:connector_ecommerce.model_account_move
 msgid "Journal Entry"
-msgstr ""
+msgstr "Entrada Diaria"
 
 #. module: connector_ecommerce
 #: model:ir.model.fields,field_description:connector_ecommerce.field_sale_ignore_cancel____last_update
@@ -236,7 +236,7 @@ msgstr "Producto"
 #. module: connector_ecommerce
 #: model:ir.model,name:connector_ecommerce.model_product_product
 msgid "Product Variant"
-msgstr ""
+msgstr "Variante de producto"
 
 #. module: connector_ecommerce
 #: model:ir.model.fields,field_description:connector_ecommerce.field_sale_ignore_cancel__reason
@@ -251,7 +251,7 @@ msgstr "Pedidos pendientes relacionados"
 #. module: connector_ecommerce
 #: model:ir.model,name:connector_ecommerce.model_sale_order
 msgid "Sales Order"
-msgstr ""
+msgstr "Orden de Venta"
 
 #. module: connector_ecommerce
 #: model:exception.rule,name:connector_ecommerce.excep_order_need_cancel
@@ -283,7 +283,8 @@ msgstr "Grupo de impuestos"
 #: model:ir.model.fields,help:connector_ecommerce.field_product_product__tax_group_id
 #: model:ir.model.fields,help:connector_ecommerce.field_product_template__tax_group_id
 msgid "Tax groups are used with some external system like Prestashop"
-msgstr "El grupo fiscal se usa en algún sistema externo, por ejemplo Prestashop"
+msgstr ""
+"El grupo fiscal se usa en algún sistema externo, por ejemplo Prestashop"
 
 #. module: connector_ecommerce
 #: model:exception.rule,description:connector_ecommerce.excep_parent_order_need_cancel
@@ -353,7 +354,8 @@ msgstr ""
 #. module: connector_ecommerce
 #: model_terms:ir.ui.view,arch_db:connector_ecommerce.account_payment_mode_form_inherit
 msgid "The sales orders using the payment method will never be imported."
-msgstr "Los pedidos de venta que usan este modo de pago nunca serán importados."
+msgstr ""
+"Los pedidos de venta que usan este modo de pago nunca serán importados."
 
 #. module: connector_ecommerce
 #: model_terms:ir.ui.view,arch_db:connector_ecommerce.view_sale_ignore_cancel

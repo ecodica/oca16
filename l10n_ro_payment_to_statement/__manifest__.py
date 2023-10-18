@@ -6,7 +6,7 @@
 {
     "name": "Romania - Payment to Statement",
     "summary": "Add payment to cash statement",
-    "version": "16.0.2.3.0",
+    "version": "16.0.2.4.0",
     "author": "Terrabit," "NextERP Romania," "Odoo Community Association (OCA)",
     "website": "https://github.com/OCA/l10n-romania",
     "category": "Accounting",
@@ -18,7 +18,7 @@
         "views/account_journal_view.xml",
         "views/account_journal_dashboard_view.xml",
     ],
-    "post_init_hook": "pre_init_hook",
+    # "post_init_hook": "pre_init_hook",
     "development_status": "Mature",
     "maintainers": ["dhongu"],
 }

@@ -77,8 +77,8 @@ msgid ""
 msgstr ""
 
 #. module: account_financial_risk
-#: model:res.groups,comment:account_financial_risk.group_overpass_partner_risk_exception
-msgid "Can Overpass Partner Risk Exceptions"
+#: model:res.groups,comment:account_financial_risk.group_account_financial_risk_manager
+msgid "Can edit risk limit and overpass partner risk exceptions"
 msgstr ""
 
 #. module: account_financial_risk
@@ -87,6 +87,7 @@ msgid "Cancel"
 msgstr "Annulla"
 
 #. module: account_financial_risk
+#. odoo-python
 #: code:addons/account_financial_risk/models/res_partner.py:0
 #, python-format
 msgid "Choose Manual Credit Currency."
@@ -153,6 +154,12 @@ msgid "Credit Policy"
 msgstr "Regole di Credito"
 
 #. module: account_financial_risk
+#: model:ir.model.fields,help:account_financial_risk.field_res_partner__credit_limit
+#: model:ir.model.fields,help:account_financial_risk.field_res_users__credit_limit
+msgid "Credit limit specific to this partner."
+msgstr ""
+
+#. module: account_financial_risk
 #: model:ir.model.fields,field_description:account_financial_risk.field_partner_risk_exceeded_wiz__partner_id
 msgid "Customer"
 msgstr "Cliente"
@@ -187,18 +194,21 @@ msgid "Exception Msg"
 msgstr "Msg di eccezione"
 
 #. module: account_financial_risk
+#: model:ir.module.category,name:account_financial_risk.category_financial_risk
 #: model_terms:ir.ui.view,arch_db:account_financial_risk.res_config_settings_view_form
 #: model_terms:ir.ui.view,arch_db:account_financial_risk.res_partner_view_risk
 msgid "Financial Risk"
 msgstr "Rischio finanziario"
 
 #. module: account_financial_risk
+#. odoo-python
 #: code:addons/account_financial_risk/models/account_invoice.py:0
 #, python-format
 msgid "Financial risk exceeded.\n"
 msgstr "Superato rischio finanziario.\n"
 
 #. module: account_financial_risk
+#. odoo-python
 #: code:addons/account_financial_risk/models/res_partner.py:0
 #, fuzzy, python-format
 msgid "Financial risk information"
@@ -359,6 +369,11 @@ msgid "Limit Other Account Unpaid Amount"
 msgstr "Fido Altri Importi Contabili Scaduti"
 
 #. module: account_financial_risk
+#: model:res.groups,name:account_financial_risk.group_account_financial_risk_manager
+msgid "Manager"
+msgstr ""
+
+#. module: account_financial_risk
 #: model:ir.model.fields,field_description:account_financial_risk.field_res_partner__manual_credit_currency_id
 #: model:ir.model.fields,field_description:account_financial_risk.field_res_users__manual_credit_currency_id
 #: model:ir.model.fields.selection,name:account_financial_risk.selection__res_partner__credit_currency__manual
@@ -382,11 +397,7 @@ msgid "Partner Risk Exceeded Wizard"
 msgstr "Wizard Superamento Fido Partner"
 
 #. module: account_financial_risk
-#: model:res.groups,name:account_financial_risk.group_overpass_partner_risk_exception
-msgid "Partner Risk Manager"
-msgstr ""
-
-#. module: account_financial_risk
+#. odoo-python
 #: code:addons/account_financial_risk/wizards/parner_risk_exceeded.py:0
 #, python-format
 msgid "Partner risk exceeded"
@@ -395,6 +406,11 @@ msgstr "Fido Partner Superato"
 #. module: account_financial_risk
 #: model:ir.model.fields.selection,name:account_financial_risk.selection__res_partner__credit_currency__pricelist
 msgid "Pricelist Currency"
+msgstr ""
+
+#. module: account_financial_risk
+#: model:res.groups,comment:account_financial_risk.group_account_financial_risk_user
+msgid "Read only access to financial risk info"
 msgstr ""
 
 #. module: account_financial_risk
@@ -520,6 +536,7 @@ msgid "Sum of total risk included"
 msgstr "Somma totale dell'esposizione"
 
 #. module: account_financial_risk
+#. odoo-python
 #: code:addons/account_financial_risk/models/account_invoice.py:0
 #, python-format
 msgid ""
@@ -533,12 +550,14 @@ msgid "The partner has exceeded his risk"
 msgstr "Il Partner ha superato il fido"
 
 #. module: account_financial_risk
+#. odoo-python
 #: code:addons/account_financial_risk/models/account_invoice.py:0
 #, python-format
 msgid "This invoice exceeds the financial risk.\n"
 msgstr "Questa fattura supera il fido.\n"
 
 #. module: account_financial_risk
+#. odoo-python
 #: code:addons/account_financial_risk/models/account_invoice.py:0
 #, python-format
 msgid "This invoice exceeds the open invoices risk.\n"
@@ -585,6 +604,11 @@ msgstr "Totale Fatture Scadute/Saldo Principale"
 #: model:ir.model.fields,help:account_financial_risk.field_res_users__risk_invoice_draft
 msgid "Total amount of invoices in Draft or Pro-forma state"
 msgstr "Totale Importo Fatture in Bozza o Pro-forma"
+
+#. module: account_financial_risk
+#: model:res.groups,name:account_financial_risk.group_account_financial_risk_user
+msgid "User"
+msgstr ""
 
 #. module: account_financial_risk
 #: model:ir.model,name:account_financial_risk.model_validate_account_move

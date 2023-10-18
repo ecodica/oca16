@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: Odoo Server 9.0c\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-06-06 02:51+0000\n"
-"PO-Revision-Date: 2023-09-07 16:37+0000\n"
+"PO-Revision-Date: 2023-10-15 19:36+0000\n"
 "Last-Translator: Ivorra78 <informatica@totmaterial.es>\n"
 "Language-Team: Spanish (https://www.transifex.com/oca/teams/23907/es/)\n"
 "Language: es\n"
@@ -48,40 +48,6 @@ msgid "Attachment Count"
 msgstr "recuento de archivos adjuntos"
 
 #. module: sql_export
-#: model:ir.model.fields,help:sql_export.field_sql_export__field_ids
-msgid ""
-"Before adding parameters, make sure you have created one that fill your need "
-"in the dedicated menu with the right type and label. \n"
-"Then, when you add a parameter here, you have to include it in the SQL query "
-"in order to have dynamic values depending on the user choice.\n"
-"The format of the parameters in the SQL query must be like this : "
-"%(parameter_field_name)s. \n"
-"Example : from the variable menu, create an variable with type 'char', "
-"having field name 'x_name' and field label : 'Name' \n"
-"Then, you can create a SQL query like this : SELECT * FROM res_partner WHERE "
-"name =  %(x_name)s the variable can be used in any number of different SQL "
-"queries. \n"
-"In the SQL query, you can also include these 2 special parameters "
-"%(user_id)s and %(company_id)s which will be replaced respectively by the "
-"user executing the query and the company of the user executing the query."
-msgstr ""
-"Antes de añadir parámetros, asegúrese de haber creado uno que satisfaga su "
-"necesidad en el menú dedicado con el tipo y la etiqueta correctos. \n"
-"Después, cuando añada un parámetro aquí, tendrá que incluirlo en la consulta "
-"SQL para tener valores dinámicos en función de la elección del usuario.\n"
-"El formato de los parámetros en la consulta SQL debe ser el siguiente: "
-"%(nombre_campo_parámetro)s. \n"
-"Ejemplo: en el menú de variables, cree una variable de tipo \"char\", con el "
-"nombre de campo \"x_name\" y la etiqueta de campo \"Nombre\". \n"
-"A continuación, puede crear una consulta SQL como esta : SELECT * FROM "
-"res_partner WHERE name = %(x_name)s la variable se puede utilizar en "
-"cualquier número de consultas SQL diferentes. \n"
-"En la consulta SQL, también puede incluir estos 2 parámetros especiales "
-"%(user_id)s y %(company_id)s que serán sustituidos respectivamente por el "
-"usuario que ejecuta la consulta y la empresa del usuario que ejecuta la "
-"consulta."
-
-#. module: sql_export
 #: model:ir.model.fields.selection,name:sql_export.selection__sql_export__file_format__csv
 msgid "CSV"
 msgstr "CSV"
@@ -90,6 +56,11 @@ msgstr "CSV"
 #: model_terms:ir.ui.view,arch_db:sql_export.sql_file_wizard_view_form
 msgid "Cancel"
 msgstr "Cancelar"
+
+#. module: sql_export
+#: model_terms:ir.ui.view,arch_db:sql_export.sql_export_view_form
+msgid "Configure Properties"
+msgstr "Configurar Propiedades"
 
 #. module: sql_export
 #: model:ir.model.fields,field_description:sql_export.field_sql_export__copy_options
@@ -112,11 +83,6 @@ msgstr "Creado en"
 #: model_terms:ir.ui.view,arch_db:sql_export.sql_file_wizard_view_form
 msgid "Csv File"
 msgstr "Archivo Csv"
-
-#. module: sql_export
-#: model:ir.model.fields,field_description:sql_export.date_field_variable_sql
-msgid "Date"
-msgstr "fecha"
 
 #. module: sql_export
 #: model:ir.model.fields,field_description:sql_export.field_sql_export__display_name
@@ -198,6 +164,19 @@ msgid "If checked, some messages have a delivery error."
 msgstr "si está marcada, algunos mensajes tienen un error de entrega."
 
 #. module: sql_export
+#: model_terms:ir.ui.view,arch_db:sql_export.sql_export_view_form
+msgid ""
+"In case of use of properties in the query, use this syntax : %(Property "
+"String)s. <br/>\n"
+"                                Example : SELECT id FROM sale_order WHERE "
+"create_date &gt; %(Start Date)s"
+msgstr ""
+"En caso de utilizar propiedades en la consulta, utilice esta sintaxis: %("
+"Property String)s. <br/>\n"
+"                                Ejemplo: SELECCIONE la identificación DE "
+"sale_order DONDE create_date &gt; %(Start Date)s"
+
+#. module: sql_export
 #: model:ir.model.fields,field_description:sql_export.field_sql_export__message_is_follower
 msgid "Is Follower"
 msgstr "es seguidor/a"
@@ -233,7 +212,7 @@ msgstr "Error en entrega del mensaje"
 #. module: sql_export
 #: model:ir.model.fields,field_description:sql_export.field_sql_export__message_ids
 msgid "Messages"
-msgstr "Messages"
+msgstr "Mensajes"
 
 #. module: sql_export
 #: model:ir.model.fields,field_description:sql_export.field_sql_export__name
@@ -266,15 +245,16 @@ msgid "Number of messages with delivery error"
 msgstr "número de mensajes con error de entrega"
 
 #. module: sql_export
-#: model:ir.model.fields,field_description:sql_export.field_sql_export__field_ids
-#: model_terms:ir.ui.view,arch_db:sql_export.sql_export_view_form
-msgid "Parameters"
-msgstr "Parámetros"
+#. odoo-python
+#: code:addons/sql_export/wizard/wizard_file.py:0
+#, python-format
+msgid "Please enter a values for the following properties : %s"
+msgstr "Por favor, introduzca un valor para las siguientes propiedades : %s"
 
 #. module: sql_export
-#: model:ir.model.fields,field_description:sql_export.m2m_field_variable_sql
-msgid "Partner Categories"
-msgstr "Categorías de socios"
+#: model:ir.model.fields,field_description:sql_export.field_sql_file_wizard__query_properties
+msgid "Properties"
+msgstr "Propiedades"
 
 #. module: sql_export
 #: model:ir.model.fields,field_description:sql_export.field_sql_export__query
@@ -282,14 +262,14 @@ msgid "Query"
 msgstr "Consulta"
 
 #. module: sql_export
+#: model:ir.model.fields,field_description:sql_export.field_sql_export__query_properties_definition
+msgid "Query Properties"
+msgstr "Propiedades de Consulta"
+
+#. module: sql_export
 #: model:ir.model.fields,field_description:sql_export.field_sql_export__message_has_sms_error
 msgid "SMS Delivery error"
 msgstr "Error en la entrega de SMS"
-
-#. module: sql_export
-#: model:ir.ui.menu,name:sql_export.sql_parameter_menu_view
-msgid "SQL Export Variables"
-msgstr "Variables de Exportación SQL"
 
 #. module: sql_export
 #: model:ir.actions.act_window,name:sql_export.sql_export_tree_action
@@ -297,13 +277,7 @@ msgid "SQL Exports"
 msgstr "Exportaciones SQL"
 
 #. module: sql_export
-#: model:ir.actions.act_window,name:sql_export.sql_parameter_action
-msgid "SQL Parameter"
-msgstr "Parámetro SQL"
-
-#. module: sql_export
 #: model:ir.model,name:sql_export.model_sql_export
-#: model_terms:ir.ui.view,arch_db:sql_export.sql_parameter_view_form
 msgid "SQL export"
 msgstr "Exportar SQL"
 
@@ -339,11 +313,9 @@ msgstr ""
 "los grupos han cambiado, y que según el acceso debe ser actualizado."
 
 #. module: sql_export
-#. odoo-python
-#: code:addons/sql_export/wizard/wizard_file.py:0
-#, python-format
-msgid "The export with parameters is not implemented in V16"
-msgstr "La exportación con parámetros no está implementada en la V16"
+#: model:ir.model.fields,field_description:sql_export.field_sql_export__use_properties
+msgid "Use Properties"
+msgstr "Usar Propiedades"
 
 #. module: sql_export
 #: model:ir.model.fields,help:sql_export.field_sql_export__query
@@ -400,11 +372,6 @@ msgid "utf-8"
 msgstr "utf-8"
 
 #. module: sql_export
-#: model_terms:ir.ui.view,arch_db:sql_export.sql_file_wizard_view_form
-msgid "variables_placeholder"
-msgstr "variables_placeholder"
-
-#. module: sql_export
 #: model:ir.model.fields.selection,name:sql_export.selection__sql_export__encoding__windows-1251
 msgid "windows-1251"
 msgstr "windows-1251"
@@ -414,10 +381,63 @@ msgstr "windows-1251"
 msgid "windows-1252"
 msgstr "windows-1252"
 
-#. module: sql_export
-#: model:ir.model.fields,field_description:sql_export.integer_field_variable_sql
-msgid "x_ID"
-msgstr "x_ID"
+#~ msgid ""
+#~ "Before adding parameters, make sure you have created one that fill your "
+#~ "need in the dedicated menu with the right type and label. \n"
+#~ "Then, when you add a parameter here, you have to include it in the SQL "
+#~ "query in order to have dynamic values depending on the user choice.\n"
+#~ "The format of the parameters in the SQL query must be like this : "
+#~ "%(parameter_field_name)s. \n"
+#~ "Example : from the variable menu, create an variable with type 'char', "
+#~ "having field name 'x_name' and field label : 'Name' \n"
+#~ "Then, you can create a SQL query like this : SELECT * FROM res_partner "
+#~ "WHERE name =  %(x_name)s the variable can be used in any number of "
+#~ "different SQL queries. \n"
+#~ "In the SQL query, you can also include these 2 special parameters "
+#~ "%(user_id)s and %(company_id)s which will be replaced respectively by the "
+#~ "user executing the query and the company of the user executing the query."
+#~ msgstr ""
+#~ "Antes de añadir parámetros, asegúrese de haber creado uno que satisfaga "
+#~ "su necesidad en el menú dedicado con el tipo y la etiqueta correctos. \n"
+#~ "Después, cuando añada un parámetro aquí, tendrá que incluirlo en la "
+#~ "consulta SQL para tener valores dinámicos en función de la elección del "
+#~ "usuario.\n"
+#~ "El formato de los parámetros en la consulta SQL debe ser el siguiente: "
+#~ "%(nombre_campo_parámetro)s. \n"
+#~ "Ejemplo: en el menú de variables, cree una variable de tipo \"char\", con "
+#~ "el nombre de campo \"x_name\" y la etiqueta de campo \"Nombre\". \n"
+#~ "A continuación, puede crear una consulta SQL como esta : SELECT * FROM "
+#~ "res_partner WHERE name = %(x_name)s la variable se puede utilizar en "
+#~ "cualquier número de consultas SQL diferentes. \n"
+#~ "En la consulta SQL, también puede incluir estos 2 parámetros especiales "
+#~ "%(user_id)s y %(company_id)s que serán sustituidos respectivamente por el "
+#~ "usuario que ejecuta la consulta y la empresa del usuario que ejecuta la "
+#~ "consulta."
+
+#~ msgid "Date"
+#~ msgstr "fecha"
+
+#~ msgid "Parameters"
+#~ msgstr "Parámetros"
+
+#~ msgid "Partner Categories"
+#~ msgstr "Categorías de socios"
+
+#~ msgid "SQL Export Variables"
+#~ msgstr "Variables de Exportación SQL"
+
+#~ msgid "SQL Parameter"
+#~ msgstr "Parámetro SQL"
+
+#, python-format
+#~ msgid "The export with parameters is not implemented in V16"
+#~ msgstr "La exportación con parámetros no está implementada en la V16"
+
+#~ msgid "variables_placeholder"
+#~ msgstr "variables_placeholder"
+
+#~ msgid "x_ID"
+#~ msgstr "x_ID"
 
 #~ msgid "Number of messages which requires an action"
 #~ msgstr "Número de mensajes que requieren una acción"

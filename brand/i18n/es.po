@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 16.0\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-09-04 19:39+0000\n"
+"PO-Revision-Date: 2023-10-09 09:11+0000\n"
 "Last-Translator: Ivorra78 <informatica@totmaterial.es>\n"
 "Language-Team: none\n"
 "Language: es\n"
@@ -15,6 +15,11 @@ msgstr ""
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Weblate 4.17\n"
+
+#. module: brand
+#: model:ir.model.fields,field_description:brand.field_res_brand__supplier_invoice_count
+msgid "# Vendor Bills"
+msgstr ""
 
 #. module: brand
 #: model:ir.model.fields,help:brand.field_res_brand__type
@@ -134,6 +139,13 @@ msgstr "Archivado"
 #: model:ir.model.fields,field_description:brand.field_res_brand__message_attachment_count
 msgid "Attachment Count"
 msgstr "Recuento de archivos adjuntos"
+
+#. module: brand
+#: model:ir.model.fields,help:brand.field_res_brand__receipt_reminder_email
+msgid ""
+"Automatically send a confirmation email to the vendor X days before the "
+"expected receipt date, asking him to confirm the exact date."
+msgstr ""
 
 #. module: brand
 #: model:ir.model.fields,field_description:brand.field_res_brand__avatar_1920
@@ -384,6 +396,11 @@ msgid "Currency"
 msgstr "Divisa"
 
 #. module: brand
+#: model:ir.model.fields,field_description:brand.field_res_brand__property_stock_customer
+msgid "Customer Location"
+msgstr ""
+
+#. module: brand
 #: model:ir.model.fields,field_description:brand.field_res_brand__property_payment_term_id
 msgid "Customer Payment Terms"
 msgstr "Términos de Pago del Cliente"
@@ -397,6 +414,11 @@ msgstr "Rango del Cliente"
 #: model:ir.model.fields,field_description:brand.field_res_brand__date
 msgid "Date"
 msgstr "Fecha"
+
+#. module: brand
+#: model:ir.model.fields,field_description:brand.field_res_brand__reminder_date_before_receipt
+msgid "Days Before Receipt"
+msgstr ""
 
 #. module: brand
 #: model:ir.model.fields,field_description:brand.field_res_brand__trust
@@ -698,9 +720,19 @@ msgid "Message for Invoice"
 msgstr "Mensaje para factura"
 
 #. module: brand
+#: model:ir.model.fields,field_description:brand.field_res_brand__purchase_warn_msg
+msgid "Message for Purchase Order"
+msgstr ""
+
+#. module: brand
 #: model:ir.model.fields,field_description:brand.field_res_brand__sale_warn_msg
 msgid "Message for Sales Order"
 msgstr "Mensaje para la orden de venta"
+
+#. module: brand
+#: model:ir.model.fields,field_description:brand.field_res_brand__picking_warn_msg
+msgid "Message for Stock Picking"
+msgstr ""
 
 #. module: brand
 #: model:ir.model.fields,field_description:brand.field_res_brand__message_ids
@@ -753,6 +785,11 @@ msgid "Number of Actions"
 msgstr "Número de acciones"
 
 #. module: brand
+#: model:ir.model.fields,help:brand.field_res_brand__reminder_date_before_receipt
+msgid "Number of days to send reminder email before the promised receipt date"
+msgstr ""
+
+#. module: brand
 #: model:ir.model.fields,field_description:brand.field_res_brand__message_has_error_counter
 msgid "Number of errors"
 msgstr "Número de errores"
@@ -768,9 +805,22 @@ msgid "Number of messages with delivery error"
 msgstr "Número de mensajes con error de entrega"
 
 #. module: brand
+#: model:ir.model.fields,field_description:brand.field_res_brand__on_time_rate
+msgid "On-Time Delivery Rate"
+msgstr ""
+
+#. module: brand
 #: model:ir.model.fields.selection,name:brand.selection__res_company__brand_use_level__optional
 msgid "Optional"
 msgstr "Opcional"
+
+#. module: brand
+#: model:ir.model.fields,help:brand.field_res_brand__on_time_rate
+msgid ""
+"Over the past x days; the number of products received on time divided by the "
+"number of ordered products.x is either the System Parameter purchase_stock."
+"on_time_delivery_days or the default 365"
+msgstr ""
 
 #. module: brand
 #: model:ir.model.fields,field_description:brand.field_res_brand__parent_name
@@ -843,6 +893,26 @@ msgid "Pricelist"
 msgstr "Lista de Precio"
 
 #. module: brand
+#: model:ir.model.fields,field_description:brand.field_res_brand__purchase_line_ids
+msgid "Purchase Lines"
+msgstr ""
+
+#. module: brand
+#: model:ir.model.fields,field_description:brand.field_res_brand__purchase_warn
+msgid "Purchase Order"
+msgstr ""
+
+#. module: brand
+#: model:ir.model.fields,field_description:brand.field_res_brand__purchase_order_count
+msgid "Purchase Order Count"
+msgstr ""
+
+#. module: brand
+#: model:ir.model.fields,field_description:brand.field_res_brand__receipt_reminder_email
+msgid "Receipt Reminder"
+msgstr ""
+
+#. module: brand
 #: model:ir.model.fields,field_description:brand.field_res_brand__ref
 msgid "Reference"
 msgstr "Referencia"
@@ -899,6 +969,8 @@ msgstr "Número saneado"
 
 #. module: brand
 #: model:ir.model.fields,help:brand.field_res_brand__invoice_warn
+#: model:ir.model.fields,help:brand.field_res_brand__picking_warn
+#: model:ir.model.fields,help:brand.field_res_brand__purchase_warn
 #: model:ir.model.fields,help:brand.field_res_brand__sale_warn
 msgid ""
 "Selecting the \"Warning\" option will notify user with the message, "
@@ -970,6 +1042,11 @@ msgstr ""
 "Planificada: Actividades futuras."
 
 #. module: brand
+#: model:ir.model.fields,field_description:brand.field_res_brand__picking_warn
+msgid "Stock Picking"
+msgstr ""
+
+#. module: brand
 #: model:ir.model.fields,field_description:brand.field_res_brand__street
 msgid "Street"
 msgstr "Calle"
@@ -988,6 +1065,11 @@ msgstr "Calle..."
 #: model:ir.model.fields,field_description:brand.field_res_brand__street2
 msgid "Street2"
 msgstr "Calle2"
+
+#. module: brand
+#: model:ir.model.fields,field_description:brand.field_res_brand__property_purchase_currency_id
+msgid "Supplier Currency"
+msgstr ""
 
 #. module: brand
 #: model:ir.model.fields,field_description:brand.field_res_brand__supplier_rank
@@ -1056,6 +1138,18 @@ msgstr ""
 "ser único para todos los socios de un mismo país"
 
 #. module: brand
+#: model:ir.model.fields,help:brand.field_res_brand__property_stock_customer
+msgid ""
+"The stock location used as destination when sending goods to this contact."
+msgstr ""
+
+#. module: brand
+#: model:ir.model.fields,help:brand.field_res_brand__property_stock_supplier
+msgid ""
+"The stock location used as source when receiving goods from this contact."
+msgstr ""
+
+#. module: brand
 #: model:ir.model.fields,help:brand.field_res_brand__property_account_payable_id
 msgid ""
 "This account will be used instead of the default one as the payable account "
@@ -1072,6 +1166,13 @@ msgid ""
 msgstr ""
 "Esta cuenta se utilizará en lugar de la cuenta por defecto como cuenta de "
 "cobro para el socio actual"
+
+#. module: brand
+#: model:ir.model.fields,help:brand.field_res_brand__property_purchase_currency_id
+msgid ""
+"This currency will be used, instead of the default one, for purchases from "
+"the current partner"
+msgstr ""
 
 #. module: brand
 #: model:ir.model.fields,help:brand.field_res_brand__email_normalized
@@ -1166,6 +1267,11 @@ msgid "Users"
 msgstr "Usuarios"
 
 #. module: brand
+#: model:ir.model.fields,field_description:brand.field_res_brand__property_stock_supplier
+msgid "Vendor Location"
+msgstr ""
+
+#. module: brand
 #: model:ir.model.fields,field_description:brand.field_res_brand__property_supplier_payment_term_id
 msgid "Vendor Payment Terms"
 msgstr "Términos de pago al vendedor"
@@ -1188,7 +1294,7 @@ msgstr "Mensajes de la página web"
 #. module: brand
 #: model:ir.model.fields,help:brand.field_res_brand__website_message_ids
 msgid "Website communication history"
-msgstr "Historial de la comunicación en lapágina web"
+msgstr "Historial de la comunicación en la página web"
 
 #. module: brand
 #: model:ir.model.fields,help:brand.field_res_brand__tz

@@ -5,7 +5,7 @@
     "name": "Extendable Fastapi",
     "summary": """
         Allows the use of extendable into fastapi apps""",
-    "version": "16.0.2.0.2",
+    "version": "16.0.2.1.0",
     "license": "LGPL-3",
     "author": "ACSONE SA/NV,Odoo Community Association (OCA)",
     "maintainers": ["lmignon"],
@@ -16,7 +16,7 @@
     "external_dependencies": {
         "python": [
             "pydantic>=2.0.0",
-            "extendable-pydantic>=1.1.0",
+            "extendable-pydantic>=1.2.0",
         ],
     },
     "installable": True,

@@ -163,7 +163,7 @@ class FSStorage(models.Model):
     @tools.ormcache()
     def get_id_by_code_map(self):
         """Return a dictionary with the code as key and the id as value."""
-        return {rec.code: rec.id for rec in self.search([])}
+        return {rec.code: rec.id for rec in self.sudo().search([])}
 
     @api.model
     def get_id_by_code(self, code):
@@ -314,6 +314,13 @@ class FSStorage(models.Model):
         options = self.json_options
         if self.protocol == "odoofs":
             options["odoo_storage_path"] = self._odoo_storage_path
+        # Webdav protocol handler does need the auth to be a tuple not a list !
+        if (
+            self.protocol == "webdav"
+            and "auth" in options
+            and isinstance(options["auth"], list)
+        ):
+            options["auth"] = tuple(options["auth"])
         options = self._recursive_add_odoo_storage_path(options)
         fs = fsspec.filesystem(self.protocol, **options)
         directory_path = self.directory_path
