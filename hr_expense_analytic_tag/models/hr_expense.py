@@ -9,6 +9,7 @@ class HrExpense(models.Model):
     analytic_tag_ids = fields.Many2many(
         comodel_name="account.analytic.tag",
         string="Analytic Tags",
+        domain="['|', ('company_id', '=', False), ('company_id', '=', company_id)]",
     )
 
     def _prepare_move_line_vals(self):

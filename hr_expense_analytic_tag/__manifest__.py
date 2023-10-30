@@ -3,8 +3,8 @@
 {
     "name": "Hr Expense Analytic Tag",
     "version": "16.0.1.0.0",
-    "category": "Human Resources",
-    "website": "https://github.com/OCA/hr-expense",
+    "category": "Accounting & Finance",
+    "website": "https://github.com/OCA/account-analytic",
     "author": "Tecnativa, Odoo Community Association (OCA)",
     "license": "AGPL-3",
     "depends": ["hr_expense", "account_analytic_tag"],
