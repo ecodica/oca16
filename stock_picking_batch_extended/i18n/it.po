@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: Odoo Server 9.0c\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-01-23 11:56+0000\n"
-"PO-Revision-Date: 2023-05-17 16:35+0000\n"
+"PO-Revision-Date: 2023-11-02 16:36+0000\n"
 "Last-Translator: Francesco Foresti <francesco.foresti@ooops404.com>\n"
 "Language-Team: Italian (https://www.transifex.com/oca/teams/23907/it/)\n"
 "Language: it\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.14.1\n"
+"X-Generator: Weblate 4.17\n"
 
 #. module: stock_picking_batch_extended
 #: model:ir.model.fields,field_description:stock_picking_batch_extended.field_stock_picking_batch__picking_count
@@ -168,7 +168,7 @@ msgstr ""
 #. module: stock_picking_batch_extended
 #: model:ir.model.fields,field_description:stock_picking_batch_extended.field_stock_picking_batch_creator_group_field____last_update
 msgid "Last Modified on"
-msgstr "Ultima Modifica il"
+msgstr "Ultima modifica il"
 
 #. module: stock_picking_batch_extended
 #: model:ir.model.fields,field_description:stock_picking_batch_extended.field_stock_picking_batch_creator_group_field__write_uid
@@ -218,11 +218,6 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:stock_picking_batch_extended.report_batch_picking
 msgid "Picked By"
 msgstr ""
-
-#. module: stock_picking_batch_extended
-#: model_terms:ir.ui.view,arch_db:stock_picking_batch_extended.res_config_settings_view_form
-msgid "Picking Batch"
-msgstr "Batch trasferimento"
 
 #. module: stock_picking_batch_extended
 #: model:ir.model.fields,field_description:stock_picking_batch_extended.field_stock_picking_batch_creator_group_field__picking_to_batch_id
@@ -301,11 +296,6 @@ msgid "Sequence"
 msgstr ""
 
 #. module: stock_picking_batch_extended
-#: model_terms:ir.ui.view,arch_db:stock_picking_batch_extended.res_config_settings_view_form
-msgid "Switch behaviour bettwen Odoo and OCA for batch validation"
-msgstr ""
-
-#. module: stock_picking_batch_extended
 #: model_terms:ir.ui.view,arch_db:stock_picking_batch_extended.product_normal_form_view
 msgid "This note will show up on the batch picking printout."
 msgstr ""
@@ -356,6 +346,9 @@ msgstr ""
 #: model:ir.model.fields,help:stock_picking_batch_extended.field_stock_warehouse__default_user_id
 msgid "the user to which the batch pickings are assigned by default"
 msgstr ""
+
+#~ msgid "Picking Batch"
+#~ msgstr "Batch trasferimento"
 
 #~ msgid "Available"
 #~ msgstr "Disponibile"

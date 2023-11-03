@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 16.0\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-10-23 14:32+0000\n"
+"PO-Revision-Date: 2023-11-01 11:38+0000\n"
 "Last-Translator: Adriano Prado <adrianojprado@gmail.com>\n"
 "Language-Team: none\n"
 "Language: pt_BR\n"
@@ -25,12 +25,12 @@ msgstr ""
 #: model:ir.actions.act_window,name:purchase_advance_payment.action_view_account_voucher_wizard
 #: model_terms:ir.ui.view,arch_db:purchase_advance_payment.view_account_voucher_wizard
 msgid "Advance Payment"
-msgstr "Pagamento Adiantado"
+msgstr "Pagamento Antecipado"
 
 #. module: purchase_advance_payment
 #: model:ir.model.fields,field_description:purchase_advance_payment.field_purchase_order__advance_payment_status
 msgid "Advance Payment Status"
-msgstr "Situação Pagamento Adiantado"
+msgstr "Situação Pagamento Antecipado"
 
 #. module: purchase_advance_payment
 #: model_terms:ir.ui.view,arch_db:purchase_advance_payment.purchase_order_kpis_tree
@@ -46,7 +46,7 @@ msgstr "Valor Total"
 #. module: purchase_advance_payment
 #: model:ir.model.fields,field_description:purchase_advance_payment.field_account_voucher_wizard_purchase__amount_advance
 msgid "Amount advanced"
-msgstr "Valor Adiantado"
+msgstr "Valor Antecipado"
 
 #. module: purchase_advance_payment
 #: model_terms:ir.ui.view,arch_db:purchase_advance_payment.view_account_voucher_wizard
@@ -212,7 +212,7 @@ msgstr "Pedido Compra"
 #. module: purchase_advance_payment
 #: model:ir.model.fields,field_description:purchase_advance_payment.field_account_voucher_wizard_purchase__payment_ref
 msgid "Ref."
-msgstr ""
+msgstr "Ref."
 
 #. module: purchase_advance_payment
 #: model:ir.model.fields,field_description:purchase_advance_payment.field_purchase_order__amount_residual
