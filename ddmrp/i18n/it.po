@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 16.0\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-10-29 17:39+0000\n"
+"PO-Revision-Date: 2023-11-23 18:35+0000\n"
 "Last-Translator: mymage <stefano.consolaro@mymage.it>\n"
 "Language-Team: none\n"
 "Language: it\n"
@@ -25,8 +25,11 @@ msgstr "N° DiBa dove utilizzata"
 #: model:ir.model.fields,help:ddmrp.field_stock_move_line__state
 msgid ""
 "* New: When the stock move is created and not yet confirmed.\n"
-"* Waiting Another Move: This state can be seen when a move is waiting for another one, for example in a chained flow.\n"
-"* Waiting Availability: This state is reached when the procurement resolution is not straight forward. It may need the scheduler to run, a component to be manufactured...\n"
+"* Waiting Another Move: This state can be seen when a move is waiting for "
+"another one, for example in a chained flow.\n"
+"* Waiting Availability: This state is reached when the procurement "
+"resolution is not straight forward. It may need the scheduler to run, a "
+"component to be manufactured...\n"
 "* Available: When products are reserved, it is set to 'Available'.\n"
 "* Done: When the shipment is processed, the state is 'Done'."
 msgstr ""
@@ -36,16 +39,16 @@ msgstr ""
 "* Attesa disponibilità: questo stato viene raggiunto quando il completamento "
 "dell'approvvigionamento non è semplice. Richiede l'esecuzione della "
 "schedulazione, la lavorazione di un componente...\n"
-"* Disponibile: qando i prodotti sono prenotati, è impostato a 'Disponibile'."
-"\n"
+"* Disponibile: qando i prodotti sono prenotati, è impostato a "
+"'Disponibile'.\n"
 "* Eseguito: quando la spedizione viene elaborata, lo stato è 'Eseguito'."
 
 #. module: ddmrp
 #: model_terms:ir.ui.view,arch_db:ddmrp.res_config_settings_view_form
 msgid ""
 "<span class=\"fa fa-lg fa-building-o\" title=\"Values set here are company-"
-"specific.\" role=\"img\" aria-label=\"Values set here are company-"
-"specific.\" groups=\"base.group_multi_company\"/>"
+"specific.\" role=\"img\" aria-label=\"Values set here are company-specific."
+"\" groups=\"base.group_multi_company\"/>"
 msgstr ""
 "<span class=\"fa fa-lg fa-building-o\" title=\"I valori impostati qui sono "
 "specifici per azienda.\" role=\"img\" aria-label=\"I valori impostati qui "
@@ -241,7 +244,8 @@ msgstr "Buffer"
 #: model_terms:ir.ui.view,arch_db:ddmrp.view_make_procurement_buffer_wizard
 msgid ""
 "By default, the qty is equal to the recommended quantity.\n"
-"                    For distributed buffers, when the option on the profile is active,\n"
+"                    For distributed buffers, when the option on the profile "
+"is active,\n"
 "                    the quantity is limited to the free quantity."
 msgstr ""
 "Come predefinito, la quantità è uguale a quella raccomandata.\n"
@@ -260,6 +264,21 @@ msgstr "Metodo di calcolo"
 #: model_terms:ir.ui.view,arch_db:ddmrp.view_run_ddmrp_wizard
 msgid "Cancel"
 msgstr "Annulla"
+
+#. module: ddmrp
+#: model:ir.model.fields.selection,name:ddmrp.selection__ddmrp_duplicate_buffer__type__location
+msgid "Change Location"
+msgstr "Modifica ubicazione"
+
+#. module: ddmrp
+#: model:ir.model.fields.selection,name:ddmrp.selection__ddmrp_duplicate_buffer__type__product
+msgid "Change Product"
+msgstr "Modifica prodotto"
+
+#. module: ddmrp
+#: model:ir.model.fields.selection,name:ddmrp.selection__ddmrp_duplicate_buffer__type__both
+msgid "Change both values"
+msgstr "Modifica entrambi i valori"
 
 #. module: ddmrp
 #: model:res.groups,name:ddmrp.group_change_buffer_procure_qty
@@ -323,6 +342,11 @@ msgid "Consumption"
 msgstr "Consumo"
 
 #. module: ddmrp
+#: model_terms:ir.ui.view,arch_db:ddmrp.ddmrp_duplicate_buffer_wizard
+msgid "Copy Ddmrp Stock Buffer"
+msgstr "Copia il buffer giacenza DDMRP"
+
+#. module: ddmrp
 #: model_terms:ir.ui.view,arch_db:ddmrp.stock_buffer_view_tree
 msgid "Create Procurement"
 msgstr "Crea approvvigionamento"
@@ -333,6 +357,7 @@ msgid "Created Purchase Order Line"
 msgstr "Riga ordine approvvigionamento creata"
 
 #. module: ddmrp
+#: model:ir.model.fields,field_description:ddmrp.field_ddmrp_duplicate_buffer__create_uid
 #: model:ir.model.fields,field_description:ddmrp.field_ddmrp_run__create_uid
 #: model:ir.model.fields,field_description:ddmrp.field_make_procurement_buffer__create_uid
 #: model:ir.model.fields,field_description:ddmrp.field_make_procurement_buffer_item__create_uid
@@ -345,6 +370,7 @@ msgid "Created by"
 msgstr "Creato da"
 
 #. module: ddmrp
+#: model:ir.model.fields,field_description:ddmrp.field_ddmrp_duplicate_buffer__create_date
 #: model:ir.model.fields,field_description:ddmrp.field_ddmrp_run__create_date
 #: model:ir.model.fields,field_description:ddmrp.field_make_procurement_buffer__create_date
 #: model:ir.model.fields,field_description:ddmrp.field_make_procurement_buffer_item__create_date
@@ -388,6 +414,11 @@ msgstr "Grafico DDMRP"
 #: model:ir.model.fields,field_description:ddmrp.field_stock_buffer__ddmrp_demand_chart
 msgid "DDMRP Demand Chart"
 msgstr "Grafico fabbisogno DDMRP"
+
+#. module: ddmrp
+#: model:ir.model,name:ddmrp.model_ddmrp_duplicate_buffer
+msgid "DDMRP Duplicate Buffer"
+msgstr "Duplica buffer DDMRP"
 
 #. module: ddmrp
 #: model:ir.model.fields,field_description:ddmrp.field_stock_buffer__ddmrp_chart_execution
@@ -458,6 +489,7 @@ msgid "Demand"
 msgstr "Fabbisogno"
 
 #. module: ddmrp
+#: model:ir.model.fields,field_description:ddmrp.field_ddmrp_duplicate_buffer__display_name
 #: model:ir.model.fields,field_description:ddmrp.field_ddmrp_run__display_name
 #: model:ir.model.fields,field_description:ddmrp.field_make_procurement_buffer__display_name
 #: model:ir.model.fields,field_description:ddmrp.field_make_procurement_buffer_item__display_name
@@ -474,6 +506,28 @@ msgstr "Nome visualizzato"
 #: model_terms:ir.ui.view,arch_db:ddmrp.stock_buffer_search
 msgid "Distributed"
 msgstr "Distribuito"
+
+#. module: ddmrp
+#: model_terms:ir.ui.view,arch_db:ddmrp.ddmrp_duplicate_buffer_wizard
+msgid "Duplicate"
+msgstr "Duplica"
+
+#. module: ddmrp
+#: model:ir.actions.act_window,name:ddmrp.action_server_ddmrp_duplicate_buffer
+msgid "Duplicate Buffer"
+msgstr "Duplica buffer"
+
+#. module: ddmrp
+#. odoo-python
+#: code:addons/ddmrp/wizards/ddmrp_duplicate_buffer.py:0
+#, python-format
+msgid "Duplicated Buffers"
+msgstr "Buffer duplicati"
+
+#. module: ddmrp
+#: model:ir.model.fields,field_description:ddmrp.field_ddmrp_duplicate_buffer__type
+msgid "Duplication Type"
+msgstr "Tipo duplicazione"
 
 #. module: ddmrp
 #. odoo-python
@@ -538,11 +592,6 @@ msgstr "ADU fisso"
 #: model:ir.model.fields,field_description:ddmrp.field_purchase_order_line__ddmrp_comment
 msgid "Follow-up Notes"
 msgstr "Note aggiornamento"
-
-#. module: ddmrp
-#: model:ir.model.fields,field_description:ddmrp.field_stock_buffer__virtual_location_qty
-msgid "Forecast On Location"
-msgstr "Previsto nell'ubicazione"
 
 #. module: ddmrp
 #: model:ir.model.fields,field_description:ddmrp.field_product_adu_calculation_method__factor_future
@@ -653,6 +702,7 @@ msgid "Hides on-hand status from purchase order line."
 msgstr "Nasconde stati disponibili da righe ordine acquisto."
 
 #. module: ddmrp
+#: model:ir.model.fields,field_description:ddmrp.field_ddmrp_duplicate_buffer__id
 #: model:ir.model.fields,field_description:ddmrp.field_ddmrp_run__id
 #: model:ir.model.fields,field_description:ddmrp.field_make_procurement_buffer__id
 #: model:ir.model.fields,field_description:ddmrp.field_make_procurement_buffer_item__id
@@ -699,11 +749,6 @@ msgid "Incoming (Within DLT)"
 msgstr "Ricezione (all'interno di DLT)"
 
 #. module: ddmrp
-#: model:ir.model.fields,field_description:ddmrp.field_stock_buffer__incoming_location_qty
-msgid "Incoming On Location"
-msgstr "In arrivo nell'ubicazione"
-
-#. module: ddmrp
 #: model_terms:ir.ui.view,arch_db:ddmrp.stock_buffer_view_tree
 msgid "Incoming Outside DLT"
 msgstr "In arrivo fuori da DLT"
@@ -731,8 +776,8 @@ msgstr "Indica quato si è lontani mediamente dall'obbiettivo"
 #. module: ddmrp
 #: model:ir.model.fields,help:ddmrp.field_stock_buffer__on_hand_target_position
 msgid ""
-"It denotes what the target stock on hand is. The computation is: OH Target ="
-" TOR + Green Zone / 2 "
+"It denotes what the target stock on hand is. The computation is: OH Target = "
+"TOR + Green Zone / 2 "
 msgstr ""
 "Indica qual'è l'obiettivo della giacenza disponibilità. Il calcolo è: "
 "obiettivo OH = TOR + zona verde / Z "
@@ -754,6 +799,7 @@ msgid "Items"
 msgstr "Articoli"
 
 #. module: ddmrp
+#: model:ir.model.fields,field_description:ddmrp.field_ddmrp_duplicate_buffer____last_update
 #: model:ir.model.fields,field_description:ddmrp.field_ddmrp_run____last_update
 #: model:ir.model.fields,field_description:ddmrp.field_make_procurement_buffer____last_update
 #: model:ir.model.fields,field_description:ddmrp.field_make_procurement_buffer_item____last_update
@@ -766,6 +812,7 @@ msgid "Last Modified on"
 msgstr "Ultima modifica il"
 
 #. module: ddmrp
+#: model:ir.model.fields,field_description:ddmrp.field_ddmrp_duplicate_buffer__write_uid
 #: model:ir.model.fields,field_description:ddmrp.field_ddmrp_run__write_uid
 #: model:ir.model.fields,field_description:ddmrp.field_make_procurement_buffer__write_uid
 #: model:ir.model.fields,field_description:ddmrp.field_make_procurement_buffer_item__write_uid
@@ -778,6 +825,7 @@ msgid "Last Updated by"
 msgstr "Ultimo aggiornamento di"
 
 #. module: ddmrp
+#: model:ir.model.fields,field_description:ddmrp.field_ddmrp_duplicate_buffer__write_date
 #: model:ir.model.fields,field_description:ddmrp.field_ddmrp_run__write_date
 #: model:ir.model.fields,field_description:ddmrp.field_make_procurement_buffer__write_date
 #: model:ir.model.fields,field_description:ddmrp.field_make_procurement_buffer_item__write_date
@@ -945,6 +993,16 @@ msgid "Net flow position (% of TOG)"
 msgstr "Posizione flusso netta (% di TOG)"
 
 #. module: ddmrp
+#: model:ir.model.fields,field_description:ddmrp.field_ddmrp_duplicate_buffer__location_id
+msgid "New Location"
+msgstr "Nuova ubicazione"
+
+#. module: ddmrp
+#: model:ir.model.fields,field_description:ddmrp.field_ddmrp_duplicate_buffer__product_id
+msgid "New Product"
+msgstr "Nuovo prodotto"
+
+#. module: ddmrp
 #. odoo-python
 #: code:addons/ddmrp/models/stock_buffer.py:0
 #, python-format
@@ -1038,11 +1096,6 @@ msgid "Order Spike Threshold"
 msgstr "Soglia picco ordine"
 
 #. module: ddmrp
-#: model:ir.model.fields,field_description:ddmrp.field_stock_buffer__outgoing_location_qty
-msgid "Outgoing On Location"
-msgstr "In uscita dall'ubicazione"
-
-#. module: ddmrp
 #: model:ir.actions.act_window,name:ddmrp.po_line_execution_action
 #: model:ir.ui.menu,name:ddmrp.menu_pol_execution
 msgid "PO lines On-Hand Status"
@@ -1119,6 +1172,20 @@ msgid "Please indicate a Past Source."
 msgstr "Indicare una origine passata."
 
 #. module: ddmrp
+#. odoo-python
+#: code:addons/ddmrp/wizards/ddmrp_duplicate_buffer.py:0
+#, python-format
+msgid "Please select a New Location."
+msgstr "Selezionare una nuova ubicazione."
+
+#. module: ddmrp
+#. odoo-python
+#: code:addons/ddmrp/wizards/ddmrp_duplicate_buffer.py:0
+#, python-format
+msgid "Please select a New Product."
+msgstr "Selezionare un nuovo prodotto."
+
+#. module: ddmrp
 #: model:ir.model.fields,field_description:ddmrp.field_stock_buffer__procure_recommended_qty
 msgid "Procure Recommendation"
 msgstr "Consiglio approvvigionamento"
@@ -1132,7 +1199,7 @@ msgstr "Approvvigionamento"
 #: model:ir.model,name:ddmrp.model_procurement_group
 #: model:ir.model.fields,field_description:ddmrp.field_stock_buffer__group_id
 msgid "Procurement Group"
-msgstr "Gruppo approvvigionamento"
+msgstr "Gruppo di approvvigionamento"
 
 #. module: ddmrp
 #: model_terms:ir.ui.view,arch_db:ddmrp.view_make_procurement_buffer_wizard
@@ -1260,11 +1327,6 @@ msgid "Quantity On Hand (Unreserved)"
 msgstr "Quantità disponibile (non riservata)"
 
 #. module: ddmrp
-#: model:ir.model.fields,field_description:ddmrp.field_stock_buffer__product_location_qty
-msgid "Quantity On Location"
-msgstr "Quantità nell'ubicazione"
-
-#. module: ddmrp
 #: model:ir.model.fields,help:ddmrp.field_stock_buffer__product_location_qty_available_not_res
 msgid ""
 "Quantity available in this stock buffer, this is the total quantity on hand "
@@ -1277,8 +1339,8 @@ msgstr ""
 #: model:ir.model.fields,help:ddmrp.field_stock_buffer__distributed_source_location_qty
 msgid ""
 "Quantity free for distributed buffer in the source location. When a "
-"procurement is requested, if the option is active on the profile, it will be"
-" limited to this quantity."
+"procurement is requested, if the option is active on the profile, it will be "
+"limited to this quantity."
 msgstr ""
 "Quantità disponibile per buffer distribuito nell'ubicazione origine. Quando "
 "viene richiesto un aprovvigionamento, se l'opzine è attiva nel profilo, "
@@ -1445,9 +1507,12 @@ msgstr "Fattori dimensione buffer secondari"
 #: model_terms:ir.ui.view,arch_db:ddmrp.res_config_settings_view_form
 msgid ""
 "Set a tolerance value to apply to quantity multiple in stock buffers.\n"
-"                                    If the quantity needed is below this tolerance threshold, the recommended\n"
-"                                    quantity will be reduced a bit instead of adding another bucket.\n"
-"                                    The value is a percentage of the quantity multiple."
+"                                    If the quantity needed is below this "
+"tolerance threshold, the recommended\n"
+"                                    quantity will be reduced a bit instead "
+"of adding another bucket.\n"
+"                                    The value is a percentage of the "
+"quantity multiple."
 msgstr ""
 "Impostare una tolleranza da applicare nei multipli quantità nei buffer di "
 "materiale.\n"
@@ -1481,8 +1546,7 @@ msgstr "Visualizza grafico esecuzione"
 #. module: ddmrp
 #: model:ir.model.fields,field_description:ddmrp.field_res_config_settings__module_ddmrp_coverage_days
 #: model_terms:ir.ui.view,arch_db:ddmrp.res_config_settings_view_form
-msgid ""
-"Shows the current on-hand for stock buffers expressed as coverage days."
+msgid "Shows the current on-hand for stock buffers expressed as coverage days."
 msgstr ""
 "Visualizza la disponibilità attuale per buffer di materiale espressa in "
 "giorni di copertura."
@@ -1614,8 +1678,8 @@ msgstr "Disponibilità obiettivo (massimo)"
 #. module: ddmrp
 #: model_terms:ir.ui.view,arch_db:ddmrp.stock_buffer_view_form
 msgid ""
-"The green zone determines the average order frequency and the order size. It"
-" is determined as the maximum of the following three factors: Minimum Order "
+"The green zone determines the average order frequency and the order size. It "
+"is determined as the maximum of the following three factors: Minimum Order "
 "Cycle, Lead Time Factor and Minimum Order Quantity."
 msgstr ""
 "La zona verde definisce la frequenza media ordine e la dimensione ordine. "
@@ -1643,11 +1707,20 @@ msgstr ""
 "0, verrà utilizzata la quantità esatta."
 
 #. module: ddmrp
+#: model:ir.model.constraint,message:ddmrp.constraint_stock_buffer_stock_buffer_uniq
+msgid ""
+"The product/location combination must be unique.Remember that the buffer "
+"could be archived."
+msgstr ""
+"La combinazione prdotto/bicazine deve essere univoco. Ricordarsi che il "
+"buffer deve essere archiviato."
+
+#. module: ddmrp
 #: model_terms:ir.ui.view,arch_db:ddmrp.stock_buffer_view_form
 msgid ""
 "The red zone is the embedded safety in the buffer. The larger the "
-"variability associated with the product, the larger the red zone will be. It"
-" is composed of two sub-zones: Red base and red safety."
+"variability associated with the product, the larger the red zone will be. It "
+"is composed of two sub-zones: Red base and red safety."
 msgstr ""
 "La zona rossa è quella inclusa nel buffer. Maggiore è la variabilità "
 "associata al prodotto, maggiore sarà la zona rossa. È composta da due sotto "
@@ -1672,6 +1745,7 @@ msgid "Top Of Yellow"
 msgstr "Superiore della gialla"
 
 #. module: ddmrp
+#: model:ir.model.fields,field_description:ddmrp.field_stock_buffer__incoming_total_qty
 #: model_terms:ir.ui.view,arch_db:ddmrp.stock_buffer_view_tree
 msgid "Total Incoming"
 msgstr "Totale in ingresso"
@@ -1738,7 +1812,8 @@ msgstr "Usa imballi nei buffer di materiale."
 msgid ""
 "Use this assistant to generate a procurement request for this\n"
 "                    stock buffer. According to the product configuration,\n"
-"                    this may trigger a draft purchase order, a manufacturing\n"
+"                    this may trigger a draft purchase order, a "
+"manufacturing\n"
 "                    order or a transfer picking."
 msgstr ""
 "Usa questo assistente per generare una richiesta di approvvigionamento per\n"
@@ -1771,13 +1846,23 @@ msgstr "Codice fornitore"
 
 #. module: ddmrp
 #: model_terms:ir.ui.view,arch_db:ddmrp.stock_buffer_view_form
-msgid "View ADU (Future)"
-msgstr "Visualizza ADU (futuro)"
+msgid "View ADU (Future - Direct Demand)"
+msgstr "Visalizza ADU (futuro - fabbisogno diretto)"
 
 #. module: ddmrp
 #: model_terms:ir.ui.view,arch_db:ddmrp.stock_buffer_view_form
-msgid "View ADU (Past)"
-msgstr "Visualizza ADU (passato)"
+msgid "View ADU (Future - Indirect Demand)"
+msgstr "Visalizza ADU (futuro - fabbisogno indiretto)"
+
+#. module: ddmrp
+#: model_terms:ir.ui.view,arch_db:ddmrp.stock_buffer_view_form
+msgid "View ADU (Past - Direct Demand)"
+msgstr "Visalizza ADU (passato- fabbisogno diretto)"
+
+#. module: ddmrp
+#: model_terms:ir.ui.view,arch_db:ddmrp.stock_buffer_view_form
+msgid "View ADU (Past - Indirect Demand)"
+msgstr "Visalizza ADU (passato- fabbisogno indiretto)"
 
 #. module: ddmrp
 #: model_terms:ir.ui.view,arch_db:ddmrp.stock_buffer_view_form
@@ -1814,15 +1899,21 @@ msgstr ""
 #. module: ddmrp
 #: model:ir.model.fields,help:ddmrp.field_stock_buffer__extra_lead_time
 msgid ""
-"When defined, this lead time will be added to the decoupled lead time for the computation of the zones size (it won't affect planned date for procurements).\n"
-"This is particularly useful in situations of infrequent but periodic demand. E.g. We receive a large order every 30 days, whereas the supplier takes 10 days to supply. \n"
-"In this case the yellow zone must cover for the entire cycle of 30 days of demand.\n"
-"In situations with infrequent demand the ADU tends to be very small, and every new order would be treated as a spike, when \n"
+"When defined, this lead time will be added to the decoupled lead time for "
+"the computation of the zones size (it won't affect planned date for "
+"procurements).\n"
+"This is particularly useful in situations of infrequent but periodic demand. "
+"E.g. We receive a large order every 30 days, whereas the supplier takes 10 "
+"days to supply. \n"
+"In this case the yellow zone must cover for the entire cycle of 30 days of "
+"demand.\n"
+"In situations with infrequent demand the ADU tends to be very small, and "
+"every new order would be treated as a spike, when \n"
 "in reality this is not an exceptional situation."
 msgstr ""
 "Quando definita, questo tempo di attraversamento verrà aggiunto al tempo di "
-"attraversamento disaccoppiato per il calcolo della dimensione delle zone ("
-"non interesserà le date pianificate per gli approvvigionamenti).\n"
+"attraversamento disaccoppiato per il calcolo della dimensione delle zone "
+"(non interesserà le date pianificate per gli approvvigionamenti).\n"
 "Questo è particolarmente utile nelle situazioni di richieste periodice ma "
 "non frequenti. Es. quando si ricevono grandi ordini ogni 30 giorni, quando "
 "il fornitore rifornisce ogni 10 giorni.\n"
@@ -1865,8 +1956,8 @@ msgstr ""
 msgid ""
 "When you request procurement from a buffer, their scheduled date is "
 "rescheduled to now + this procurement time (in minutes). Their scheduled "
-"date represents the latest the transfers should be done, and therefore, past"
-" this timestamp, considered late."
+"date represents the latest the transfers should be done, and therefore, past "
+"this timestamp, considered late."
 msgstr ""
 "Quando si richiedono approvvigionamenti da un buffer, la loro data "
 "schedulata è rischedulata ad ora + questo tempo di attraversamento (in "
@@ -1945,3 +2036,21 @@ msgstr "giorni"
 #: model_terms:ir.ui.view,arch_db:ddmrp.view_run_ddmrp_wizard
 msgid "or"
 msgstr "o"
+
+#~ msgid "Forecast On Location"
+#~ msgstr "Previsto nell'ubicazione"
+
+#~ msgid "Incoming On Location"
+#~ msgstr "In arrivo nell'ubicazione"
+
+#~ msgid "Outgoing On Location"
+#~ msgstr "In uscita dall'ubicazione"
+
+#~ msgid "Quantity On Location"
+#~ msgstr "Quantità nell'ubicazione"
+
+#~ msgid "View ADU (Future)"
+#~ msgstr "Visualizza ADU (futuro)"
+
+#~ msgid "View ADU (Past)"
+#~ msgstr "Visualizza ADU (passato)"

@@ -772,7 +772,8 @@ class TestDdmrp(TestDdmrpCommon):
         self.assertEqual(self.buffer_purchase.procure_recommended_qty, 0)
 
     def test_27_qty_multiple_tolerance(self):
-        buffer = self.bufferModel.create(
+        original_vals = self.buffer_purchase.read()[0]
+        self.buffer_purchase.update(
             {
                 "buffer_profile_id": self.buffer_profile_override.id,
                 "product_id": self.product_purchased.id,
@@ -788,21 +789,23 @@ class TestDdmrp(TestDdmrpCommon):
         )
         date_move = datetime.today()
         self.create_picking_out(self.product_purchased, date_move, 2)
-        buffer.cron_actions()
-        self.assertEqual(buffer.net_flow_position, -2.0)
-        self.assertEqual(buffer.procure_recommended_qty, 500)
+        self.buffer_purchase.cron_actions()
+        self.assertEqual(self.buffer_purchase.net_flow_position, -2.0)
+        self.assertEqual(self.buffer_purchase.procure_recommended_qty, 500)
         # Set the tolerance
-        buffer.company_id.ddmrp_qty_multiple_tolerance = 10.0
+        self.buffer_purchase.company_id.ddmrp_qty_multiple_tolerance = 10.0
         # Tolerance: 10% 250 = 25, strictly needed 272 (under tolerance)
-        buffer.cron_actions()
-        self.assertEqual(buffer.procure_recommended_qty, 250)
+        self.buffer_purchase.cron_actions()
+        self.assertEqual(self.buffer_purchase.procure_recommended_qty, 250)
         # Add more demand
         self.create_picking_out(self.product_purchased, date_move, 20)
-        buffer.cron_actions()
-        self.assertEqual(buffer.net_flow_position, -22.0)
+        self.buffer_purchase.cron_actions()
+        self.assertEqual(self.buffer_purchase.net_flow_position, -22.0)
         # Tolerance: 10% 250 = 25, strictly needed 294 (above tolerance)
-        buffer.cron_actions()
-        self.assertEqual(buffer.procure_recommended_qty, 500)
+        self.buffer_purchase.cron_actions()
+        self.assertEqual(self.buffer_purchase.procure_recommended_qty, 500)
+        original_vals.pop("id")
+        self.buffer_purchase.update(original_vals)
 
     def test_28_lead_days(self):
         self._check_red_zone(
@@ -1060,3 +1063,98 @@ class TestDdmrp(TestDdmrpCommon):
             buffer_distributed.distributed_source_location_id,
             self.warehouse.lot_stock_id,
         )
+
+    def test_45_adu_calculation_blended_120_days_estimated_mrp(self):
+        """Test blended ADU calculation method with direct and indirect demand."""
+        mrpMoveModel = self.env["mrp.move"]
+        mrpAreaModel = self.env["mrp.area"]
+        productMrpAreaModel = self.env["product.mrp.area"]
+        method = self.aducalcmethodModel.create(
+            {
+                "name": "Blended (120 d. estimates_mrp past, 120 d. estimates_mrp future)",
+                "method": "blended",
+                "source_past": "estimates_mrp",
+                "horizon_past": 120,
+                "factor_past": 0.5,
+                "source_future": "estimates_mrp",
+                "horizon_future": 120,
+                "factor_future": 0.5,
+                "company_id": self.main_company.id,
+            }
+        )
+        self.buffer_a.adu_calculation_method = method.id
+        mrp_area_id = mrpAreaModel.create(
+            {
+                "name": "WH/Stock",
+                "warehouse_id": self.warehouse.id,
+                "location_id": self.stock_location.id,
+            }
+        )
+        product_mrp_area_id = productMrpAreaModel.create(
+            {
+                "mrp_area_id": mrp_area_id.id,
+                "product_id": self.productA.id,
+            }
+        )
+        today = fields.Date.today()
+
+        # Past.
+        # create estimate: 120 units / 120 days = 1 unit/day
+        # create mrp move: 120 units / 120 days = 1 unit/day
+        dt = self.calendar.plan_days(-1 * 120, datetime.today())
+        estimate_date_from = dt.date()
+        estimate_date_to = self.calendar.plan_days(-1 * 2, datetime.today())
+        self.estimateModel.create(
+            {
+                "manual_date_from": estimate_date_from,
+                "manual_date_to": estimate_date_to,
+                "product_id": self.productA.id,
+                "product_uom_qty": 120,
+                "product_uom": self.productA.uom_id.id,
+                "location_id": self.stock_location.id,
+            }
+        )
+        mrpMoveModel.create(
+            {
+                "mrp_area_id": product_mrp_area_id.mrp_area_id.id,
+                "product_id": product_mrp_area_id.product_id.id,
+                "product_mrp_area_id": product_mrp_area_id.id,
+                "mrp_qty": -120,
+                "current_qty": 0,
+                "mrp_date": today - timedelta(days=5),
+                "current_date": None,
+                "mrp_type": "d",
+                "mrp_origin": "mrp",
+            }
+        )
+
+        # Future.
+        # create estimate: 120 units / 120 days = 1 unit/day
+        # create mrp move: 120 units / 120 days = 1 unit/day
+        self.estimateModel.create(
+            {
+                "manual_date_from": self.estimate_date_from,
+                "manual_date_to": self.estimate_date_to,
+                "product_id": self.productA.id,
+                "product_uom_qty": 120,
+                "product_uom": self.productA.uom_id.id,
+                "location_id": self.stock_location.id,
+            }
+        )
+        mrpMoveModel.create(
+            {
+                "mrp_area_id": product_mrp_area_id.mrp_area_id.id,
+                "product_id": product_mrp_area_id.product_id.id,
+                "product_mrp_area_id": product_mrp_area_id.id,
+                "mrp_qty": -120,
+                "current_qty": 0,
+                "mrp_date": today + timedelta(days=5),
+                "current_date": None,
+                "mrp_type": "d",
+                "mrp_origin": "mrp",
+            }
+        )
+
+        self.bufferModel.cron_ddmrp_adu()
+        to_assert_value = 2 * 0.5 + 2 * 0.5
+        self.assertEqual(self.buffer_a.adu, to_assert_value)

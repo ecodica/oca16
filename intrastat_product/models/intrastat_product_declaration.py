@@ -411,7 +411,7 @@ class IntrastatProductDeclaration(models.Model):
         If none found, get the company's default intrastat region.
 
         """
-        region = False
+        region = self.env["intrastat.region"]
         move_type = inv_line.move_id.move_type
         if move_type in ("in_invoice", "in_refund"):
             po_line = self.env["purchase.order.line"].search(
@@ -465,15 +465,16 @@ class IntrastatProductDeclaration(models.Model):
             )
         return origin_country
 
-    def _get_vat(self, inv_line, notedict):
-        vat = False
+    def _get_partner_and_warn_vat(self, inv_line, notedict):
         inv = inv_line.move_id
-        if (
-            self.declaration_type == "dispatches"
-            and inv_line.move_id.fiscal_position_id.vat_required
-        ):
-            partner = inv.commercial_partner_id
-            vat = partner.vat
+        partner = (
+            inv.partner_shipping_id
+            and inv.partner_shipping_id.commercial_partner_id
+            or inv.commercial_partner_id
+        )
+        # Warnings about VAT
+        vat = partner.vat
+        if self.declaration_type == "dispatches":
             if vat:
                 if vat.startswith("GB"):
                     msg = _(
@@ -495,7 +496,7 @@ class IntrastatProductDeclaration(models.Model):
                 notedict["partner"][partner.display_name][msg].add(
                     notedict["inv_origin"]
                 )
-        return vat
+        return partner
 
     def _update_computation_line_vals(self, inv_line, line_vals, notedict):
         """placeholder for localization modules"""
@@ -690,11 +691,11 @@ class IntrastatProductDeclaration(models.Model):
                     )
 
                 region_code = self._get_region_code(inv_line, notedict)
-                region = False
+                region = self.env["intrastat.region"]
                 if not region_code:
                     region = self._get_region(inv_line, notedict)
 
-                vat = self._get_vat(inv_line, notedict)
+                partner = self._get_partner_and_warn_vat(inv_line, notedict)
 
                 line_vals = {
                     "parent_id": self.id,
@@ -708,10 +709,9 @@ class IntrastatProductDeclaration(models.Model):
                     "amount_accessory_cost_company_currency": 0.0,
                     "transaction_id": intrastat_transaction.id,
                     "product_origin_country_id": product_origin_country.id or False,
-                    "region_code": region_code,
+                    "region_code": region_code or region.code,
                     "region_id": region and region.id or False,
-                    "vat": vat,
-                    "partner_id": invoice.commercial_partner_id.id,
+                    "partner_id": partner.id,
                 }
 
                 # extended declaration
@@ -1039,7 +1039,9 @@ class IntrastatProductComputationLine(models.Model):
     region_id = fields.Many2one("intrastat.region", string="Intrastat Region")
     # Note that, in l10n_fr_intrastat_product and maybe in other localization modules
     # region_id is left empty and Odoo writes directly in region_code
-    region_code = fields.Char()
+    region_code = fields.Char(
+        compute="_compute_region_code", store=True, readonly=False
+    )
     product_origin_country_id = fields.Many2one(
         "res.country",
         string="Country of Origin of the Product",
@@ -1054,16 +1056,21 @@ class IntrastatProductComputationLine(models.Model):
         help="2 letters ISO code of the country of origin of the product.\n"
         "Specify 'QU' when the country of origin is unknown.\n",
     )
-    vat = fields.Char(string="VAT Number")
+    vat = fields.Char(
+        compute="_compute_vat",
+        store=True,
+        readonly=False,
+        string="VAT Number",
+    )
 
     # extended declaration
     incoterm_id = fields.Many2one("account.incoterms", string="Incoterm")
     transport_id = fields.Many2one("intrastat.transport_mode", string="Transport Mode")
 
-    @api.onchange("region_id")
-    def _region_id_change(self):
-        if self.region_id:
-            self.region_code = self.region_id.code
+    @api.depends("region_id")
+    def _compute_region_code(self):
+        for this in self:
+            this.region_code = this.region_id and this.region_id.code or False
 
     @api.depends("src_dest_country_id")
     def _compute_src_dest_country_code(self):
@@ -1093,10 +1100,17 @@ class IntrastatProductComputationLine(models.Model):
             if this.vat and not is_valid(this.vat):
                 raise ValidationError(_("The VAT number '%s' is invalid.") % this.vat)
 
-    @api.onchange("partner_id")
-    def partner_id_change(self):
-        if self.partner_id and self.partner_id.vat:
-            self.vat = self.partner_id.vat
+    @api.depends("partner_id")
+    def _compute_vat(self):
+        for this in self:
+            vat = False
+            if (
+                this.partner_id
+                and this.partner_id.vat
+                and this.parent_id.declaration_type == "dispatches"
+            ):
+                vat = this.partner_id.vat
+            this.vat = vat
 
     def _group_line_hashcode_fields(self):
         self.ensure_one()
@@ -1149,11 +1163,16 @@ class IntrastatProductComputationLine(models.Model):
                 computation_line["amount_company_currency"]
                 + computation_line["amount_accessory_cost_company_currency"]
             )
-        # round, otherwise odoo with truncate (6.7 -> 6... instead of 7 !)
+        # on computation lines, weight and suppl_unit_qty are floats
+        # on declaration lines, weight and suppl_unit_qty are integer => so we must round()
         for field in fields_to_sum:
             vals[field] = int(round(vals[field]))
+        # the intrastat specs say that, if the value is between 0 and 0.5,
+        # it should be rounded to 1
         if not vals["weight"]:
             vals["weight"] = 1
+        if vals["intrastat_unit_id"] and not vals["suppl_unit_qty"]:
+            vals["suppl_unit_qty"] = 1
         vals["amount_company_currency"] = int(round(vals["amount_company_currency"]))
         return vals
 

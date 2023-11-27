@@ -117,18 +117,18 @@ class TierValidation(models.AbstractModel):
     def _search_validated(self, operator, value):
         assert operator in ("=", "!="), "Invalid domain operator"
         assert value in (True, False), "Invalid domain value"
-        pos = self.search([(self._state_field, "in", self._state_from)]).filtered(
-            lambda r: r.review_ids and r.validated == value
-        )
+        pos = self.search(
+            [(self._state_field, "in", self._state_from), ("review_ids", "!=", False)]
+        ).filtered(lambda r: r.validated == value)
         return [("id", "in", pos.ids)]
 
     @api.model
     def _search_rejected(self, operator, value):
         assert operator in ("=", "!="), "Invalid domain operator"
         assert value in (True, False), "Invalid domain value"
-        pos = self.search([(self._state_field, "in", self._state_from)]).filtered(
-            lambda r: r.review_ids and r.rejected == value
-        )
+        pos = self.search(
+            [(self._state_field, "in", self._state_from), ("review_ids", "!=", False)]
+        ).filtered(lambda r: r.rejected == value)
         return [("id", "in", pos.ids)]
 
     @api.model
@@ -218,7 +218,12 @@ class TierValidation(models.AbstractModel):
             if isinstance(rec.id, models.NewId):
                 rec.need_validation = False
                 continue
-            tiers = self.env["tier.definition"].search([("model", "=", self._name)])
+            tiers = self.env["tier.definition"].search(
+                [
+                    ("model", "=", self._name),
+                    ("company_id", "in", [False] + self.env.company.ids),
+                ]
+            )
             valid_tiers = any([rec.evaluate_tier(tier) for tier in tiers])
             rec.need_validation = (
                 not rec.review_ids and valid_tiers and rec._check_state_from_condition()
@@ -375,7 +380,9 @@ class TierValidation(models.AbstractModel):
     def validate_tier(self):
         self.ensure_one()
         sequences = self._get_sequences_to_approve(self.env.user)
-        reviews = self.review_ids.filtered(lambda l: l.sequence in sequences)
+        reviews = self.review_ids.filtered(
+            lambda l: l.sequence in sequences or l.approve_sequence_bypass
+        )
         if self.has_comment:
             return self._add_comment("validate", reviews)
         self._validate_tier(reviews)
@@ -435,7 +442,7 @@ class TierValidation(models.AbstractModel):
         subscribe = "message_subscribe"
         post = "message_post"
         if hasattr(self, post) and hasattr(self, subscribe):
-            for rec in self:
+            for rec in self.sudo():
                 users_to_notify = tier_reviews.filtered(
                     lambda r: r.definition_id.notify_on_create and r.res_id == rec.id
                 ).mapped("reviewer_ids")
@@ -455,7 +462,11 @@ class TierValidation(models.AbstractModel):
             if rec._check_state_from_condition():
                 if rec.need_validation:
                     tier_definitions = td_obj.search(
-                        [("model", "=", self._name)], order="sequence desc"
+                        [
+                            ("model", "=", self._name),
+                            ("company_id", "in", [False] + self.env.company.ids),
+                        ],
+                        order="sequence desc",
                     )
                     sequence = 0
                     for td in tier_definitions:
