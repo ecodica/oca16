@@ -7,13 +7,15 @@ from odoo.exceptions import UserError
 from odoo.tests import common
 from odoo.tests.common import tagged
 
+from odoo.addons.base.tests.common import DISABLED_MAIL_CONTEXT
+
 
 @tagged("post_install", "-at_install")
 class TierTierValidation(common.TransactionCase):
     @classmethod
     def setUpClass(cls):
         super(TierTierValidation, cls).setUpClass()
-
+        cls.env = cls.env(context=dict(cls.env.context, **DISABLED_MAIL_CONTEXT))
         cls.loader = FakeModelLoader(cls.env, cls.__module__)
         cls.loader.backup_registry()
         from odoo.addons.base_tier_validation.tests.tier_validation_tester import (
@@ -42,13 +44,18 @@ class TierTierValidation(common.TransactionCase):
         # Create users:
         group_ids = cls.env.ref("base.group_system").ids
         cls.test_user_1 = cls.env["res.users"].create(
-            {"name": "John", "login": "test1", "groups_id": [(6, 0, group_ids)]}
+            {
+                "name": "John",
+                "login": "test1",
+                "groups_id": [(6, 0, group_ids)],
+                "email": "john@yourcompany.example.com",
+            }
         )
         cls.test_user_2 = cls.env["res.users"].create(
-            {"name": "Mike", "login": "test2"}
+            {"name": "Mike", "login": "test2", "email": "mike@yourcompany.example.com"}
         )
         cls.test_user_3 = cls.env["res.users"].create(
-            {"name": "Mary", "login": "test3"}
+            {"name": "Mary", "login": "test3", "email": "mary@yourcompany.example.com"}
         )
 
         # Create tier definitions:

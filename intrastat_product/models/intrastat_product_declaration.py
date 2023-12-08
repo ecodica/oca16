@@ -491,7 +491,7 @@ class IntrastatProductDeclaration(models.Model):
                     notedict["partner"][partner.display_name][msg].add(
                         notedict["inv_origin"]
                     )
-            else:
+            elif inv.fiscal_position_id.intrastat != "b2c":
                 msg = _("Missing <em>VAT Number</em>")
                 notedict["partner"][partner.display_name][msg].add(
                     notedict["inv_origin"]
@@ -935,6 +935,30 @@ class IntrastatProductDeclaration(models.Model):
 
         """
         return {}
+
+    @api.model
+    def _get_xlsx_report_filename(self):
+        self.ensure_one()
+        declaration_type_label = dict(
+            self.fields_get("declaration_type", "selection")["declaration_type"][
+                "selection"
+            ]
+        )[self.declaration_type]
+        draft_label = ""
+        if self.state == "draft":
+            draft_label = (
+                "-%s"
+                % dict(self.fields_get("state", "selection")["state"]["selection"])[
+                    self.state
+                ]
+            )
+        filename = _(
+            "intrastat-%(year_month)s-%(declaration_type)s%(draft)s",
+            year_month=self.year_month,
+            declaration_type=declaration_type_label,
+            draft=draft_label,
+        )
+        return filename
 
     def done(self):
         for decl in self:
