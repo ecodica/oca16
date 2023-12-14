@@ -73,7 +73,7 @@ class AccountEdiXmlCIUSRO(models.Model):
 
     def _get_invoice_line_price_vals(self, line):
         vals = super()._get_invoice_line_price_vals(line)
-        vals["base_quantity"] = line.quantity
+        vals["base_quantity"] = 1.0
         return vals
 
     def _export_invoice_vals(self, invoice):
@@ -151,7 +151,7 @@ class AccountEdiXmlCIUSRO(models.Model):
                 partner.country_code == "RO"
                 and partner.state_id
                 and partner.state_id.code == "B"
-                and partner.city.upper() not in SECTOR_RO_CODES
+                and partner.city.replace(" ", "").upper() not in SECTOR_RO_CODES
             ):
                 constraints[f"ciusro_{partner_type}_invalid_city_name"] = _(
                     "The following partner's city name is invalid: %s. "
