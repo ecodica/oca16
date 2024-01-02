@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: Odoo Server 10.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-12-01 02:19+0000\n"
-"PO-Revision-Date: 2023-12-11 15:34+0000\n"
+"PO-Revision-Date: 2023-12-31 20:37+0000\n"
 "Last-Translator: mymage <stefano.consolaro@mymage.it>\n"
 "Language-Team: Italian (https://www.transifex.com/oca/teams/23907/it/)\n"
 "Language: it\n"
@@ -105,8 +105,8 @@ msgid "Bounced"
 msgstr "Rimbalzato"
 
 #. module: mail_tracking
-#. odoo-python
 #. odoo-javascript
+#. odoo-python
 #: code:addons/mail_tracking/models/mail_thread.py:0
 #: code:addons/mail_tracking/static/src/components/discuss/discuss.xml:0
 #: model:ir.model.fields,field_description:mail_tracking.field_mail_message__email_cc
@@ -850,7 +850,7 @@ msgstr "Utente:"
 #: code:addons/mail_tracking/models/mail_message.py:0
 #, python-format
 msgid "Waiting"
-msgstr "Attesa"
+msgstr "In attesa"
 
 #. module: mail_tracking
 #. odoo-javascript
