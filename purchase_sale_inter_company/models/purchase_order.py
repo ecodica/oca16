@@ -3,12 +3,29 @@
 # Copyright 2018-2019 Tecnativa - Carlos Dauden
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 
-from odoo import _, models
+from odoo import _, fields, models
 from odoo.exceptions import UserError
 
 
 class PurchaseOrder(models.Model):
     _inherit = "purchase.order"
+
+    intercompany_sale_order_id = fields.Many2one(
+        comodel_name="sale.order",
+        compute="_compute_intercompany_sale_order_id",
+        compute_sudo=True,
+    )
+
+    def _compute_intercompany_sale_order_id(self):
+        """A One2many would be simpler, but the record rules make unaccesible for
+        regular users so the logic doesn't work properly"""
+        ids_dict_list = self.env["sale.order"].search_read(
+            [("auto_purchase_order_id", "in", self.ids)],
+            ["id", "auto_purchase_order_id"],
+        )
+        ids_dict = {d["auto_purchase_order_id"][0]: d["id"] for d in ids_dict_list}
+        for order in self:
+            order.intercompany_sale_order_id = ids_dict.get(order.id, False)
 
     def button_approve(self, force=False):
         """Generate inter company sale order base on conditions."""
@@ -39,17 +56,7 @@ class PurchaseOrder(models.Model):
         dest_user = self.env["res.users"].search(domain, limit=1)
         if dest_user:
             for purchase_line in self.order_line:
-                if (
-                    purchase_line.product_id.company_id
-                    and purchase_line.product_id.company_id not in dest_user.company_ids
-                ):
-                    raise UserError(
-                        _(
-                            "You cannot create SO from PO because product '%s' "
-                            "is not intercompany"
-                        )
-                        % purchase_line.product_id.name
-                    )
+                purchase_line._check_intercompany_product(dest_user, dest_company)
 
     def _inter_company_create_sale_order(self, dest_company):
         """Create a Sale Order from the current PO (self)
