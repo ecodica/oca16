@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 16.0\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-12-12 11:33+0000\n"
+"PO-Revision-Date: 2024-01-18 11:33+0000\n"
 "Last-Translator: mymage <stefano.consolaro@mymage.it>\n"
 "Language-Team: none\n"
 "Language: it\n"
@@ -66,11 +66,7 @@ msgid "If you need to edit the images, do it from the product template."
 msgstr "Se è necessario modificare le immagini, farlo dal modello prodotto."
 
 #. module: fs_product_multi_image
-#: model:ir.model.fields,field_description:fs_product_multi_image.field_fs_product_category_image__image
-#: model:ir.model.fields,field_description:fs_product_multi_image.field_fs_product_image__image
-#: model:ir.model.fields,field_description:fs_product_multi_image.field_product_category__image
-#: model:ir.model.fields,field_description:fs_product_multi_image.field_product_product__image
-#: model:ir.model.fields,field_description:fs_product_multi_image.field_product_template__image
+#: model_terms:ir.ui.view,arch_db:fs_product_multi_image.product_template_only_form_view
 msgid "Image"
 msgstr "Immagine"
 
@@ -80,8 +76,17 @@ msgstr "Immagine"
 #: model:ir.model.fields,field_description:fs_product_multi_image.field_product_category__image_medium
 #: model:ir.model.fields,field_description:fs_product_multi_image.field_product_product__image_medium
 #: model:ir.model.fields,field_description:fs_product_multi_image.field_product_template__image_medium
-msgid "Image 128"
+msgid "Image (128)"
 msgstr "Immagine 128"
+
+#. module: fs_product_multi_image
+#: model:ir.model.fields,field_description:fs_product_multi_image.field_fs_product_category_image__image
+#: model:ir.model.fields,field_description:fs_product_multi_image.field_fs_product_image__image
+#: model:ir.model.fields,field_description:fs_product_multi_image.field_product_category__image
+#: model:ir.model.fields,field_description:fs_product_multi_image.field_product_product__image
+#: model:ir.model.fields,field_description:fs_product_multi_image.field_product_template__image
+msgid "Image (original)"
+msgstr "Immagine (originale)"
 
 #. module: fs_product_multi_image
 #: model:ir.model,name:fs_product_multi_image.model_image_tag
@@ -199,8 +204,8 @@ msgstr "Immagine specifica"
 #. module: fs_product_multi_image
 #: model:ir.model.fields,field_description:fs_product_multi_image.field_fs_product_category_image__specific_image_medium
 #: model:ir.model.fields,field_description:fs_product_multi_image.field_fs_product_image__specific_image_medium
-msgid "Specific Image 128"
-msgstr "Immagine specifica 128"
+msgid "Specific Image (128)"
+msgstr "Immagine specifica (128)"
 
 #. module: fs_product_multi_image
 #: model:ir.model.fields,field_description:fs_product_multi_image.field_fs_product_category_image__tag_id
@@ -212,3 +217,9 @@ msgstr "Etichetta"
 #: model:ir.model.fields,field_description:fs_product_multi_image.field_product_product__variant_image_ids
 msgid "Variant Images"
 msgstr "Immagine variante"
+
+#~ msgid "Image 128"
+#~ msgstr "Immagine 128"
+
+#~ msgid "Specific Image 128"
+#~ msgstr "Immagine specifica 128"
