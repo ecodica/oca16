@@ -1,6 +1,9 @@
 {
     "ref": "0001",
     "name": "Adam Smith",
+    "name2": "Name 2",
+    "name3": "Name 3",
+    "name4": "Name 4",
     "street": "3273 Laurel Lane",
     "street2": "",
     "zip": "79782",

@@ -63,8 +63,8 @@ grammar = OrderedDict(
             "length": 5,
             "dp": False,
             "ubl_path": False,
-            "df_val": "HOST",
-            "df_func": False,
+            "df_val": False,
+            "df_func": "get_source",
         },
         "RxKretk_ExtRef": {
             "type": "str",
@@ -79,7 +79,7 @@ grammar = OrderedDict(
             "length": 6,
             "dp": False,
             "ubl_path": False,
-            "df_val": "STDMAN",
+            "df_val": "RETCLI",
             "df_func": False,
         },
         "RxKretk_KST_Mand": {
@@ -103,10 +103,9 @@ grammar = OrderedDict(
             "type": "str",
             "length": 40,
             "dp": False,
-            "ubl_path": "DespatchAdvice.cac:DespatchSupplierParty."
-            "cac:Party.cac:PartyName.cbc:Name",
+            "ubl_path": False,
             "df_val": False,
-            "df_func": False,
+            "df_func": "supplier_get_Adrs_Name",
         },
         "RxKretk_Adrs_Name2": {
             "type": "str",
@@ -114,7 +113,7 @@ grammar = OrderedDict(
             "dp": False,
             "ubl_path": False,
             "df_val": False,
-            "df_func": False,
+            "df_func": "supplier_get_Adrs_Name2",
         },
         "RxKretk_Adrs_Name3": {
             "type": "str",
@@ -122,7 +121,7 @@ grammar = OrderedDict(
             "dp": False,
             "ubl_path": False,
             "df_val": False,
-            "df_func": False,
+            "df_func": "supplier_get_Adrs_Name3",
         },
         "RxKretk_Adrs_Name4": {
             "type": "str",
@@ -130,13 +129,14 @@ grammar = OrderedDict(
             "dp": False,
             "ubl_path": False,
             "df_val": False,
-            "df_func": False,
+            "df_func": "supplier_get_Adrs_Name4",
         },
         "RxKretk_Adrs_Anrede": {
             "type": "str",
             "length": 15,
             "dp": False,
-            "ubl_path": False,
+            "ubl_path": "DespatchAdvice.cac:DespatchSupplierParty."
+            "cac:Party.cac:Contact.cbc:Title",
             "df_val": False,
             "df_func": False,
         },
@@ -144,17 +144,15 @@ grammar = OrderedDict(
             "type": "str",
             "length": 40,
             "dp": False,
-            "ubl_path": "DespatchAdvice.cac:DespatchSupplierParty."
-            "cac:Party.cac:PostalAddress.cbc:StreetName",
+            "ubl_path": False,
             "df_val": False,
-            "df_func": False,
+            "df_func": "supplier_get_Adrs_Adr",
         },
         "RxKretk_Adrs_Adr2": {
             "type": "str",
             "length": 40,
             "dp": False,
-            "ubl_path": "DespatchAdvice.cac:DespatchSupplierParty."
-            "cac:Party.cac:PostalAddress.cbc:CountrySubentity",
+            "ubl_path": False,
             "df_val": False,
             "df_func": False,
         },
@@ -202,21 +200,21 @@ grammar = OrderedDict(
             "df_val": False,
             "df_func": False,
         },
-        "RxKretk_Adrs_Fax": {
-            "type": "str",
-            "length": 35,
-            "dp": False,
-            "ubl_path": "DespatchAdvice.cac:DespatchSupplierParty."
-            "cac:Party.cac:Contact.cbc:Telefax",
-            "df_val": False,
-            "df_func": False,
-        },
         "RxKretk_Adrs_Email": {
             "type": "str",
             "length": 40,
             "dp": False,
             "ubl_path": "DespatchAdvice.cac:DespatchSupplierParty."
             "cac:Party.cac:Contact.cbc:ElectronicMail",
+            "df_val": False,
+            "df_func": False,
+        },
+        "RxKretk_Adrs_Fax": {
+            "type": "str",
+            "length": 35,
+            "dp": False,
+            "ubl_path": "DespatchAdvice.cac:DespatchSupplierParty."
+            "cac:Party.cac:Contact.cbc:Telefax",
             "df_val": False,
             "df_func": False,
         },
@@ -241,7 +239,7 @@ grammar = OrderedDict(
             "length": 14,
             "dp": False,
             "ubl_path": False,
-            "df_val": False,
+            "df_val": "SF-EM-RETCLI",
             "df_func": False,
         },
         "RxKretk_Info2Wamas": {
@@ -256,7 +254,12 @@ grammar = OrderedDict(
             "type": "datetime",
             "length": 14,
             "dp": False,
-            "ubl_path": "DespatchAdvice.cac:OrderReference.cbc:IssueDate",
+            "ubl_path": [
+                "DespatchAdvice.cac:Shipment.cac:Delivery."
+                "cac:EstimatedDeliveryPeriod.cbc:EndDate",
+                "DespatchAdvice.cac:Shipment.cac:Delivery."
+                "cac:EstimatedDeliveryPeriod.cbc:EndTime",
+            ],
             "df_val": False,
             "df_func": False,
         },

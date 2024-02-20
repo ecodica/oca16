@@ -63,8 +63,8 @@ grammar = OrderedDict(
             "length": 5,
             "dp": False,
             "ubl_path": False,
-            "df_val": "HOST",
-            "df_func": False,
+            "df_val": False,
+            "df_func": "get_source",
         },
         "RxAusk_ExtRef": {
             "type": "str",
@@ -79,7 +79,7 @@ grammar = OrderedDict(
             "length": 6,
             "dp": False,
             "ubl_path": "DespatchAdvice.cac:Shipment.cac:ShipmentStage."
-            "cbc:TransportModeCode",
+            "cbc:TransportMeansTypeCode",
             "df_val": False,
             "df_func": False,
         },
@@ -95,7 +95,7 @@ grammar = OrderedDict(
             "type": "str",
             "length": 13,
             "dp": False,
-            "ubl_path": "DespatchAdvice.cac:DespatchSupplierParty."
+            "ubl_path": "DespatchAdvice.cac:DeliveryCustomerParty."
             "cbc:CustomerAssignedAccountID",
             "df_val": False,
             "df_func": False,
@@ -106,7 +106,7 @@ grammar = OrderedDict(
             "dp": False,
             "ubl_path": False,
             "df_val": False,
-            "df_func": False,
+            "df_func": "get_Adrs_Name",
         },
         "RxAusk_Adrs_Name2": {
             "type": "str",
@@ -114,7 +114,7 @@ grammar = OrderedDict(
             "dp": False,
             "ubl_path": False,
             "df_val": False,
-            "df_func": False,
+            "df_func": "get_Adrs_Name2",
         },
         "RxAusk_Adrs_Name3": {
             "type": "str",
@@ -122,7 +122,7 @@ grammar = OrderedDict(
             "dp": False,
             "ubl_path": False,
             "df_val": False,
-            "df_func": False,
+            "df_func": "get_Adrs_Name3",
         },
         "RxAusk_Adrs_Name4": {
             "type": "str",
@@ -130,13 +130,14 @@ grammar = OrderedDict(
             "dp": False,
             "ubl_path": False,
             "df_val": False,
-            "df_func": False,
+            "df_func": "get_Adrs_Name4",
         },
         "RxAusk_Adrs_Anrede": {
             "type": "str",
             "length": 15,
             "dp": False,
-            "ubl_path": False,
+            "ubl_path": "DespatchAdvice.cac:DeliveryCustomerParty.cac:Party."
+            "cac:PartyName.cbc:Title",
             "df_val": False,
             "df_func": False,
         },
@@ -146,7 +147,7 @@ grammar = OrderedDict(
             "dp": False,
             "ubl_path": False,
             "df_val": False,
-            "df_func": False,
+            "df_func": "get_Adrs_Adr",
         },
         "RxAusk_Adrs_Adr2": {
             "type": "str",
@@ -160,7 +161,8 @@ grammar = OrderedDict(
             "type": "str",
             "length": 10,
             "dp": False,
-            "ubl_path": False,
+            "ubl_path": "DespatchAdvice.cac:DeliveryCustomerParty.cac:Party."
+            "cac:PostalAddress.cbc:PostalZone",
             "df_val": False,
             "df_func": False,
         },
@@ -168,7 +170,8 @@ grammar = OrderedDict(
             "type": "str",
             "length": 40,
             "dp": False,
-            "ubl_path": False,
+            "ubl_path": "DespatchAdvice.cac:DeliveryCustomerParty.cac:Party."
+            "cac:PostalAddress.cbc:CityName",
             "df_val": False,
             "df_func": False,
         },
@@ -192,7 +195,8 @@ grammar = OrderedDict(
             "type": "str",
             "length": 35,
             "dp": False,
-            "ubl_path": False,
+            "ubl_path": "DespatchAdvice.cac:DeliveryCustomerParty.cac:Party."
+            "cac:Contact.cbc:Telephone",
             "df_val": False,
             "df_func": False,
         },
@@ -200,7 +204,8 @@ grammar = OrderedDict(
             "type": "str",
             "length": 40,
             "dp": False,
-            "ubl_path": False,
+            "ubl_path": "DespatchAdvice.cac:DeliveryCustomerParty.cac:DeliveryContact."
+            "cbc:ElectronicMail",
             "df_val": False,
             "df_func": False,
         },
@@ -233,7 +238,7 @@ grammar = OrderedDict(
             "length": 40,
             "dp": False,
             "ubl_path": "DespatchAdvice.cac:DeliveryCustomerParty.cac:Party."
-            "cac:Contact.cbc:Name",
+            "cac:PartyName.cbc:Name",
             "df_val": False,
             "df_func": False,
         },
@@ -243,7 +248,7 @@ grammar = OrderedDict(
             "dp": False,
             "ubl_path": False,
             "df_val": False,
-            "df_func": False,
+            "df_func": "get_Adrs_Name2",
         },
         "RxAusk_LiefAdrs_Name3": {
             "type": "str",
@@ -251,22 +256,22 @@ grammar = OrderedDict(
             "dp": False,
             "ubl_path": False,
             "df_val": False,
-            "df_func": False,
+            "df_func": "get_Adrs_Name3",
         },
         "RxAusk_LiefAdrs_Name4": {
             "type": "str",
             "length": 40,
             "dp": False,
-            "ubl_path": "DespatchAdvice.cac:DeliveryCustomerParty.cac:Party."
-            "cac:PartyName.cbc:Name",
+            "ubl_path": False,
             "df_val": False,
-            "df_func": False,
+            "df_func": "get_Adrs_Name4",
         },
         "RxAusk_LiefAdrs_Anrede": {
             "type": "str",
             "length": 15,
             "dp": False,
-            "ubl_path": False,
+            "ubl_path": "DespatchAdvice.cac:DeliveryCustomerParty.cac:Party."
+            "cac:PartyName.cbc:Title",
             "df_val": False,
             "df_func": False,
         },
@@ -274,10 +279,9 @@ grammar = OrderedDict(
             "type": "str",
             "length": 40,
             "dp": False,
-            "ubl_path": "DespatchAdvice.cac:DeliveryCustomerParty.cac:Party."
-            "cac:PostalAddress.cbc:StreetName",
+            "ubl_path": False,
             "df_val": False,
-            "df_func": False,
+            "df_func": "get_Adrs_Adr",
         },
         "RxAusk_LiefAdrs_Adr2": {
             "type": "str",
@@ -536,7 +540,7 @@ grammar = OrderedDict(
             "type": "datetime",
             "length": 14,
             "dp": False,
-            "ubl_path": False,
+            "ubl_path": "DespatchAdvice.cac:Shipment.cbc:DeliveryInstructions",
             "df_val": False,
             "df_func": False,
         },
@@ -552,7 +556,7 @@ grammar = OrderedDict(
             "type": "datetime",
             "length": 14,
             "dp": False,
-            "ubl_path": False,
+            "ubl_path": "DespatchAdvice.cac:Shipment.cbc:DeliveryInstructions",
             "df_val": False,
             "df_func": False,
         },
@@ -568,7 +572,7 @@ grammar = OrderedDict(
             "type": "datetime",
             "length": 14,
             "dp": False,
-            "ubl_path": False,
+            "ubl_path": "DespatchAdvice.cac:Shipment.cbc:DeliveryInstructions",
             "df_val": False,
             "df_func": False,
         },
@@ -593,8 +597,8 @@ grammar = OrderedDict(
             "length": 5,
             "dp": False,
             "ubl_path": False,
-            "df_val": "HOST",
-            "df_func": False,
+            "df_val": False,
+            "df_func": "get_source",
         },
         "RxAusk_RahmenTour_WA_Tor": {
             "type": "str",
@@ -608,8 +612,7 @@ grammar = OrderedDict(
             "type": "float",
             "length": 12,
             "dp": 3,
-            "ubl_path": "DespatchAdvice.cac:Shipment.cac:TransportHandlingUnit."
-            "cac:TransportEquipment.cbc:GrossWeightMeasure",
+            "ubl_path": "DespatchAdvice.cac:Shipment.cbc:GrossWeightMeasure",
             "df_val": False,
             "df_func": False,
         },
@@ -650,7 +653,7 @@ grammar = OrderedDict(
             "length": 10,
             "dp": False,
             "ubl_path": False,
-            "df_val": False,
+            "df_val": "CAM",
             "df_func": False,
         },
         "RxAusk_RahmenTourLkwFahrer": {

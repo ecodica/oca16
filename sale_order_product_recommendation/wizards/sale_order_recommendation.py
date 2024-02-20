@@ -6,7 +6,8 @@
 import logging
 from datetime import datetime, timedelta
 
-from odoo import api, fields, models
+from odoo import _, api, fields, models
+from odoo.exceptions import UserError
 from odoo.osv import expression
 from odoo.tests import Form
 from odoo.tools.safe_eval import safe_eval
@@ -194,10 +195,14 @@ class SaleOrderRecommendation(models.TransientModel):
         self.line_ids = recommendation_lines.sorted(
             key=lambda line: (
                 "" if line[order_field] is False else line[order_field],
-                int(line.product_priority) * priority_multiplier,
+                int(line.product_id.priority) * priority_multiplier,
             ),
             reverse=order_dir == "desc",
         )
+        if not self.line_ids:
+            raise UserError(
+                _("Nothing found! Modify your criteria or fill the order manually.")
+            )
         # Reopen wizard
         return self._reopen_wizard()
 
@@ -255,6 +260,10 @@ class SaleOrderRecommendationLine(models.TransientModel):
     product_priority = fields.Selection(
         related="product_id.priority", store=True, readonly=False
     )
+    product_uom_readonly = fields.Boolean(related="sale_line_id.product_uom_readonly")
+    product_uom_category_id = fields.Many2one(
+        related="product_id.uom_id.category_id", depends=["product_id"]
+    )
     price_unit = fields.Monetary(compute="_compute_price_unit")
     pricelist_id = fields.Many2one(related="wizard_id.order_id.pricelist_id")
     times_delivered = fields.Integer(readonly=True)
@@ -268,7 +277,19 @@ class SaleOrderRecommendationLine(models.TransientModel):
         readonly=True,
     )
     sale_line_id = fields.Many2one(comodel_name="sale.order.line")
-    sale_uom_id = fields.Many2one(related="sale_line_id.product_uom")
+    sale_uom_id = fields.Many2one(
+        comodel_name="uom.uom",
+        string="Unit of Measure",
+        compute="_compute_sale_uom_id",
+        store=True,
+        readonly=False,
+        domain="[('category_id', '=', product_uom_category_id)]",
+    )
+
+    @api.depends("sale_line_id", "product_id")
+    def _compute_sale_uom_id(self):
+        for line in self:
+            line.sale_uom_id = line.sale_line_id.product_uom or line.product_id.uom_id
 
     @api.depends(
         "partner_id",
@@ -292,12 +313,16 @@ class SaleOrderRecommendationLine(models.TransientModel):
 
     def _prepare_update_so_line(self, line_form):
         """So we can extend SO update"""
+        if not self.product_uom_readonly:
+            line_form.product_uom = self.sale_uom_id
         line_form.product_uom_qty = self.units_included
 
     def _prepare_new_so_line(self, line_form, sequence):
         """So we can extend SO create"""
         line_form.product_id = self.product_id
         line_form.sequence = sequence
+        if not self.product_uom_readonly:
+            line_form.product_uom = self.sale_uom_id
         line_form.product_uom_qty = self.units_included
         if self.wizard_id.sale_recommendation_price_origin == "last_sale_price":
             line_form.price_unit = self.price_unit
