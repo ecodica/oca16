@@ -9,18 +9,28 @@ class StockPicking(models.Model):
     _inherit = "stock.picking"
 
     volume = fields.Float(
-        compute="_compute_volume", readonly=False, store=True, compute_sudo=True
+        compute="_compute_volume",
+        readonly=False,
+        store=True,
+        compute_sudo=True,
+        states={"done": [("readonly", True)], "cancel": [("readonly", True)]},
     )
     volume_uom_name = fields.Char(
         string="Volume unit of measure label", compute="_compute_volume_uom_name"
     )
 
-    @api.depends("move_ids", "move_ids.volume")
+    @api.depends("move_ids", "move_ids.volume", "move_ids.state")
     def _compute_volume(self):
         for picking in self:
-            new_volume = sum(picking.move_ids.mapped("volume"))
-            if picking.volume != new_volume:
-                picking.volume = new_volume
+            moves = picking.move_ids
+            exclude_cancel = any(m.state != "cancel" for m in moves)
+            volume = 0
+            for move in moves:
+                if move.state == "cancel" and exclude_cancel:
+                    continue
+                volume += move.volume
+            if picking.volume != volume:
+                picking.volume = volume
 
     def _compute_volume_uom_name(self):
         self.volume_uom_name = self.env[

@@ -10,3 +10,7 @@
 * `Greenice <https://www.greenice.com>`_:
 
   * Fernando La Chica <fernandolachica@gmail.com>
+
+* Eduardo de Miguel (`Moduon <https://www.moduon.team/>`__)
+* Rafael Blasco (`Moduon <https://www.moduon.team/>`__)
+* Jairo Llopis (`Moduon <https://www.moduon.team/>`__)

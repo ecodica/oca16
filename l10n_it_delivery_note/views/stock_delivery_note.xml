@@ -103,22 +103,20 @@
                             <label for="name" string="Draft document" />
                         </div>
                         <div attrs="{'invisible': [('name', 'in', [False, ''])]}">
-                            <label for="name" string="Document" />
                             <h1>
+                                <label for="name" string="Document" />
                                 <field
                                     name="name"
                                     class="oe_inline"
                                     attrs="{'readonly': [('can_change_number', '=', False)]}"
                                 />
                             </h1>
-                            <div
-                                attrs="{'invisible': [('type_code', '!=', 'incoming')]}"
-                            >
-                                <label for="name" string="Partner document" />
-                                <h2>
-                                    <field name="partner_ref" class="oe_inline" />
-                                </h2>
-                            </div>
+                        </div>
+                        <div attrs="{'invisible': [('type_code', '!=', 'incoming')]}">
+                            <h2>
+                                <label for="partner_ref" />
+                                <field name="partner_ref" class="oe_inline" />
+                            </h2>
                         </div>
                     </div>
                     <div
@@ -136,12 +134,6 @@
                     </div>
                     <group>
                         <group>
-                            <field
-                                name="company_id"
-                                options="{'no_create': True}"
-                                attrs="{'readonly': [('pickings_picker', '!=', [])]}"
-                                groups="base.group_multi_company"
-                            />
                             <field
                                 name="partner_sender_id"
                                 attrs="{'readonly': [('pickings_picker', '!=', [])]}"
@@ -179,6 +171,13 @@
                                     title="Update to now"
                                 />
                             </div>
+                            <field
+                                name="company_id"
+                                options="{'no_create': True}"
+                                attrs="{'readonly': [('pickings_picker', '!=', [])]}"
+                                groups="base.group_multi_company"
+                                domain="[('id', 'in', allowed_company_ids)]"
+                            />
                         </group>
                     </group>
                     <group>
