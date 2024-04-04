@@ -11,7 +11,10 @@ SPDX-License-Identifier: AGPL-3.0-or-later
         <t t-call="l10n_be_cooperator.tax_shelter_report_document">
             <p>
                 Durant l'année
-                <span t-field="o.declaration_id.fiscal_year" />
+                <span
+                    t-field="o.declaration_id.fiscal_year"
+                    t-options='{"widget": "char"}'
+                />
                 vous avez souscrit des parts de
                 <span t-field="o.company_id.name" />
                 pour un montant total de
@@ -19,14 +22,14 @@ SPDX-License-Identifier: AGPL-3.0-or-later
                     t-field="o.total_amount_subscribed"
                     t-options='{"widget": "float", "precision": 2}'
                 />
-                euros.
+                EUR.
                 <br />
-                Le montant éligible pour le Tax shelter est de
+                Le montant éligible pour la réduction d'impôt est de
                 <span
                     t-field="o.total_amount_eligible"
                     t-options='{"widget": "float", "precision": 2}'
                 />
-                euros.
+                EUR.
                 <br />
             </p>
 

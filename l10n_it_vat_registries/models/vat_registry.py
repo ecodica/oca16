@@ -37,6 +37,7 @@ class ReportRegistroIva(models.AbstractModel):
             "l10n_it_count_fiscal_page_base": data["form"]["fiscal_page_base"],
             "only_totals": data["form"]["only_totals"],
             "entry_order": data["form"].get("entry_order"),
+            "show_full_contact_addess": data["form"]["show_full_contact_addess"],
             "date_format": date_format,
             "year_footer": data["form"]["year_footer"],
         }
@@ -104,14 +105,9 @@ class ReportRegistroIva(models.AbstractModel):
 
             if set_cee_absolute_value:
                 tax_amount = abs(tax_amount)
-            if (
-                "receivable" in move.financial_type
-                or "payable_refund" == move.financial_type
-            ):
+            if "receivable" in move.financial_type:
                 # otherwise refund would be positive and invoices
                 # negative.
-                # We also check payable_refund as it normaly is < 0, but
-                # it can be > 0 in case of reverse charge with VAT integration
                 tax_amount = -tax_amount
 
             if is_base:

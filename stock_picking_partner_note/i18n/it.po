@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 16.0\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-02-16 16:37+0000\n"
+"PO-Revision-Date: 2024-04-02 12:36+0000\n"
 "Last-Translator: mymage <stefano.consolaro@mymage.it>\n"
 "Language-Team: none\n"
 "Language: it\n"
@@ -20,6 +20,31 @@ msgstr ""
 #: model:ir.model.fields,field_description:stock_picking_partner_note.field_stock_picking_note__active
 msgid "Active"
 msgstr "Attiva"
+
+#. module: stock_picking_partner_note
+#: model_terms:ir.ui.view,arch_db:stock_picking_partner_note.res_config_settings_view_form
+msgid ""
+"Add a constraint to check if the picking note is already in use on multiple "
+"partner"
+msgstr ""
+"Aggiungere un vincolo per verificare se la nota del prelievo è già in uso su "
+"più partner"
+
+#. module: stock_picking_partner_note
+#: model:ir.model.fields,field_description:stock_picking_partner_note.field_res_company__check_note_already_in_use
+#: model:ir.model.fields,field_description:stock_picking_partner_note.field_res_config_settings__check_note_already_in_use
+msgid "Check picking note already in use"
+msgstr "Contollo nota prelievo già in uso"
+
+#. module: stock_picking_partner_note
+#: model:ir.model,name:stock_picking_partner_note.model_res_company
+msgid "Companies"
+msgstr "Aziende"
+
+#. module: stock_picking_partner_note
+#: model:ir.model,name:stock_picking_partner_note.model_res_config_settings
+msgid "Config Settings"
+msgstr "Impostazioni configurazione"
 
 #. module: stock_picking_partner_note
 #: model:ir.model,name:stock_picking_partner_note.model_res_partner
@@ -131,6 +156,15 @@ msgid "Stock Picking Note Types"
 msgstr "Tipi nota prelievo magazzino"
 
 #. module: stock_picking_partner_note
+#: model:ir.model.fields,help:stock_picking_partner_note.field_res_config_settings__check_note_already_in_use
+msgid ""
+"That must be activated if you want to prevent the update or deletion of a "
+"note that is already in use by multiple contacts."
+msgstr ""
+"Questo deve essere attivato se si vuole prevenire la modifica o la "
+"cancellazione di una nota che è già in uso da più contatti."
+
+#. module: stock_picking_partner_note
 #: model:ir.model,name:stock_picking_partner_note.model_stock_picking
 msgid "Transfer"
 msgstr "Trasferimento"
@@ -143,3 +177,14 @@ msgid ""
 msgstr ""
 "Tipo nota con preferenze cliente su come i suoi prodotti sono preparati per "
 "la spedizione."
+
+#. module: stock_picking_partner_note
+#. odoo-python
+#: code:addons/stock_picking_partner_note/models/stock_picking_note.py:0
+#, python-format
+msgid ""
+"You cannot update or delete a note that linked to multiple contacts: "
+"%(partner_ids)s"
+msgstr ""
+"Non si può modificare o cancellare una nota che è collegata a più contatti: "
+"%(partner_ids)s"
