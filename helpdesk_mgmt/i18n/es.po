@@ -15,7 +15,14 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.17\n"
+"X-Generator: Poedit 3.0.1\n"
+
+#. module: helpdesk_mgmt
+#. odoo-javascript
+#: code:addons/helpdesk_mgmt/static/src/js/new_ticket.js:0
+#, python-format
+msgid "%s file exceed the maximum file size of %s."
+msgstr "El archivo %s  supera el tamaño máximo de %s."
 
 #. module: helpdesk_mgmt
 #: model_terms:ir.ui.view,arch_db:helpdesk_mgmt.portal_ticket_list
@@ -784,6 +791,13 @@ msgid "Email cc"
 msgstr "Email cc"
 
 #. module: helpdesk_mgmt
+#. odoo-javascript
+#: code:addons/helpdesk_mgmt/static/src/js/new_ticket.js:0
+#, python-format
+msgid "File upload"
+msgstr "Archivo subido"
+
+#. module: helpdesk_mgmt
 #: model:ir.model.fields,field_description:helpdesk_mgmt.field_helpdesk_ticket_stage__fold
 msgid "Folded in Kanban"
 msgstr "Plegado en vista kanban"
@@ -828,6 +842,11 @@ msgstr "Determina el orden al mostrar una lista de tickets."
 #: model_terms:ir.ui.view,arch_db:helpdesk_mgmt.helpdesk_ticket_view_search
 msgid "Group By"
 msgstr "Agrupar por"
+
+#. module: helpdesk_mgmt
+#: model:ir.model,name:helpdesk_mgmt.model_ir_http
+msgid "HTTP Routing"
+msgstr ""
 
 #. module: helpdesk_mgmt
 #: model:ir.model.fields,field_description:helpdesk_mgmt.field_helpdesk_ticket__has_message

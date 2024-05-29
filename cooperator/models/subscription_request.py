@@ -3,6 +3,7 @@
 #
 # SPDX-License-Identifier: AGPL-3.0-or-later
 
+import warnings
 from datetime import date
 
 from odoo import _, api, fields, models
@@ -476,7 +477,16 @@ class SubscriptionRequest(models.Model):
 
     _order = "id desc"
 
+    # todo: remove this at the next major version update.
     def get_person_info(self, partner):
+        warnings.warn(
+            "subscription.request.get_person_info() is deprecated. "
+            "please use .set_person_info() instead.",
+            DeprecationWarning,
+        )
+        return self.set_person_info(partner)
+
+    def set_person_info(self, partner):
         self.firstname = partner.firstname
         self.name = partner.name
         self.lastname = partner.lastname
@@ -505,10 +515,10 @@ class SubscriptionRequest(models.Model):
                 self.company_email = partner.email
                 self.company_register_number = partner.company_register_number
                 representative = partner.get_representative()
-                self.get_person_info(representative)
+                self.set_person_info(representative)
                 self.contact_person_function = representative.function
             else:
-                self.get_person_info(partner)
+                self.set_person_info(partner)
 
     # fixme: this is very specific and should not be here.
     # declare this function in order to be overriden

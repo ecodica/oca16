@@ -4,10 +4,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 13.0\n"
+"Project-Id-Version: Odoo Server 16.0\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2022-11-23 09:45+0000\n"
-"Last-Translator: Dorin Hongu <dhongu@gmail.com>\n"
+"Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
 "Language: ro\n"
 "MIME-Version: 1.0\n"
@@ -15,13 +14,12 @@ msgstr ""
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: nplurals=3; plural=n==1 ? 0 : (n==0 || (n%100 > 0 && n%100 < "
 "20)) ? 1 : 2;\n"
-"X-Generator: Weblate 4.14.1\n"
 
 #. module: l10n_ro_city
 #: model:res.city,name:l10n_ro_city.RO_102552
 #: model:res.city,name:l10n_ro_city.RO_162318
 msgid "1 Decembrie"
-msgstr "1 Decembrie"
+msgstr ""
 
 #. module: l10n_ro_city
 #: model:res.city,name:l10n_ro_city.RO_60669
@@ -5622,7 +5620,7 @@ msgid "Bucureșci"
 msgstr ""
 
 #. module: l10n_ro_city
-#: model:res.city,name:l10n_ro_city.RO_179141
+#: model:res.city,name:l10n_ro_city.RO_179132
 msgid "București"
 msgstr ""
 
@@ -10456,7 +10454,7 @@ msgstr ""
 #. module: l10n_ro_city
 #: model:ir.model,name:l10n_ro_city.model_res_city
 msgid "City"
-msgstr "Localitate"
+msgstr ""
 
 #. module: l10n_ro_city
 #: model:ir.model.fields,field_description:l10n_ro_city.field_res_partner__city_id
@@ -11735,7 +11733,7 @@ msgstr ""
 #. module: l10n_ro_city
 #: model:ir.model,name:l10n_ro_city.model_res_partner
 msgid "Contact"
-msgstr "Contact"
+msgstr ""
 
 #. module: l10n_ro_city
 #: model:res.city,name:l10n_ro_city.RO_174334
@@ -12673,6 +12671,11 @@ msgstr ""
 #. module: l10n_ro_city
 #: model:res.city,name:l10n_ro_city.RO_147376
 msgid "Cotârgași"
+msgstr ""
+
+#. module: l10n_ro_city
+#: model:ir.model,name:l10n_ro_city.model_res_country_state
+msgid "Country state"
 msgstr ""
 
 #. module: l10n_ro_city
@@ -39555,6 +39558,11 @@ msgid "Romania - Municipality"
 msgstr ""
 
 #. module: l10n_ro_city
+#: model:ir.model.fields,field_description:l10n_ro_city.field_res_country_state__l10n_ro_prefix_zip
+msgid "Romania - Prefix Zip"
+msgstr ""
+
+#. module: l10n_ro_city
 #: model:ir.model.fields,field_description:l10n_ro_city.field_res_city__l10n_ro_siruta
 msgid "Romania - Siruta"
 msgstr ""
@@ -41925,6 +41933,36 @@ msgstr ""
 #. module: l10n_ro_city
 #: model:res.city,name:l10n_ro_city.RO_81549
 msgid "Seciurile"
+msgstr ""
+
+#. module: l10n_ro_city
+#: model:res.city,name:l10n_ro_city.RO_179141
+msgid "Sector1"
+msgstr ""
+
+#. module: l10n_ro_city
+#: model:res.city,name:l10n_ro_city.RO_179150
+msgid "Sector2"
+msgstr ""
+
+#. module: l10n_ro_city
+#: model:res.city,name:l10n_ro_city.RO_179169
+msgid "Sector3"
+msgstr ""
+
+#. module: l10n_ro_city
+#: model:res.city,name:l10n_ro_city.RO_179178
+msgid "Sector4"
+msgstr ""
+
+#. module: l10n_ro_city
+#: model:res.city,name:l10n_ro_city.RO_179187
+msgid "Sector5"
+msgstr ""
+
+#. module: l10n_ro_city
+#: model:res.city,name:l10n_ro_city.RO_179196
+msgid "Sector6"
 msgstr ""
 
 #. module: l10n_ro_city
@@ -52820,7 +52858,7 @@ msgstr ""
 #. module: l10n_ro_city
 #: model:ir.model.fields,field_description:l10n_ro_city.field_res_city__zipcode
 msgid "Zip"
-msgstr "Cod poștal"
+msgstr ""
 
 #. module: l10n_ro_city
 #: model:res.city,name:l10n_ro_city.RO_42049
@@ -54855,12 +54893,3 @@ msgstr ""
 #: model:res.city,name:l10n_ro_city.RO_153758
 msgid "Țăvârlău"
 msgstr ""
-
-#~ msgid "City of Address"
-#~ msgstr "Localitatea"
-
-#~ msgid "Municipality"
-#~ msgstr "Unitate administrativ teritorială"
-
-#~ msgid "Siruta"
-#~ msgstr "Siruta"

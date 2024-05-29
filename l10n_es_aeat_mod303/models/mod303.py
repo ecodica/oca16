@@ -143,6 +143,13 @@ class L10nEsAeatMod303Report(models.Model):
         compute="_compute_resultado_liquidacion",
         store=True,
     )
+    use_aeat_account = fields.Boolean(
+        "Usar cuenta corriente tributaria",
+        help=(
+            "Si está suscrito a la cuenta corriente en materia tributaria, "
+            "active esta opción para usarla en el ingreso o devolución."
+        ),
+    )
     result_type = fields.Selection(
         selection=[
             ("I", "To enter"),
@@ -283,10 +290,12 @@ class L10nEsAeatMod303Report(models.Model):
         compute="_compute_marca_sepa",
     )
 
-    @api.depends("partner_bank_id")
+    @api.depends("partner_bank_id", "use_aeat_account")
     def _compute_marca_sepa(self):
         for record in self:
-            if record.partner_bank_id.bank_id.country == self.env.ref("base.es"):
+            if record.use_aeat_account:
+                record.marca_sepa = "0"
+            elif record.partner_bank_id.bank_id.country == self.env.ref("base.es"):
                 record.marca_sepa = "1"
             elif (
                 record.partner_bank_id.bank_id.country
@@ -438,6 +447,7 @@ class L10nEsAeatMod303Report(models.Model):
         "period_type",
         "devolucion_mensual",
         "marca_sepa",
+        "use_aeat_account",
     )
     def _compute_result_type(self):
         for report in self:
@@ -449,10 +459,19 @@ class L10nEsAeatMod303Report(models.Model):
             if result == 0:
                 report.result_type = "N"
             elif result == 1:
-                report.result_type = "I"
+                if report.use_aeat_account:
+                    report.result_type = "G"
+                elif report.marca_sepa in {"1", "2"}:
+                    # Domiciliar ingreso porque se indicó un banco SEPA
+                    report.result_type = "U"
+                else:
+                    report.result_type = "I"
             else:
                 if report.devolucion_mensual or report.period_type in ("4T", "12"):
-                    report.result_type = "D" if report.marca_sepa == "1" else "X"
+                    if report.use_aeat_account:
+                        report.result_type = "V"
+                    else:
+                        report.result_type = "D" if report.marca_sepa == "1" else "X"
                 else:
                     report.result_type = "C"
 
@@ -462,25 +481,47 @@ class L10nEsAeatMod303Report(models.Model):
             self.previous_result = 0
 
     def calculate(self):
+        self.cuota_compensar = 0
         res = super().calculate()
         for mod303 in self:
-            prev_reports = mod303._get_previous_fiscalyear_reports(
-                mod303.date_start
-            ).filtered(lambda x: x.state not in ["draft", "cancelled"])
-            if not prev_reports:
-                continue
-            prev_report = min(
-                prev_reports,
-                key=lambda x: abs(
-                    fields.Date.to_date(x.date_end)
-                    - fields.Date.to_date(mod303.date_start)
-                ),
-            )
-            if prev_report.result_type == "C":
-                amount = abs(prev_report.resultado_liquidacion)
-                mod303.write(
-                    {"cuota_compensar": amount, "potential_cuota_compensar": amount}
+            prev_reports = self.search(
+                [("date_start", "<", mod303.date_start)]
+            ).filtered(lambda m: m.state not in ["draft", "cancelled"])
+            if prev_reports:
+                prev_report = min(
+                    prev_reports,
+                    key=lambda x: abs(
+                        fields.Date.to_date(x.date_end)
+                        - fields.Date.to_date(mod303.date_start)
+                    ),
                 )
+                if (
+                    prev_report.remaining_cuota_compensar > 0
+                    or prev_report.result_type == "C"
+                ):
+                    mod303.write(
+                        {
+                            "potential_cuota_compensar": (
+                                prev_report.remaining_cuota_compensar
+                                - prev_report.resultado_liquidacion
+                            ),
+                        }
+                    )
+            if (
+                float_compare(
+                    mod303.resultado_liquidacion,
+                    0,
+                    precision_digits=mod303.currency_id.decimal_places,
+                )
+                != -1
+            ):
+                cuota_compensar = min(
+                    mod303.potential_cuota_compensar, mod303.resultado_liquidacion
+                )
+            else:
+                cuota_compensar = 0
+            mod303.cuota_compensar = cuota_compensar
+
         return res
 
     def button_confirm(self):

@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-04-03 12:43+0000\n"
+"PO-Revision-Date: 2024-04-29 16:34+0000\n"
 "Last-Translator: mymage <stefano.consolaro@mymage.it>\n"
 "Language-Team: none\n"
 "Language: it\n"
@@ -15,6 +15,13 @@ msgstr ""
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Weblate 4.17\n"
+
+#. module: helpdesk_mgmt
+#. odoo-javascript
+#: code:addons/helpdesk_mgmt/static/src/js/new_ticket.js:0
+#, python-format
+msgid "%s file exceed the maximum file size of %s."
+msgstr "Il file %s ha una dimensione superiore al massimo di %s."
 
 #. module: helpdesk_mgmt
 #: model_terms:ir.ui.view,arch_db:helpdesk_mgmt.portal_ticket_list
@@ -783,6 +790,13 @@ msgid "Email cc"
 msgstr "cc Email"
 
 #. module: helpdesk_mgmt
+#. odoo-javascript
+#: code:addons/helpdesk_mgmt/static/src/js/new_ticket.js:0
+#, python-format
+msgid "File upload"
+msgstr "Carica file"
+
+#. module: helpdesk_mgmt
 #: model:ir.model.fields,field_description:helpdesk_mgmt.field_helpdesk_ticket_stage__fold
 msgid "Folded in Kanban"
 msgstr "Minimizzato in Kanban"
@@ -829,6 +843,11 @@ msgid "Group By"
 msgstr "Raggruppa per"
 
 #. module: helpdesk_mgmt
+#: model:ir.model,name:helpdesk_mgmt.model_ir_http
+msgid "HTTP Routing"
+msgstr "Instradamento HTTP"
+
+#. module: helpdesk_mgmt
 #: model:ir.model.fields,field_description:helpdesk_mgmt.field_helpdesk_ticket__has_message
 #: model:ir.model.fields,field_description:helpdesk_mgmt.field_helpdesk_ticket_team__has_message
 msgid "Has Message"
@@ -855,7 +874,7 @@ msgstr "E-mail notifica cambio stato Helpdesk"
 #. module: helpdesk_mgmt
 #: model:mail.template,name:helpdesk_mgmt.closed_ticket_template
 msgid "Helpdesk Closed Ticket Notification Email"
-msgstr "E-mail notifica chiusura ticket Helpdesk"
+msgstr "E-mail notifica chiusura ticket assistenza clienti"
 
 #. module: helpdesk_mgmt
 #: model:res.groups,name:helpdesk_mgmt.group_helpdesk_manager
@@ -888,37 +907,37 @@ msgstr "Team Helpdesk"
 #: model:ir.model,name:helpdesk_mgmt.model_helpdesk_ticket
 #: model_terms:ir.ui.view,arch_db:helpdesk_mgmt.ticket_view_form
 msgid "Helpdesk Ticket"
-msgstr "Ticket Helpdesk"
+msgstr "Ticket assistenza clienti"
 
 #. module: helpdesk_mgmt
 #: model:ir.model,name:helpdesk_mgmt.model_helpdesk_ticket_category
 msgid "Helpdesk Ticket Category"
-msgstr "Categoria ticket Helpdesk"
+msgstr "Categoria ticket assistenza clienti"
 
 #. module: helpdesk_mgmt
 #: model:ir.model,name:helpdesk_mgmt.model_helpdesk_ticket_channel
 msgid "Helpdesk Ticket Channel"
-msgstr "Canale ticket Helpdesk"
+msgstr "Canale ticket assistenza clienti"
 
 #. module: helpdesk_mgmt
 #: model:mail.message.subtype,name:helpdesk_mgmt.hlp_tck_team_created
 msgid "Helpdesk Ticket Created"
-msgstr "Ticket Helpdesk creato"
+msgstr "Ticket assistenza clienti creato"
 
 #. module: helpdesk_mgmt
 #: model:ir.model,name:helpdesk_mgmt.model_helpdesk_ticket_stage
 msgid "Helpdesk Ticket Stage"
-msgstr "Fase ticket Helpdesk"
+msgstr "Fase ticket assistenza clienti"
 
 #. module: helpdesk_mgmt
 #: model:ir.model,name:helpdesk_mgmt.model_helpdesk_ticket_tag
 msgid "Helpdesk Ticket Tag"
-msgstr "Etichetta ticket Helpdesk"
+msgstr "Etichetta ticket assistenza clienti"
 
 #. module: helpdesk_mgmt
 #: model:ir.model,name:helpdesk_mgmt.model_helpdesk_ticket_team
 msgid "Helpdesk Ticket Team"
-msgstr "Team ticket Helpdesk"
+msgstr "Team ticket assistenza clienti"
 
 #. module: helpdesk_mgmt
 #: model:ir.module.category,description:helpdesk_mgmt.module_helpdesk_category
