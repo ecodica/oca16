@@ -602,6 +602,11 @@ msgid "Available Seats"
 msgstr ""
 
 #. module: event_session
+#: model_terms:ir.ui.view,arch_db:event_session.view_event_session_tree
+msgid "Available seats not expected"
+msgstr ""
+
+#. module: event_session
 #: model:ir.model.fields,field_description:event_session.field_wizard_event_session__byday
 msgid "By day"
 msgstr ""
@@ -639,6 +644,11 @@ msgstr ""
 #. module: event_session
 #: model_terms:ir.ui.view,arch_db:event_session.view_event_session_kanban
 msgid "Confirmed"
+msgstr ""
+
+#. module: event_session
+#: model:ir.model.fields,field_description:event_session.field_event_session__contact_ids
+msgid "Contacts"
 msgstr ""
 
 #. module: event_session
@@ -1250,6 +1260,11 @@ msgid "No more seats available for this session."
 msgstr ""
 
 #. module: event_session
+#: model_terms:ir.ui.view,arch_db:event_session.view_event_session_tree
+msgid "Not allocated seats"
+msgstr ""
+
+#. module: event_session
 #: model:ir.model.fields,field_description:event_session.field_event_session__note
 msgid "Note"
 msgstr ""
@@ -1285,6 +1300,11 @@ msgid "Number of messages with delivery error"
 msgstr ""
 
 #. module: event_session
+#: model:ir.model.fields,field_description:event_session.field_event_session__seats_available_unexpected
+msgid "Number of seats non allocated by an attendee of any kind"
+msgstr ""
+
+#. module: event_session
 #: model:ir.model.fields,field_description:event_session.field_event_session__organizer_id
 msgid "Organizer"
 msgstr ""
@@ -1313,6 +1333,11 @@ msgstr ""
 #. module: event_session
 #: model:ir.model.fields,field_description:event_session.field_event_session__event_id
 msgid "Parent Event"
+msgstr ""
+
+#. module: event_session
+#: model:ir.model.fields,help:event_session.field_event_session__contact_ids
+msgid "Partners available to attend attendees requests for this event."
 msgstr ""
 
 #. module: event_session

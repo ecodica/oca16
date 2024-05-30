@@ -106,7 +106,10 @@ class File(models.Model):
 
     size = fields.Float(readonly=True)
     human_size = fields.Char(
-        readonly=True, string="Size", compute="_compute_human_size", store=True
+        readonly=True,
+        string="Size (human readable)",
+        compute="_compute_human_size",
+        store=True,
     )
 
     checksum = fields.Char(string="Checksum/SHA1", readonly=True, index="btree")
@@ -353,7 +356,8 @@ class File(models.Model):
             if enable_counters:
                 res = super().search_panel_select_range(field_name, **kwargs)
                 for item in res["values"]:
-                    field_range[item["id"]]["__count"] = item["__count"]
+                    if item["id"] in field_range:
+                        field_range[item["id"]]["__count"] = item["__count"]
             return {"parent_field": "parent_id", "values": list(field_range.values())}
         context = {}
         if field_name == "category_id":
@@ -544,8 +548,7 @@ class File(models.Model):
         for record in self:
             if record.size and record.size > self._get_binary_max_size() * 1024 * 1024:
                 raise ValidationError(
-                    _("The maximum upload size is %s MB).")
-                    % self._get_binary_max_size()
+                    _("The maximum upload size is %s MB.") % self._get_binary_max_size()
                 )
 
     # ----------------------------------------------------------

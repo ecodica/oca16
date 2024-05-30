@@ -252,8 +252,14 @@ class ResourceBooking(models.Model):
         tracking=True,
     )
     booking_activity_ids = fields.One2many(
-        "mail.activity", "booking_id", string="Activities"
+        "mail.activity", "booking_id", string="Booking Activities"
     )
+
+    @api.model
+    def _mail_get_partner_fields(self):
+        """Avoid the error if a message is written from portal.
+        Define as author partner_id record from field."""
+        return ["partner_id"]
 
     @api.depends("partner_ids")
     def _compute_partner_id(self):
