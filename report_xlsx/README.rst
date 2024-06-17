@@ -142,3 +142,4 @@ promote its widespread use.
 This module is part of the `OCA/reporting-engine <https://github.com/OCA/reporting-engine/tree/17.0/report_xlsx>`_ project on GitHub.
 
 You are welcome to contribute. To learn how please visit https://odoo-community.org/page/Contribute.
+
