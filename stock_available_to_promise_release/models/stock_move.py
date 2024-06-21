@@ -53,7 +53,7 @@ class StockMove(models.Model):
     need_release = fields.Boolean(index=True, copy=False)
     unrelease_allowed = fields.Boolean(compute="_compute_unrelease_allowed")
 
-    @api.depends("rule_id", "rule_id.available_to_promise_defer_pull")
+    @api.depends("need_release", "rule_id", "rule_id.available_to_promise_defer_pull")
     def _compute_unrelease_allowed(self):
         for move in self:
             unrelease_allowed = move._is_unreleaseable()
@@ -88,49 +88,83 @@ class StockMove(models.Model):
     def _is_unrelease_allowed_on_origin_moves(self, origin_moves):
         """We check that the origin moves are in a state that allows the unrelease
         of the current move. At this stage, a move can't be unreleased if
-          * a picking is already printed. (The work on the picking is planed and
+          * a picking is already printed. (The work on the picking is planned and
             we don't want to change it)
-          * the processing of the origin moves is partially started.
+          * a quantity done is recorded
+          * the processed origin moves is not consumed by the dest moves.
         """
         self.ensure_one()
-        pickings = origin_moves.mapped("picking_id")
+        open_origin_moves = origin_moves.filtered(
+            lambda m: m.state not in ("done", "cancel")
+        )
+        pickings = open_origin_moves.mapped("picking_id")
         if pickings.filtered("printed"):
             # The picking is printed, we can't unrelease the move
             # because the processing of the origin moves is started.
             return False
-        origin_moves = origin_moves.filtered(
-            lambda m: m.state not in ("done", "cancel")
+        if any(m.quantity_done for m in open_origin_moves):
+            # The origin move is being processed, we can't unrelease the move
+            return False
+        origin_done_moves = origin_moves.filtered(lambda m: m.state == "done")
+        origin_qty_done = sum(
+            m.product_uom._compute_quantity(
+                m.quantity_done,
+                m.product_id.uom_id,
+                rounding_method="HALF-UP",
+            )
+            for m in origin_done_moves
         )
-        origin_qty_todo = sum(origin_moves.mapped("product_qty"))
+        dest_done_moves = origin_done_moves.move_dest_ids
+        dest_qty_done = sum(
+            m.product_uom._compute_quantity(
+                m.quantity_done,
+                m.product_id.uom_id,
+                rounding_method="HALF-UP",
+            )
+            for m in dest_done_moves
+        )
         return (
             float_compare(
-                self.product_qty,
-                origin_qty_todo,
-                precision_rounding=self.product_uom.rounding,
+                origin_qty_done,
+                dest_qty_done,
+                precision_rounding=self.product_id.uom_id.rounding,
             )
             <= 0
         )
 
     def _check_unrelease_allowed(self):
-        for move in self:
-            if not move.unrelease_allowed:
-                message = _(
-                    "You are not allowed to unrelease this move %(move_name)s.",
-                    move_name=move.display_name,
+        forbidden_moves = self.filtered(lambda m: not m.unrelease_allowed)
+        if not forbidden_moves:
+            return
+        message = _("You are not allowed to unrelease those deliveries:\n")
+
+        for picking, forbidden_moves_by_picking in groupby(
+            forbidden_moves, lambda m: m.picking_id
+        ):
+            forbidden_moves_by_picking = self.browse().concat(
+                *forbidden_moves_by_picking
+            )
+            message += "\n\t- %s" % picking.name
+            forbidden_origin_pickings = self.picking_id.browse()
+            for move in forbidden_moves_by_picking:
+                iterator = move._get_chained_moves_iterator("move_orig_ids")
+                next(iterator)  # skip the current move
+                for origin_moves in iterator:
+                    for origin_picking, moves_by_picking in groupby(
+                        origin_moves, lambda m: m.picking_id
+                    ):
+                        moves_by_picking = self.browse().concat(*moves_by_picking)
+                        if not move._is_unrelease_allowed_on_origin_moves(
+                            moves_by_picking
+                        ):
+                            forbidden_origin_pickings |= origin_picking
+            if forbidden_origin_pickings:
+                message += " "
+                message += _(
+                    "- blocking transfer(s): %(picking_names)s",
+                    picking_names=" ".join(forbidden_origin_pickings.mapped("name")),
                 )
-                if move.picking_id:
-                    message += _(
-                        "\n- Picking: %(picking_name)s.",
-                        picking_name=move.picking_id.name,
-                    )
-                if move.move_orig_ids and move.move_orig_ids.picking_id:
-                    message += _(
-                        "\n- Origin picking(s):\n\t -%(picking_names)s.",
-                        picking_names="\n\t- ".join(
-                            move.move_orig_ids.picking_id.mapped("name")
-                        ),
-                    )
-                raise UserError(message)
+        raise UserError(message)
 
     def _previous_promised_qty_sql_main_query(self):
         return """
@@ -279,14 +313,23 @@ class StockMove(models.Model):
     def _is_release_ready(self):
         """Checks if a move itself is ready for release
         without considering the picking release_ready
+
+
+        Be careful, when calling this method, you must ensure that the
+        'ordered_available_to_promise_qty' field is up to date. If not,
+        you should invalidate the cache before calling this method. This
+        is not done automatically to avoid unnecessary cache invalidation
+        and to allow batch computation. The `_is_release_ready` method
+        is designed to be called on a single record. If we do the cache
+        invalidation here, it would be done for each record, which means
+        that the computation of the 'ordered_available_to_promise_qty'
+        would be done for each record, which is not efficient.
         """
         self.ensure_one()
         if not self._is_release_needed() or self.state == "draft":
             return False
         release_policy = self.picking_id.release_policy
         rounding = self.product_id.uom_id.rounding
-        # computed field has no depends set, invalidate cache before reading
-        self.invalidate_recordset(["ordered_available_to_promise_qty"])
         ordered_available_to_promise_qty = self.ordered_available_to_promise_qty
         if release_policy == "one":
             return (
@@ -315,6 +358,7 @@ class StockMove(models.Model):
 
     @api.depends(lambda self: self._get_release_ready_depends())
     def _compute_release_ready(self):
+        self.invalidate_recordset(["ordered_available_to_promise_qty"])
         for move in self:
             release_ready = move._is_release_ready()
             if release_ready and move.picking_id.release_policy == "one":
@@ -428,9 +472,8 @@ class StockMove(models.Model):
         )
 
     def _action_cancel(self):
-        # Unrelease moves that can be, before canceling them.
-        moves_to_unrelease = self.filtered(lambda m: m.unrelease_allowed)
-        moves_to_unrelease.unrelease()
+        # Unrelease moves that must be, before canceling them.
+        self.unrelease()
         super()._action_cancel()
         self.write({"need_release": False})
         return True
@@ -562,6 +605,10 @@ class StockMove(models.Model):
             picking_ids.update(moves.picking_id.ids)
             moves = moves.move_orig_ids
         pickings = self.env["stock.picking"].browse(picking_ids)
+        # Don't take into account pickings that are already done or canceled
+        # This can happen if a move is a reliquat of a picking that has been
+        # already been processed.
+        pickings = pickings.filtered(lambda p: p.state not in ("done", "cancel"))
         pickings._after_release_update_chain()
         # Set the highest priority on all pickings in the chain
         priorities = pickings.mapped("priority")

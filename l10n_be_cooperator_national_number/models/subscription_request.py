@@ -2,7 +2,6 @@
 #
 # SPDX-License-Identifier: AGPL-3.0-or-later
 
-from collections import namedtuple
 
 from odoo import _, api, fields, models
 from odoo.exceptions import UserError
@@ -21,55 +20,33 @@ class SubscriptionRequest(models.Model):
 
     @api.depends("is_company", "company_id", "company_id.display_national_number")
     def _compute_display_national_number(self):
-        self.display_national_number = (
-            self.company_id.display_national_number and not self.is_company
-        )
+        for request in self:
+            request.display_national_number = (
+                request.company_id.get_display_national_number(request.is_company)
+            )
 
     @api.depends("is_company", "company_id", "company_id.require_national_number")
     def _compute_require_national_number(self):
-        self.require_national_number = (
-            self.company_id.require_national_number and not self.is_company
-        )
-
-    @api.model
-    def _get_be_national_register_number_id_category(self):
-        return self.env.ref(
-            "l10n_be_partner_identification.l10n_be_national_registry_number_category"
-        )
-
-    @api.model
-    def get_national_number_from_partner(self, partner):
-        national_number_id_category = (
-            self._get_be_national_register_number_id_category()
-        )
-        national_number = partner.id_numbers.filtered(
-            lambda rec: rec.category_id.id == national_number_id_category.id
-        )
-        return national_number.name
-
-    @api.model
-    def check_be_national_register_number(self, national_number):
-        national_number_id_category = (
-            self._get_be_national_register_number_id_category()
-        )
-        # this function checks the value of id_number.name, not id_number
-        # directly.
-        id_number = namedtuple("id_number", ("name"))(national_number)
-        national_number_id_category.validate_id_number(id_number)
+        for request in self:
+            request.require_national_number = (
+                request.company_id.get_require_national_number(request.is_company)
+            )
 
     def validate_subscription_request(self):
         self.ensure_one()
         if self.require_national_number and not self.national_number:
             raise UserError(_("National Number is required."))
         if self.national_number:
-            self.check_be_national_register_number(self.national_number)
+            self.env["res.partner"].validate_be_national_register_number(
+                self.national_number, error=True
+            )
         invoice = super().validate_subscription_request()
         if not self.is_company:
             partner = invoice.partner_id
-            partner.update_belgian_national_number(self.national_number)
+            partner.update_be_national_register_number(self.national_number)
         return invoice
 
     def set_person_info(self, partner):
         super().set_person_info(partner)
-        self.national_number = self.get_national_number_from_partner(partner)
+        self.national_number = partner.get_be_national_register_number()
         return True

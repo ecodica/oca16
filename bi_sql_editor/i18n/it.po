@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: Odoo Server 9.0c\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-08-12 02:51+0000\n"
-"PO-Revision-Date: 2024-04-04 11:34+0000\n"
+"PO-Revision-Date: 2024-06-07 12:34+0000\n"
 "Last-Translator: mymage <stefano.consolaro@mymage.it>\n"
 "Language-Team: Italian (https://www.transifex.com/oca/teams/23907/it/)\n"
 "Language: it\n"
@@ -90,6 +90,17 @@ msgstr "Vista SQL BI"
 #: model:ir.model,name:bi_sql_editor.model_bi_sql_view_field
 msgid "Bi SQL View Field"
 msgstr "Campo vista SQL BI"
+
+#. module: bi_sql_editor
+#: model:ir.model.fields,help:bi_sql_editor.field_bi_sql_view__parent_menu_id
+msgid ""
+"By assigning a value to this field before manually creating the UI, you're "
+"overwriting the parent menu on which the menu related to the SQL report will "
+"be created."
+msgstr ""
+"Assegnando un valore a questo campo prima di creare manualmente la UI, si "
+"sta sovrascrivendo il menu padre nel quale il menu relativo al resoconto SQL "
+"verrà creato."
 
 #. module: bi_sql_editor
 #: model:ir.model.fields,help:bi_sql_editor.field_bi_sql_view_field__group_operator
@@ -204,10 +215,10 @@ msgid ""
 "False)]."
 msgstr ""
 "Definire qui le restrizioni di accesso ai dati.\n"
-" Fare attenzione ad usare nomi campi con prefisso 'x_'. Verrà creata una "
-"'ir.rule' gobale. Una tipi ca regola multi azienda è per esempio\n"
-" ['|', ('x_company_id','child_of', [user.company_id."
-"id]),('x_company_id','=',False)]."
+" Fare attenzione ad usare nomi campi con prefisso 'x_'. Verrà creata una 'ir."
+"rule' gobale. Una tipi ca regola multi azienda è per esempio\n"
+" ['|', ('x_company_id','child_of', [user.company_id.id]),('x_company_id','=',"
+"False)]."
 
 #. module: bi_sql_editor
 #: model_terms:ir.ui.view,arch_db:bi_sql_editor.view_bi_sql_view_form
@@ -556,6 +567,11 @@ msgid "Optional (shown)"
 msgstr "Opzionale (visualizza)"
 
 #. module: bi_sql_editor
+#: model:ir.model.fields,field_description:bi_sql_editor.field_bi_sql_view__parent_menu_id
+msgid "Parent Odoo Menu"
+msgstr "Menu Odoo padre"
+
+#. module: bi_sql_editor
 #. odoo-python
 #: code:addons/bi_sql_editor/models/bi_sql_view.py:0
 #, python-format
@@ -693,8 +709,9 @@ msgid ""
 "current/static/sql-syntax-lexical.html#SQL-SYNTAX-IDENTIFIERS"
 msgstr ""
 "Suffisso della vista SQL. Il nome completo SQL verrà calcolato con prefisso "
-"'x_bi_sql_view_'. La sintassi deve essere la seguente: https://www.postgresql"
-".org/docs/current/static/sql-syntax-lexical.html#IDENTIFICATORI-SINTASSI-SQL"
+"'x_bi_sql_view_'. La sintassi deve essere la seguente: https://www."
+"postgresql.org/docs/current/static/sql-syntax-lexical.html#IDENTIFICATORI-"
+"SINTASSI-SQL"
 
 #. module: bi_sql_editor
 #: model:ir.model.fields.selection,name:bi_sql_editor.selection__bi_sql_view_field__group_operator__sum
@@ -751,6 +768,16 @@ msgstr ""
 "Tipo del campo Odoo vhe verrà creato. Lasciare vuoto se non si vuole creare "
 "un nuovo campo. Se vuoto, questo camo non verrà visalizzato ne sarà "
 "disponibile per la ricerca o il raggruppamento"
+
+#. module: bi_sql_editor
+#: model_terms:ir.ui.view,arch_db:bi_sql_editor.view_bi_sql_view_form
+msgid "UI Instances"
+msgstr "Istanze UI"
+
+#. module: bi_sql_editor
+#: model_terms:ir.ui.view,arch_db:bi_sql_editor.view_bi_sql_view_form
+msgid "UI Parameters"
+msgstr "Parametri UI"
 
 #. module: bi_sql_editor
 #: model:ir.model.fields.selection,name:bi_sql_editor.selection__bi_sql_view_field__tree_visibility__unavailable

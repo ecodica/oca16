@@ -30,9 +30,9 @@ class AccountEdiXmlCIUSRO(models.Model):
                 xml_content = xml_content.decode()
                 xml_content = xml_content.encode()
                 xml_name = builder._export_invoice_filename(invoice)
-                old_attachment = edi_document.attachment_id
+                old_attachment = edi_document.attachment_id.sudo()
                 if old_attachment:
-                    edi_document.attachment_id = False
+                    edi_document.sudo().attachment_id = False
                     old_attachment.unlink()
                 res = self.env["ir.attachment"].create(
                     {
@@ -120,7 +120,7 @@ class AccountEdiXmlCIUSRO(models.Model):
 
     @api.model
     def l10n_ro_edi_post_message(self, invoice, message, res):
-        invoice.message_post(body=res["error"])
+        # invoice.message_post(body=res["error"])
         body = message + _("\n\nError:\n<p>%s</p>") % res["error"]
 
         mail_activity = invoice.activity_ids.filtered(
@@ -148,6 +148,7 @@ class AccountEdiXmlCIUSRO(models.Model):
         res = {}
         to_remove_invoices = self.env["account.move"]
         for invoice in invoices:
+
             anaf_config = invoice.company_id._l10n_ro_get_anaf_sync(scope="e-factura")
             if not anaf_config:
                 res[invoice] = {
@@ -249,7 +250,7 @@ class AccountEdiXmlCIUSRO(models.Model):
             )
             return b""
         else:
-            doc.write({"attachment_id": attachment.id})
+            doc.sudo().write({"attachment_id": attachment.id})
             return attachment.raw
 
     def _l10n_ro_post_invoice_step_1(self, invoice, attachment):

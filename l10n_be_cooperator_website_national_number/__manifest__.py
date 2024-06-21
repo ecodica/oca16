@@ -6,12 +6,12 @@
         Ask for Belgian National Number in Cooperative
         Subscription Request Frontend Form.
         """,
-    "version": "16.0.1.0.1",
+    "version": "16.0.2.0.0",
     "depends": [
         "l10n_be_cooperator_national_number",
-        "l10n_be_cooperator",
         "cooperator_website",
     ],
+    "auto_install": True,
     "author": "Coop IT Easy SC, Odoo Community Association (OCA)",
     "category": "Cooperative management",
     "website": "https://github.com/OCA/cooperative",

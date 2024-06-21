@@ -121,6 +121,10 @@ class AccountMove(models.Model):
                         move.display_name,
                     )
                 )
+            if move.l10n_ro_edi_transaction:
+                move.l10n_ro_edi_transaction = None
+            if move.l10n_ro_edi_download:
+                move.l10n_ro_edi_download = None
         return super().button_draft()
 
     def button_cancel_posted_moves(self):
@@ -145,9 +149,20 @@ class AccountMove(models.Model):
         # For RO, remove the l10n_ro_edi_transaction to force re-send
         # (otherwise this only triggers a check_status)
         cius_ro = self.env.ref("l10n_ro_account_edi_ubl.edi_ubl_cius_ro")
-        self.filtered(
+        invoice_errors = self.filtered(
             lambda m: m._get_edi_document(cius_ro).blocking_level == "error"
-        ).l10n_ro_edi_transaction = None
+        )
+
+        for invoice in invoice_errors:
+            invoice.l10n_ro_edi_transaction = None
+            edi_document = invoice._get_edi_document(cius_ro)
+            if edi_document:
+                old_attachment = edi_document.attachment_id
+                if old_attachment:
+                    edi_document.sudo().attachment_id = False
+                    old_attachment.sudo().unlink()
+
+        return super()._retry_edi_documents_error_hook()
 
     def button_process_edi_web_services(self):
         if len(self) == 1:
@@ -180,7 +195,7 @@ class AccountMove(models.Model):
                 user_id=self.invoice_user_id.id,
             )
         else:
-            doc.write({"attachment_id": attachment.id})
+            doc.sudo().write({"attachment_id": attachment.id})
             action = self.env["ir.attachment"].action_get()
             action.update(
                 {"res_id": attachment.id, "views": False, "view_mode": "form,tree"}
@@ -260,7 +275,7 @@ class AccountMove(models.Model):
     def l10n_ro_check_anaf_error_xml(self, zip_content):
         self.ensure_one()
         cius_ro = self.env.ref("l10n_ro_account_edi_ubl.edi_ubl_cius_ro")
-        err_msg = False
+        err_msg = ""
         try:
             zip_ref = zipfile.ZipFile(io.BytesIO(zip_content))
             err_file = [
@@ -274,9 +289,11 @@ class AccountMove(models.Model):
                 if decode_xml:
                     tree = decode_xml[0]["xml_tree"]
                 error_tag = "Error"
-                err_msg = "Erori validare ANAF:<br/>"
                 for _index, err in enumerate(tree.findall("./{*}" + error_tag)):
                     err_msg += f"{err.attrib.get('errorMessage')}<br/>"
+                if err_msg:
+                    err_msg = "Erori validare ANAF:<br/>" + err_msg
+                    return err_msg
         except Exception as e:
             _logger.warning(f"Error while checking the Zipped XML file: {e}")
         return err_msg
@@ -290,20 +307,24 @@ class AccountMove(models.Model):
         cius_ro = self.env.ref("l10n_ro_account_edi_ubl.edi_ubl_cius_ro")
         edi_doc = self._get_edi_document(cius_ro)
         if edi_doc:
-            edi_doc.attachment_id = attachment_zip
+            edi_doc.sudo().attachment_id = attachment_zip
         else:
-            edi_format_cius = self.env["account.edi.format"].search(
-                [("code", "=", "cius_ro")]
-            )
-            if not self.invoice_line_ids:
-                edi_format_cius._update_invoice_from_attachment(attachment, self)
-            else:
-                raise UserError(
-                    _(
-                        "The invoice already have invoice lines, "
-                        "you cannot update them again from the XMl downloaded file."
-                    )
+            self.l10n_ro_process_anaf_xml_file(attachment)
+
+    def l10n_ro_process_anaf_xml_file(self, attachment=None):
+
+        edi_format_cius = self.env["account.edi.format"].search(
+            [("code", "=", "cius_ro")]
+        )
+        if not self.invoice_line_ids:
+            edi_format_cius._update_invoice_from_attachment(attachment, self)
+        else:
+            raise UserError(
+                _(
+                    "The invoice already have invoice lines, "
+                    "you cannot update them again from the XMl downloaded file."
                 )
+            )
 
     def l10n_ro_get_xml_file(self, zip_ref):
         file_name = xml_file = False
@@ -348,10 +369,11 @@ class AccountMove(models.Model):
             ("res_model", "=", "account.move"),
             ("res_id", "=", self.id),
         ]
-        attachments = self.env["ir.attachment"].search(domain)
+        ir_attachment = self.env["ir.attachment"].sudo()
+        attachments = ir_attachment.search(domain)
         if attachments:
             attachments.unlink()
-        attachment = self.env["ir.attachment"].create(
+        attachment = ir_attachment.create(
             {
                 "name": file_name,
                 "raw": file_content,
@@ -360,11 +382,55 @@ class AccountMove(models.Model):
                 "mimetype": mimetype,
             }
         )
+
         return attachment
+
+    def action_post(self):
+        res = super().action_post()
+        invoices = self.filtered(
+            lambda inv: inv.move_type in ["in_invoice", "in_refund"]
+        )
+        for invoice in invoices:
+            for line in invoice.invoice_line_ids:
+                if line.l10n_ro_vendor_code and line.product_id:
+                    supplier_info = line.product_id.seller_ids.filtered(
+                        lambda s: s.name.id == invoice.partner_id.id
+                    )
+                    if not supplier_info:
+                        self.env["product.supplierinfo"].create(
+                            {
+                                "partner_id": invoice.partner_id.id,
+                                "product_name": line.name,
+                                "product_code": line.l10n_ro_vendor_code,
+                                "product_id": line.product_id.id,
+                                "price": line.price_unit,
+                                "currency_id": invoice.currency_id.id,
+                                "product_uom": line.product_uom_id.id,
+                            }
+                        )
+                    else:
+                        supplier_info = supplier_info.filtered(
+                            lambda s: not s.product_code
+                        )
+                        supplier_info.write({"product_code": line.l10n_ro_vendor_code})
+
+        return res
 
 
 class AccountMoveLine(models.Model):
     _inherit = "account.move.line"
+
+    l10n_ro_vendor_code = fields.Char(string="Vendor Code", copy=False)
+
+    def _get_computed_name(self):
+        self.ensure_one()
+        if (
+            self.move_id.move_type not in ["in_invoice", "in_refund"]
+            or not self.move_id.l10n_ro_edi_download
+        ):
+            return super()._get_computed_name()
+        else:
+            return self.name
 
     def _get_computed_price_unit(self):
         self.ensure_one()

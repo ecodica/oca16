@@ -74,6 +74,7 @@ class AccountEdiXmlCIUSRO(models.Model):
             and invoice.company_id.l10n_ro_credit_note_einvoice
         ):
             balance_sign = -balance_sign
+
         return [
             {
                 "currency": invoice.currency_id,
@@ -100,7 +101,10 @@ class AccountEdiXmlCIUSRO(models.Model):
         shipping_address = False
         if "partner_shipping_id" in invoice._fields and invoice.partner_shipping_id:
             shipping_address = invoice.partner_shipping_id
-            if shipping_address == invoice.partner_id:
+            if (
+                shipping_address.type != "delivery"
+                or shipping_address == invoice.partner_id
+            ):
                 shipping_address = False
         if shipping_address:
             res = [
@@ -156,6 +160,10 @@ class AccountEdiXmlCIUSRO(models.Model):
             invoice.commercial_partner_id.ref or invoice.commercial_partner_id.name
         )
         vals_list["vals"]["order_reference"] = (invoice.ref or invoice.name)[:30]
+        if "sales_order_id" in vals_list["vals"]:
+            vals_list["vals"]["sales_order_id"] = vals_list["vals"]["sales_order_id"][
+                :200
+            ]
         vals_list[
             "TaxTotalType_template"
         ] = "l10n_ro_account_edi_ubl.ubl_20_TaxTotalType"
@@ -281,9 +289,28 @@ class AccountEdiXmlCIUSRO(models.Model):
     def _import_fill_invoice_line_form(
         self, journal, tree, invoice, invoice_line, qty_factor
     ):
-        res = super(AccountEdiXmlCIUSRO, self)._import_fill_invoice_line_form(
+        res = super()._import_fill_invoice_line_form(
             journal, tree, invoice, invoice_line, qty_factor
         )
+
+        vendor_code = self._find_value(
+            "./cac:Item/cac:SellersItemIdentification/cbc:ID", tree
+        )
+        if not vendor_code:
+            vendor_code = self._find_value(
+                "./cac:Item/cac:StandardItemIdentification/cbc:ID", tree
+            )
+
+        if vendor_code:
+            invoice_line.l10n_ro_vendor_code = vendor_code
+            domain = [
+                ("seller_ids.product_code", "=", vendor_code),
+                ("seller_ids.partner_id", "=", invoice.partner_id.id),
+            ]
+            product = self.env["product.product"].search(domain, limit=1)
+            if product:
+                invoice_line.product_id = product
+
         tax_nodes = tree.findall(".//{*}Item/{*}ClassifiedTaxCategory/{*}ID")
         if len(tax_nodes) == 1:
             if tax_nodes[0].text in ["O", "E", "Z"]:
@@ -299,7 +326,7 @@ class AccountEdiXmlCIUSRO(models.Model):
                     ],
                     limit=1,
                 )
-                if tax:
+                if tax and not invoice_line.tax_ids:
                     invoice_line.tax_ids.add(tax)
         return res
 
@@ -341,6 +368,7 @@ class AccountEdiXmlCIUSRO(models.Model):
         )
         if not invoice.partner_id.is_company and name and vat:
             invoice.partner_id.is_company = True
+            invoice.partner_id.ro_vat_change()
         return res
 
     def _import_fill_invoice_form(self, journal, tree, invoice_form, qty_factor):
@@ -384,14 +412,9 @@ class AccountEdiXmlCIUSRO(models.Model):
         if invoice:
             additional_docs = tree.findall("./{*}AdditionalDocumentReference")
             if len(additional_docs) == 0:
-                res = self.l10n_ro_renderAnafPdf(invoice)
-                if not res:
-                    report_obj = self.env["ir.actions.report"].sudo()
-                    pdf = report_obj._render_qweb_pdf(
-                        "account.account_invoices_without_payment", invoice.ids
-                    )
-                    b64_pdf = b64encode(pdf[0])
-                    self.l10n_ro_addPDF_from_att(invoice, b64_pdf)
+                if invoice.company_id.l10n_ro_render_anaf_pdf:
+                    self.l10n_ro_renderAnafPdf(invoice)
+
         return invoice
 
     def l10n_ro_renderAnafPdf(self, invoice):
