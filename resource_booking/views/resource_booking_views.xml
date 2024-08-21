@@ -153,7 +153,7 @@
                                 <field
                                     name="combination_id"
                                     class="oe_inline"
-                                    attrs="{'required': [('start', '!=', False)], 'readonly': [('combination_auto_assign', '=', True)]}"
+                                    attrs="{'required': [('combination_auto_assign', '=', False)], 'readonly': [('combination_auto_assign', '=', True)]}"
                                 />
                             </div>
                             <field name="categ_ids" widget="many2many_tags" />
@@ -201,6 +201,7 @@
         <field name="model">resource.booking</field>
         <field name="arch" type="xml">
             <search>
+                <field name="name" />
                 <field name="partner_ids" />
                 <field name="type_id" />
                 <field name="combination_id" />

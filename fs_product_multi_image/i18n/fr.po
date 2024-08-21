@@ -55,6 +55,18 @@ msgid "Display Name"
 msgstr "Nom Affiché"
 
 #. module: fs_product_multi_image
+#: model:ir.model.fields,field_description:fs_product_multi_image.field_product_product__image_medium
+#: model:ir.model.fields,field_description:fs_product_multi_image.field_product_template__image_medium
+msgid "FS Image Medium"
+msgstr ""
+
+#. module: fs_product_multi_image
+#: model:ir.model.fields,field_description:fs_product_multi_image.field_product_product__image
+#: model:ir.model.fields,field_description:fs_product_multi_image.field_product_template__image
+msgid "FS Main Image"
+msgstr ""
+
+#. module: fs_product_multi_image
 #: model:ir.model.fields,field_description:fs_product_multi_image.field_fs_product_category_image__id
 #: model:ir.model.fields,field_description:fs_product_multi_image.field_fs_product_image__id
 msgid "ID"
@@ -66,6 +78,7 @@ msgid "If you need to edit the images, do it from the product template."
 msgstr "Pour éditer l'image, rendez vous sur la fiche template de produit."
 
 #. module: fs_product_multi_image
+#: model_terms:ir.ui.view,arch_db:fs_product_multi_image.fs_product_category_image_kanban_view
 #: model_terms:ir.ui.view,arch_db:fs_product_multi_image.fs_product_image_kanban_view
 #: model_terms:ir.ui.view,arch_db:fs_product_multi_image.product_template_only_form_view
 msgid "Image"
@@ -75,8 +88,6 @@ msgstr "Image"
 #: model:ir.model.fields,field_description:fs_product_multi_image.field_fs_product_category_image__image_medium
 #: model:ir.model.fields,field_description:fs_product_multi_image.field_fs_product_image__image_medium
 #: model:ir.model.fields,field_description:fs_product_multi_image.field_product_category__image_medium
-#: model:ir.model.fields,field_description:fs_product_multi_image.field_product_product__image_medium
-#: model:ir.model.fields,field_description:fs_product_multi_image.field_product_template__image_medium
 msgid "Image (128)"
 msgstr "Image (128)"
 
@@ -84,8 +95,6 @@ msgstr "Image (128)"
 #: model:ir.model.fields,field_description:fs_product_multi_image.field_fs_product_category_image__image
 #: model:ir.model.fields,field_description:fs_product_multi_image.field_fs_product_image__image
 #: model:ir.model.fields,field_description:fs_product_multi_image.field_product_category__image
-#: model:ir.model.fields,field_description:fs_product_multi_image.field_product_product__image
-#: model:ir.model.fields,field_description:fs_product_multi_image.field_product_template__image
 msgid "Image (original)"
 msgstr "Image (originale)"
 

@@ -66,10 +66,16 @@ class HrExpenseSheet(models.Model):
 
     @api.depends("account_move_id.payment_state")
     def _compute_payment_state(self):
-        """After clear advance. payment state will change to 'paid'"""
+        """After clear advance.
+        if amount residual is zero, payment state will change to 'paid'
+        """
         res = super()._compute_payment_state()
         for sheet in self:
-            if sheet.advance_sheet_id and sheet.account_move_id.state == "posted":
+            if (
+                sheet.advance_sheet_id
+                and sheet.account_move_id.state == "posted"
+                and not sheet.amount_residual
+            ):
                 sheet.payment_state = "paid"
         return res
 
@@ -82,8 +88,11 @@ class HrExpenseSheet(models.Model):
             emp_advance = sheet._get_product_advance()
             residual_company = 0.0
             if emp_advance:
+                property_account_expense_id = emp_advance.with_company(
+                    sheet.company_id
+                ).property_account_expense_id
                 for line in sheet.sudo().account_move_id.line_ids:
-                    if line.account_id == emp_advance.property_account_expense_id:
+                    if line.account_id == property_account_expense_id:
                         residual_company += line.amount_residual
             sheet.clearing_residual = residual_company
 

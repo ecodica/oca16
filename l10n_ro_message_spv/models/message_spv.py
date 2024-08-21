@@ -9,7 +9,7 @@ from base64 import b64encode
 import requests
 from lxml import etree
 
-from odoo import _, fields, models
+from odoo import _, api, fields, models
 from odoo.exceptions import UserError
 
 _logger = logging.getLogger(__name__)
@@ -34,6 +34,7 @@ class MessageSPV(models.Model):
     date = fields.Datetime()  # data_creare
     details = fields.Char()  # detalii
     error = fields.Text()  # eroare
+    message = fields.Text()  # mesaj
     request_id = fields.Char(string="Request ID")  # id_solicitare
     ref = fields.Char(string="Reference")  # referinta
 
@@ -62,6 +63,7 @@ class MessageSPV(models.Model):
     attachment_anaf_pdf_id = fields.Many2one("ir.attachment", string="ANAF PDF")
     attachment_embedded_pdf_id = fields.Many2one("ir.attachment", string="Embedded PDF")
     amount = fields.Monetary()
+    invoice_amount = fields.Monetary()
 
     company_id = fields.Many2one(
         "res.company", "Company", default=lambda self: self.env.company
@@ -69,6 +71,20 @@ class MessageSPV(models.Model):
     currency_id = fields.Many2one(
         "res.currency", default=lambda self: self.env.company.currency_id
     )
+
+    _sql_constraints = [("unique_name", "unique(name)", "Message ID must be unique.")]
+
+    @api.onchange("invoice_id", "invoice_id.state")
+    def _onchange_invoice_id(self):
+        for message in self:
+            if message.invoice_id:
+                if message.invoice_id.move_type in ("in_refund", "out_refund"):
+                    message.invoice_amount = -1 * message.invoice_id.amount_total
+                else:
+                    message.invoice_amount = message.invoice_id.amount_total
+                message.partner_id = message.invoice_id.commercial_partner_id
+                if message.invoice_id.state == "posted":
+                    message.state = "done"
 
     def download_from_spv(self):
         """Rutina de descarcare a fisierelor de la SPV"""
@@ -95,6 +111,9 @@ class MessageSPV(models.Model):
             if error:
                 message.write({"error": error})
                 continue
+            if message.message_type == "message":
+                info_message = message.check_anaf_message_xml(response)
+                message.write({"message": info_message})
 
             file_name = f"{message.request_id}.zip"
             attachment_value = {
@@ -143,8 +162,15 @@ class MessageSPV(models.Model):
             amount_note = xml_tree.find(
                 ".//{*}LegalMonetaryTotal/{*}TaxInclusiveAmount"
             )
+
             if amount_note is not None:
                 amount = float(amount_note.text)
+
+            if (
+                xml_tree.tag
+                == "{urn:oasis:names:specification:ubl:schema:xsd:CreditNote-2}CreditNote"  # noqa
+            ):
+                amount = -1 * amount
 
             message.write(
                 {
@@ -195,45 +221,131 @@ class MessageSPV(models.Model):
             _logger.warning(f"Error while checking the Zipped XML file: {e}")
         return err_msg
 
+    def check_anaf_message_xml(self, zip_content):
+        self.ensure_one()
+        info_msg = ""
+        try:
+            zip_ref = zipfile.ZipFile(io.BytesIO(zip_content))
+            info_file = [f for f in zip_ref.namelist() if f"{self.request_id}.xml" == f]
+            if info_file:
+                message_cont = zip_ref.read(info_file[0])
+                tree = etree.fromstring(message_cont)
+                info_msg += tree.attrib.get("message")
+
+        except Exception as e:
+            _logger.warning(f"Error while checking the Zipped XML file: {e}")
+        return info_msg
+
     def get_invoice_from_move(self):
         messages_without_invoice = self.filtered(lambda m: not m.invoice_id)
         message_ids = messages_without_invoice.mapped("name")
         request_ids = messages_without_invoice.mapped("request_id")
-        invoices = self.env["account.move"].search(
-            [
+        inv_domain = [
+            "|",
+            ("l10n_ro_edi_download", "in", message_ids),
+            ("l10n_ro_edi_transaction", "in", request_ids),
+        ]
+        # For error messages try to find invoices based on old transactions
+        for msg in message_ids + request_ids:
+            inv_domain = [
                 "|",
-                ("l10n_ro_edi_download", "in", message_ids),
-                ("l10n_ro_edi_transaction", "in", request_ids),
-            ]
-        )
+                ("l10n_ro_edi_previous_transaction", "ilike", msg),
+            ] + inv_domain
+        invoices = self.env["account.move"].search(inv_domain)
+        domain = [("name", "in", messages_without_invoice.mapped("ref"))]
+        invoices |= self.env["account.move"].search(domain)
         for message in messages_without_invoice:
             invoice = invoices.filtered(
                 lambda i, m=message: i.l10n_ro_edi_download == m.name
                 or i.l10n_ro_edi_transaction == m.request_id
+                or (i.ref == m.ref and m.ref)
+                or (i.name == m.ref and m.ref)
             )
-            if not invoice:
+
+            if not invoice and message.ref:
+                if message.message_type == "in_invoice":
+                    move_type = ("in_invoice", "in_refund")
+                else:
+                    move_type = ("out_invoice", "out_refund")
+
                 domain = [
                     ("partner_id", "=", message.partner_id.id),
                     ("ref", "=", message.ref),
-                    ("move_type", "=", message.message_type),
+                    ("move_type", "in", move_type),
                 ]
                 invoice = self.env["account.move"].search(domain, limit=1)
 
-            if invoice:
-                state = "invoice"
-                if invoice.edi_state == "sent":
-                    state = "done"
-                message.write(
-                    {
-                        "invoice_id": invoice.id,
-                        "partner_id": invoice.commercial_partner_id.id,
-                        "state": state,
-                    }
+            if not invoice:
+                invoice = invoices.filtered(
+                    lambda i: message.name in i.l10n_ro_edi_previous_transaction
+                    or message.request_id in i.l10n_ro_edi_previous_transaction
+                )
+            if len(invoice) > 1:
+                _logger.warning(
+                    "Multiple invoices found for message %s: %s",
+                    message.name,
+                    invoice.ids,
+                )
+            if len(invoice) == 1:
+                message.write({"invoice_id": invoice.id})
+                if message.message_type == "message":
+                    msg = _("You received a message from ANAF for invoice %s") % (
+                        invoice.name
+                    )
+                    msg += f"\n{message.message}"
+                    self.env["account.edi.format"].l10n_ro_edi_post_message(
+                        invoice, msg, {}
+                    )
+                if (
+                    not invoice.l10n_ro_edi_download
+                    and not invoice.l10n_ro_edi_transaction
+                ):
+                    invoice.write(
+                        {
+                            "l10n_ro_edi_download": message.name,
+                            "l10n_ro_edi_transaction": message.request_id,
+                        }
+                    )
+
+        self.get_data_from_invoice()
+
+    def get_data_from_invoice(self):
+        for message in self:
+            if not message.invoice_id:
+                continue
+            state = "invoice"
+            if message.invoice_id.state == "posted":
+                state = "done"
+
+            if message.invoice_id.move_type in ("in_refund", "out_refund"):
+                invoice_amount = -1 * message.invoice_id.amount_total
+            else:
+                invoice_amount = message.invoice_id.amount_total
+
+            message.write(
+                {
+                    "partner_id": message.invoice_id.commercial_partner_id.id,
+                    "invoice_amount": invoice_amount,
+                    "state": state,
+                }
+            )
+        for message in self:
+            if message.invoice_id:
+                attachments = self.env["ir.attachment"]
+                attachments += message.attachment_id
+                attachments += message.attachment_xml_id
+                attachments += message.attachment_anaf_pdf_id
+                attachments += message.attachment_embedded_pdf_id
+                attachments.write(
+                    {"res_id": message.invoice_id.id, "res_model": "account.move"}
                 )
 
     def create_invoice(self):
         for message in self.filtered(lambda m: not m.invoice_id):
             if not message.message_type == "in_invoice":
+                continue
+            message.get_invoice_from_move()
+            if message.invoice_id:
                 continue
 
             move_obj = self.env["account.move"].with_company(message.company_id)
@@ -253,35 +365,7 @@ class MessageSPV(models.Model):
             except Exception as e:
                 message.write({"state": "error", "error": str(e)})
                 continue
-
-            exist_invoice = move_obj.search(
-                [
-                    ("ref", "=", new_invoice.ref),
-                    ("move_type", "=", "in_invoice"),
-                    ("state", "=", "posted"),
-                    ("partner_id", "=", new_invoice.partner_id.id),
-                    ("id", "!=", new_invoice.id),
-                ],
-                limit=1,
-            )
-            if exist_invoice:
-                domain = [
-                    ("res_model", "=", "account.move"),
-                    ("res_id", "=", new_invoice.id),
-                ]
-                attachments = self.env["ir.attachment"].sudo().search(domain)
-                attachments.write({"res_id": exist_invoice.id})
-                new_invoice.unlink()
-                exist_invoice.write(
-                    {
-                        "l10n_ro_edi_download": message.name,
-                        "l10n_ro_edi_transaction": message.request_id,
-                    }
-                )
-                new_invoice = exist_invoice
-
             state = "invoice"
-
             message.write({"invoice_id": new_invoice.id, "state": state})
 
     def render_anaf_pdf(self):
@@ -306,16 +390,7 @@ class MessageSPV(models.Model):
                 timeout=25,
             )
             if "The requested URL was rejected" in res.text:
-                xml = xml.replace(
-                    b'xsi:schemaLocation="urn:oasis:names:specification:ubl:schema:xsd:Invoice-2 ../../UBL-2.1(1)/xsd/maindoc/UBLInvoice-2.1.xsd"',  # noqa: B950
-                    "",
-                )
-                res = requests.post(
-                    f"https://webservicesp.anaf.ro/prod/FCTEL/rest/transformare/{val1}/{val2}",
-                    data=xml,
-                    headers=headers,
-                    timeout=25,
-                )
+                raise UserError(_("ANAF service unable to generate PDF from this XML."))
 
             if res.status_code == 200:
                 pdf = b64encode(res.content)
@@ -375,3 +450,26 @@ class MessageSPV(models.Model):
                     if message.attachment_embedded_pdf_id:
                         message.attachment_embedded_pdf_id.unlink()
                     message.write({"attachment_embedded_pdf_id": attachment.id})
+
+    def action_download_attachment(self):
+        self.ensure_one()
+        return self._action_download(self.attachment_id.id)
+
+    def action_download_xml(self):
+        self.ensure_one()
+        return self._action_download(self.attachment_xml_id.id)
+
+    def action_download_anaf_pdf(self):
+        self.ensure_one()
+        return self._action_download(self.attachment_anaf_pdf_id.id)
+
+    def action_download_embedded_pdf(self):
+        self.ensure_one()
+        return self._action_download(self.attachment_embedded_pdf_id.id)
+
+    def _action_download(self, attachment_field_id):
+        return {
+            "type": "ir.actions.act_url",
+            "url": f"/web/content/{attachment_field_id}?download=true",
+            "target": "self",
+        }

@@ -13,11 +13,16 @@ class HrLeave(models.Model):
         actions derived from this validation. This is required for example for
         `project_timesheet_holidays` for not generating the timesheet on the public holiday.
         Unfortunately, no regression test can be added, being in a separate module."""
-        if self.holiday_status_id.exclude_public_holidays or not self.holiday_status_id:
-            self = self.with_context(
-                employee_id=self.employee_id.id, exclude_public_holidays=True
-            )
-        return super(HrLeave, self).action_validate()
+        for leave in self:
+            if (
+                leave.holiday_status_id.exclude_public_holidays
+                or not leave.holiday_status_id
+            ):
+                leave = leave.with_context(
+                    employee_id=leave.employee_id.id, exclude_public_holidays=True
+                )
+            super(HrLeave, leave).action_validate()
+        return True
 
     def _get_number_of_days(self, date_from, date_to, employee_id):
         if self.holiday_status_id.exclude_public_holidays or not self.holiday_status_id:
@@ -50,6 +55,13 @@ class HrLeave(models.Model):
 
     def _get_domain_from_get_unusual_days(self, date_from, date_to=None):
         domain = [("date", ">=", date_from)]
+        # Use the employee of the user or the one who has the context
+        employee_id = self.env.context.get("employee_id", False)
+        employee = (
+            self.env["hr.employee"].browse(employee_id)
+            if employee_id
+            else self.env.user.employee_id
+        )
         if date_to:
             domain.append(
                 (
@@ -58,7 +70,7 @@ class HrLeave(models.Model):
                     date_to,
                 )
             )
-        country_id = self.env.user.employee_id.address_id.country_id.id
+        country_id = employee.address_id.country_id.id
         if not country_id:
             country_id = self.env.company.country_id.id or False
         if country_id:
@@ -69,7 +81,7 @@ class HrLeave(models.Model):
                     ("year_id.country_id", "=", country_id),
                 ]
             )
-        state_id = self.env.user.employee_id.address_id.state_id.id
+        state_id = employee.address_id.state_id.id
         if not state_id:
             state_id = self.env.company.state_id.id or False
         if state_id:

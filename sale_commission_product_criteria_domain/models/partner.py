@@ -64,6 +64,14 @@ class ResPartner(models.Model):
                     {"commission_item_agent_ids": [(0, 0, line) for line in to_create]}
                 )
 
+    @api.onchange("commission_id")
+    def _onchange_commission_id(self):
+        self.update(
+            {
+                "allowed_commission_group_ids": [(5, 0, 0)],
+            }
+        )
+
     def write(self, vals):
         res = super().write(vals)
         for partner in self:
@@ -72,4 +80,10 @@ class ResPartner(models.Model):
                 and partner.allowed_commission_group_ids
             ):
                 partner.allowed_commission_group_ids = False
+            if "agent" in vals.keys() and not vals["agent"]:
+                # not agent anymore - remove related cia's
+                cia_records = self.env["commission.item.agent"].search(
+                    [("agent_id", "=", partner.id)]
+                )
+                cia_records.unlink()
         return res

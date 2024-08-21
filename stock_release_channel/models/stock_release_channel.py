@@ -550,8 +550,6 @@ class StockReleaseChannel(models.Model):
             current = picking
             domain = channel._prepare_domain()
             code = channel.sudo().code
-            if not domain and not code:
-                current.release_channel_id = channel
             if domain:
                 current = picking.filtered_domain(domain)
             if not current:
@@ -850,6 +848,7 @@ class StockReleaseChannel(models.Model):
         pickings_to_unassign.write({"release_channel_id": False})
         pickings_to_unassign.unrelease()
         self.write({"state": "asleep"})
+        pickings_to_unassign._delay_assign_release_channel()
 
     def action_wake_up(self):
         self._check_is_action_wake_up_allowed()

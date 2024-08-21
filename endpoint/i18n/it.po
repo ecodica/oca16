@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 16.0\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-11-27 12:33+0000\n"
+"PO-Revision-Date: 2024-07-08 08:59+0000\n"
 "Last-Translator: mymage <stefano.consolaro@mymage.it>\n"
 "Language-Team: none\n"
 "Language: it\n"
@@ -14,7 +14,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.17\n"
+"X-Generator: Weblate 5.6.2\n"
 
 #. module: endpoint
 #. odoo-python
@@ -35,13 +35,13 @@ msgid "All"
 msgstr "Tutti"
 
 #. module: endpoint
-#: model_terms:ir.ui.view,arch_db:endpoint.endpoint_endpoint_form_view
 #: model_terms:ir.ui.view,arch_db:endpoint.endpoint_endpoint_search_view
+#: model_terms:ir.ui.view,arch_db:endpoint.endpoint_mixin_form_view
 msgid "Archived"
 msgstr "In archivio"
 
 #. module: endpoint
-#: model_terms:ir.ui.view,arch_db:endpoint.endpoint_endpoint_form_view
+#: model_terms:ir.ui.view,arch_db:endpoint.endpoint_mixin_form_view
 msgid "Auth"
 msgstr "Autrizzazione"
 
@@ -52,12 +52,12 @@ msgid "Auth Type"
 msgstr "Tipo autorizzazione"
 
 #. module: endpoint
-#: model_terms:ir.ui.view,arch_db:endpoint.endpoint_endpoint_form_view
+#: model_terms:ir.ui.view,arch_db:endpoint.endpoint_mixin_form_view
 msgid "Code"
 msgstr "Codice"
 
 #. module: endpoint
-#: model_terms:ir.ui.view,arch_db:endpoint.endpoint_endpoint_form_view
+#: model_terms:ir.ui.view,arch_db:endpoint.endpoint_mixin_form_view
 msgid "Code Help"
 msgstr "Aiuto codice"
 
@@ -72,6 +72,12 @@ msgstr "Esempio codice"
 #: model:ir.model.fields,field_description:endpoint.field_endpoint_mixin__code_snippet_docs
 msgid "Code Snippet Docs"
 msgstr "Documenti esempio codice"
+
+#. module: endpoint
+#: model:ir.model.fields,field_description:endpoint.field_endpoint_endpoint__company_id
+#: model:ir.model.fields,field_description:endpoint.field_endpoint_mixin__company_id
+msgid "Company"
+msgstr "Azienda"
 
 #. module: endpoint
 #: model:ir.model.fields,field_description:endpoint.field_endpoint_endpoint__create_uid
@@ -163,7 +169,7 @@ msgid "Last Updated on"
 msgstr "Ultimo aggiornamento il"
 
 #. module: endpoint
-#: model_terms:ir.ui.view,arch_db:endpoint.endpoint_endpoint_form_view
+#: model_terms:ir.ui.view,arch_db:endpoint.endpoint_mixin_form_view
 msgid "Main"
 msgstr "Principale"
 
@@ -202,7 +208,7 @@ msgid "Registry Sync"
 msgstr "Sincro registro"
 
 #. module: endpoint
-#: model_terms:ir.ui.view,arch_db:endpoint.endpoint_endpoint_form_view
+#: model_terms:ir.ui.view,arch_db:endpoint.endpoint_mixin_form_view
 msgid ""
 "Registry out of sync. Likely the record has been modified but not sync'ed "
 "with the routing registry."
@@ -211,7 +217,7 @@ msgstr ""
 "sincronizzato con il registro di instradamento."
 
 #. module: endpoint
-#: model_terms:ir.ui.view,arch_db:endpoint.endpoint_endpoint_form_view
+#: model_terms:ir.ui.view,arch_db:endpoint.endpoint_mixin_form_view
 msgid "Request"
 msgstr "Richiesta"
 
@@ -256,10 +262,10 @@ msgid "To sync"
 msgstr "Sa sincronizzare"
 
 #. module: endpoint
-#: model_terms:ir.ui.view,arch_db:endpoint.endpoint_endpoint_form_view
+#: model_terms:ir.ui.view,arch_db:endpoint.endpoint_mixin_form_view
 msgid ""
-"Use the action \"Sync registry\" to make changes effective once you are done"
-" with edits and creates."
+"Use the action \"Sync registry\" to make changes effective once you are done "
+"with edits and creates."
 msgstr ""
 "Utilizzare l'azione \"Sincronizza registro\" per rendere effettive le "
 "modifiche una volta completate le modifiche e le creazioni."

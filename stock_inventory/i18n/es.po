@@ -22,6 +22,16 @@ msgid "# Adjustments"
 msgstr "# Ajustes"
 
 #. module: stock_inventory
+#: model:ir.model.fields,field_description:stock_inventory.field_stock_inventory__message_needaction
+msgid "Action Needed"
+msgstr ""
+
+#. module: stock_inventory
+#: model:ir.model.fields,field_description:stock_inventory.field_stock_inventory__action_state_to_cancel_allowed
+msgid "Action State To Cancel Allowed"
+msgstr ""
+
+#. module: stock_inventory
 #: model:ir.model.fields,field_description:stock_inventory.field_stock_inventory__count_stock_quants_string
 msgid "Adjustments"
 msgstr "Ajustes"
@@ -37,6 +47,11 @@ msgid "Assigned to"
 msgstr ""
 
 #. module: stock_inventory
+#: model:ir.model.fields,field_description:stock_inventory.field_stock_inventory__message_attachment_count
+msgid "Attachment Count"
+msgstr ""
+
+#. module: stock_inventory
 #: model_terms:ir.ui.view,arch_db:stock_inventory.view_inventory_group_form
 msgid "Back to Draft"
 msgstr "Devolver a borrador"
@@ -47,12 +62,22 @@ msgid "Begin Adjustments"
 msgstr "Iniciar ajuste"
 
 #. module: stock_inventory
+#: model_terms:ir.ui.view,arch_db:stock_inventory.view_inventory_group_form
+msgid "Cancel"
+msgstr ""
+
+#. module: stock_inventory
+#: model:ir.model.fields.selection,name:stock_inventory.selection__stock_inventory__state__cancel
+msgid "Cancelled"
+msgstr ""
+
+#. module: stock_inventory
 #. odoo-python
 #: code:addons/stock_inventory/models/stock_inventory.py:0
 #, python-format
 msgid ""
-"Cannot be more than one in progress inventory adjustment affecting the same "
-"location at the same time."
+"Cannot have more than one in-progress inventory adjustment affecting the "
+"same location or product at the same time."
 msgstr ""
 
 #. module: stock_inventory
@@ -81,6 +106,11 @@ msgid "Created on"
 msgstr "Creado el"
 
 #. module: stock_inventory
+#: model:ir.model.fields,field_description:stock_inventory.field_stock_quant__current_inventory_id
+msgid "Current Inventory"
+msgstr ""
+
+#. module: stock_inventory
 #: model:ir.model.fields,field_description:stock_inventory.field_stock_inventory__date
 msgid "Date"
 msgstr "Fecha"
@@ -106,9 +136,34 @@ msgid "Exclude Sublocation"
 msgstr ""
 
 #. module: stock_inventory
+#: model:ir.model.fields,field_description:stock_inventory.field_stock_inventory__message_follower_ids
+msgid "Followers"
+msgstr ""
+
+#. module: stock_inventory
+#: model:ir.model.fields,field_description:stock_inventory.field_stock_inventory__message_partner_ids
+msgid "Followers (Partners)"
+msgstr ""
+
+#. module: stock_inventory
+#: model:ir.model.fields,field_description:stock_inventory.field_stock_inventory__has_message
+msgid "Has Message"
+msgstr ""
+
+#. module: stock_inventory
 #: model:ir.model.fields,field_description:stock_inventory.field_stock_inventory__id
 msgid "ID"
 msgstr "ID"
+
+#. module: stock_inventory
+#: model:ir.model.fields,help:stock_inventory.field_stock_inventory__message_needaction
+msgid "If checked, new messages require your attention."
+msgstr ""
+
+#. module: stock_inventory
+#: model:ir.model.fields,help:stock_inventory.field_stock_inventory__message_has_error
+msgid "If checked, some messages have a delivery error."
+msgstr ""
 
 #. module: stock_inventory
 #: model:ir.model.fields,help:stock_inventory.field_stock_inventory__exclude_sublocation
@@ -159,6 +214,11 @@ msgid "Inventory Reference"
 msgstr "Referencia de inventario"
 
 #. module: stock_inventory
+#: model:ir.model.fields,field_description:stock_inventory.field_stock_inventory__message_is_follower
+msgid "Is Follower"
+msgstr ""
+
+#. module: stock_inventory
 #: model:ir.model.fields,field_description:stock_inventory.field_stock_inventory____last_update
 msgid "Last Modified on"
 msgstr "Última modificación"
@@ -190,9 +250,24 @@ msgid "Lot/Serial Numbers"
 msgstr "Lote/Número de serie"
 
 #. module: stock_inventory
+#: model:ir.model.fields,field_description:stock_inventory.field_stock_inventory__message_main_attachment_id
+msgid "Main Attachment"
+msgstr ""
+
+#. module: stock_inventory
 #: model:ir.model.fields.selection,name:stock_inventory.selection__stock_inventory__product_selection__manual
 msgid "Manual Selection"
 msgstr "Selección manual"
+
+#. module: stock_inventory
+#: model:ir.model.fields,field_description:stock_inventory.field_stock_inventory__message_has_error
+msgid "Message Delivery error"
+msgstr ""
+
+#. module: stock_inventory
+#: model:ir.model.fields,field_description:stock_inventory.field_stock_inventory__message_ids
+msgid "Messages"
+msgstr ""
 
 #. module: stock_inventory
 #. odoo-python
@@ -200,6 +275,26 @@ msgstr "Selección manual"
 #, python-format
 msgid "No move lines have been created"
 msgstr "No se han creado líneas de movimiento"
+
+#. module: stock_inventory
+#: model:ir.model.fields,field_description:stock_inventory.field_stock_inventory__message_needaction_counter
+msgid "Number of Actions"
+msgstr ""
+
+#. module: stock_inventory
+#: model:ir.model.fields,field_description:stock_inventory.field_stock_inventory__message_has_error_counter
+msgid "Number of errors"
+msgstr ""
+
+#. module: stock_inventory
+#: model:ir.model.fields,help:stock_inventory.field_stock_inventory__message_needaction_counter
+msgid "Number of messages requiring action"
+msgstr ""
+
+#. module: stock_inventory
+#: model:ir.model.fields,help:stock_inventory.field_stock_inventory__message_has_error_counter
+msgid "Number of messages with delivery error"
+msgstr ""
 
 #. module: stock_inventory
 #: model:ir.model.fields.selection,name:stock_inventory.selection__stock_inventory__product_selection__one
@@ -210,6 +305,11 @@ msgstr "Un producto"
 #: model:ir.model.fields,field_description:stock_inventory.field_stock_inventory__owner_id
 msgid "Owner"
 msgstr "Propietario"
+
+#. module: stock_inventory
+#: model_terms:ir.ui.view,arch_db:stock_inventory.stock_inventory_search_view
+msgid "Product"
+msgstr ""
 
 #. module: stock_inventory
 #: model:ir.model.fields,field_description:stock_inventory.field_stock_inventory__category_id
@@ -233,6 +333,12 @@ msgid "Products"
 msgstr "Productos"
 
 #. module: stock_inventory
+#: model:ir.model.fields,field_description:stock_inventory.field_stock_inventory__products_under_review_ids
+#: model_terms:ir.ui.view,arch_db:stock_inventory.stock_inventory_search_view
+msgid "Products Under Review"
+msgstr ""
+
+#. module: stock_inventory
 #: model:ir.model,name:stock_inventory.model_stock_quant
 msgid "Quants"
 msgstr "Cantidades"
@@ -251,6 +357,11 @@ msgstr ""
 #: model:ir.model.fields,field_description:stock_inventory.field_stock_inventory__state
 msgid "State"
 msgstr "Estado"
+
+#. module: stock_inventory
+#: model:ir.model.fields,field_description:stock_inventory.field_stock_quant__stock_inventory_ids
+msgid "Stock Inventories"
+msgstr ""
 
 #. module: stock_inventory
 #: model_terms:ir.ui.view,arch_db:stock_inventory.res_config_settings_view_form
@@ -278,10 +389,18 @@ msgstr "Líneas de movimiento de existencias"
 #: code:addons/stock_inventory/models/stock_inventory.py:0
 #, python-format
 msgid ""
-"There's already an Adjustment in Process using one requested Location: %s"
+"There are active adjustments for the requested products: %(names)s. Blocking "
+"adjustments: %(blocking_names)s"
 msgstr ""
-"Ya hay un ajuste de inventario en progreso utilizando una ubicación "
-"solicitada: %s"
+
+#. module: stock_inventory
+#. odoo-python
+#: code:addons/stock_inventory/models/stock_inventory.py:0
+#, python-format
+msgid ""
+"There's already an Adjustment in Process using one requested Location: "
+"%(names)s. Blocking adjustments: %(blocking_names)s"
+msgstr ""
 
 #. module: stock_inventory
 #: model:ir.model.fields,help:stock_inventory.field_stock_inventory__owner_id
@@ -293,6 +412,16 @@ msgstr "Este es el propietario del ajuste de inventario"
 #: model_terms:ir.ui.view,arch_db:stock_inventory.view_stock_quant_search_not_done
 msgid "To Do"
 msgstr "Aplicar"
+
+#. module: stock_inventory
+#: model:ir.model.fields,field_description:stock_inventory.field_stock_inventory__website_message_ids
+msgid "Website Messages"
+msgstr ""
+
+#. module: stock_inventory
+#: model:ir.model.fields,help:stock_inventory.field_stock_inventory__website_message_ids
+msgid "Website communication history"
+msgstr ""
 
 #. module: stock_inventory
 #. odoo-python
@@ -317,6 +446,20 @@ msgstr ""
 "puede añadir un producto."
 
 #. module: stock_inventory
+#. odoo-python
+#: code:addons/stock_inventory/models/stock_inventory.py:0
+#, python-format
+msgid "You can't cancel this inventory %(display_name)s."
+msgstr ""
+
+#. module: stock_inventory
 #: model_terms:ir.ui.view,arch_db:stock_inventory.view_inventory_group_form
 msgid "e.g. Annual inventory"
 msgstr "Por ejemplo, inventario anual"
+
+#, python-format
+#~ msgid ""
+#~ "There's already an Adjustment in Process using one requested Location: %s"
+#~ msgstr ""
+#~ "Ya hay un ajuste de inventario en progreso utilizando una ubicación "
+#~ "solicitada: %s"

@@ -19,10 +19,22 @@ msgid "ANAF PDF"
 msgstr ""
 
 #. module: l10n_ro_message_spv
+#: model_terms:ir.ui.view,arch_db:l10n_ro_message_spv.view_move_form
+msgid "ANAF SPV Messages"
+msgstr ""
+
+#. module: l10n_ro_message_spv
 #. odoo-python
 #: code:addons/l10n_ro_message_spv/models/message_spv.py:0
 #, python-format
 msgid "ANAF configuration is missing."
+msgstr ""
+
+#. module: l10n_ro_message_spv
+#. odoo-python
+#: code:addons/l10n_ro_message_spv/models/message_spv.py:0
+#, python-format
+msgid "ANAF service unable to generate PDF from this XML."
 msgstr ""
 
 #. module: l10n_ro_message_spv
@@ -110,6 +122,13 @@ msgid "Draft"
 msgstr ""
 
 #. module: l10n_ro_message_spv
+#: model:ir.model.fields,help:l10n_ro_message_spv.field_account_bank_statement_line__l10n_ro_message_spv_ids
+#: model:ir.model.fields,help:l10n_ro_message_spv.field_account_move__l10n_ro_message_spv_ids
+#: model:ir.model.fields,help:l10n_ro_message_spv.field_account_payment__l10n_ro_message_spv_ids
+msgid "E-invoice messages related to this invoice."
+msgstr ""
+
+#. module: l10n_ro_message_spv
 #: model:ir.model.fields,field_description:l10n_ro_message_spv.field_l10n_ro_message_spv__attachment_embedded_pdf_id
 msgid "Embedded PDF"
 msgstr ""
@@ -174,6 +193,16 @@ msgid "Invoice"
 msgstr ""
 
 #. module: l10n_ro_message_spv
+#: model:ir.model.fields,field_description:l10n_ro_message_spv.field_l10n_ro_message_spv__invoice_amount
+msgid "Invoice Amount"
+msgstr ""
+
+#. module: l10n_ro_message_spv
+#: model:ir.model,name:l10n_ro_message_spv.model_account_move
+msgid "Journal Entry"
+msgstr ""
+
+#. module: l10n_ro_message_spv
 #: model:ir.model.fields,field_description:l10n_ro_message_spv.field_l10n_ro_message_spv____last_update
 msgid "Last Modified on"
 msgstr ""
@@ -189,6 +218,7 @@ msgid "Last Updated on"
 msgstr ""
 
 #. module: l10n_ro_message_spv
+#: model:ir.model.fields,field_description:l10n_ro_message_spv.field_l10n_ro_message_spv__message
 #: model:ir.model.fields.selection,name:l10n_ro_message_spv.selection__l10n_ro_message_spv__message_type__message
 #: model_terms:ir.ui.view,arch_db:l10n_ro_message_spv.view_l10n_ro_message_spv_form
 msgid "Message"
@@ -197,6 +227,11 @@ msgstr ""
 #. module: l10n_ro_message_spv
 #: model:ir.model.fields,field_description:l10n_ro_message_spv.field_l10n_ro_message_spv__name
 msgid "Message ID"
+msgstr ""
+
+#. module: l10n_ro_message_spv
+#: model:ir.model.constraint,message:l10n_ro_message_spv.constraint_l10n_ro_message_spv_unique_name
+msgid "Message ID must be unique."
 msgstr ""
 
 #. module: l10n_ro_message_spv
@@ -222,6 +257,7 @@ msgstr ""
 
 #. module: l10n_ro_message_spv
 #: model:ir.model.fields,field_description:l10n_ro_message_spv.field_l10n_ro_message_spv__partner_id
+#: model_terms:ir.ui.view,arch_db:l10n_ro_message_spv.view_l10n_ro_message_spv_search
 msgid "Partner"
 msgstr ""
 
@@ -249,22 +285,43 @@ msgid "Request ID"
 msgstr ""
 
 #. module: l10n_ro_message_spv
+#: model:ir.model.fields,field_description:l10n_ro_message_spv.field_account_bank_statement_line__l10n_ro_message_spv_ids
+#: model:ir.model.fields,field_description:l10n_ro_message_spv.field_account_move__l10n_ro_message_spv_ids
+#: model:ir.model.fields,field_description:l10n_ro_message_spv.field_account_payment__l10n_ro_message_spv_ids
+msgid "Romania - E-invoice messages"
+msgstr ""
+
+#. module: l10n_ro_message_spv
 #: model:ir.actions.server,name:l10n_ro_message_spv.ir_cron_res_company_download_message_spv_ir_actions_server
 #: model:ir.cron,cron_name:l10n_ro_message_spv.ir_cron_res_company_download_message_spv
 msgid "Romania e-Invoicing: Download SPV Message"
 msgstr ""
 
 #. module: l10n_ro_message_spv
+#: model:ir.ui.menu,name:l10n_ro_message_spv.menu_l10n_ro_spv
+msgid "SPV"
+msgstr ""
+
+#. module: l10n_ro_message_spv
 #: model:ir.model.fields,field_description:l10n_ro_message_spv.field_l10n_ro_message_spv__state
+#: model_terms:ir.ui.view,arch_db:l10n_ro_message_spv.view_l10n_ro_message_spv_search
 msgid "State"
 msgstr ""
 
 #. module: l10n_ro_message_spv
 #: model:ir.model.fields,field_description:l10n_ro_message_spv.field_l10n_ro_message_spv__message_type
+#: model_terms:ir.ui.view,arch_db:l10n_ro_message_spv.view_l10n_ro_message_spv_search
 msgid "Type"
 msgstr ""
 
 #. module: l10n_ro_message_spv
 #: model:ir.model.fields,field_description:l10n_ro_message_spv.field_l10n_ro_message_spv__attachment_xml_id
 msgid "XML"
+msgstr ""
+
+#. module: l10n_ro_message_spv
+#. odoo-python
+#: code:addons/l10n_ro_message_spv/models/message_spv.py:0
+#, python-format
+msgid "You received a message from ANAF for invoice %s"
 msgstr ""

@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 16.0\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-01-18 11:33+0000\n"
+"PO-Revision-Date: 2024-07-08 08:59+0000\n"
 "Last-Translator: mymage <stefano.consolaro@mymage.it>\n"
 "Language-Team: none\n"
 "Language: it\n"
@@ -14,7 +14,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.17\n"
+"X-Generator: Weblate 5.6.2\n"
 
 #. module: fs_product_multi_image
 #: model:ir.model.fields,field_description:fs_product_multi_image.field_image_tag__apply_on
@@ -55,6 +55,18 @@ msgid "Display Name"
 msgstr "Nome visualizzato"
 
 #. module: fs_product_multi_image
+#: model:ir.model.fields,field_description:fs_product_multi_image.field_product_product__image_medium
+#: model:ir.model.fields,field_description:fs_product_multi_image.field_product_template__image_medium
+msgid "FS Image Medium"
+msgstr "Immagine FS media"
+
+#. module: fs_product_multi_image
+#: model:ir.model.fields,field_description:fs_product_multi_image.field_product_product__image
+#: model:ir.model.fields,field_description:fs_product_multi_image.field_product_template__image
+msgid "FS Main Image"
+msgstr "Immagine principale FS"
+
+#. module: fs_product_multi_image
 #: model:ir.model.fields,field_description:fs_product_multi_image.field_fs_product_category_image__id
 #: model:ir.model.fields,field_description:fs_product_multi_image.field_fs_product_image__id
 msgid "ID"
@@ -66,6 +78,7 @@ msgid "If you need to edit the images, do it from the product template."
 msgstr "Se è necessario modificare le immagini, farlo dal modello prodotto."
 
 #. module: fs_product_multi_image
+#: model_terms:ir.ui.view,arch_db:fs_product_multi_image.fs_product_category_image_kanban_view
 #: model_terms:ir.ui.view,arch_db:fs_product_multi_image.fs_product_image_kanban_view
 #: model_terms:ir.ui.view,arch_db:fs_product_multi_image.product_template_only_form_view
 msgid "Image"
@@ -75,8 +88,6 @@ msgstr "Immagine"
 #: model:ir.model.fields,field_description:fs_product_multi_image.field_fs_product_category_image__image_medium
 #: model:ir.model.fields,field_description:fs_product_multi_image.field_fs_product_image__image_medium
 #: model:ir.model.fields,field_description:fs_product_multi_image.field_product_category__image_medium
-#: model:ir.model.fields,field_description:fs_product_multi_image.field_product_product__image_medium
-#: model:ir.model.fields,field_description:fs_product_multi_image.field_product_template__image_medium
 msgid "Image (128)"
 msgstr "Immagine 128"
 
@@ -84,8 +95,6 @@ msgstr "Immagine 128"
 #: model:ir.model.fields,field_description:fs_product_multi_image.field_fs_product_category_image__image
 #: model:ir.model.fields,field_description:fs_product_multi_image.field_fs_product_image__image
 #: model:ir.model.fields,field_description:fs_product_multi_image.field_product_category__image
-#: model:ir.model.fields,field_description:fs_product_multi_image.field_product_product__image
-#: model:ir.model.fields,field_description:fs_product_multi_image.field_product_template__image
 msgid "Image (original)"
 msgstr "Immagine (originale)"
 
