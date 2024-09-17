@@ -85,6 +85,9 @@ class Base(models.AbstractModel):
 
     def _tm_post_message(self, data):
         for model_name, model_data in data.items():
+            # check if record has mail.thread mixin
+            if not getattr(self.env[model_name], "message_post_with_view", False):
+                continue
             for record_id, messages_by_field in model_data.items():
                 record = self.env[model_name].browse(record_id)
                 messages = [
@@ -94,12 +97,13 @@ class Base(models.AbstractModel):
                     }
                     for field_name, messages in messages_by_field.items()
                 ]
-                # use sudo as user may not have access to mail.message
-                record.sudo().message_post_with_view(
+                # We do not use message_post_with_view() because emails would be sent
+                rendered_template = self.env["ir.qweb"]._render(
                     "tracking_manager.track_o2m_m2m_template",
-                    values={"lines": messages},
-                    subtype_id=self.env.ref("mail.mt_note").id,
+                    {"lines": messages, "object": record},
+                    minimal_qcontext=True,
                 )
+                record._message_log(body=rendered_template)
 
     def _tm_prepare_o2m_tracking(self):
         fnames = self._tm_get_fields_to_track()

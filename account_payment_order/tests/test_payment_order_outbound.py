@@ -7,6 +7,7 @@ from datetime import date, datetime, timedelta
 
 from odoo import fields
 from odoo.exceptions import UserError, ValidationError
+from odoo.fields import Command
 from odoo.tests import Form, tagged
 
 from odoo.addons.account.tests.common import AccountTestInvoicingCommon
@@ -220,6 +221,7 @@ class TestPaymentOrderOutbound(TestPaymentOrderOutboundBase):
         order.payment_line_ids.partner_bank_id.action_unarchive()
         self.assertFalse(order.partner_banks_archive_msg)
         order.draft2open()
+        self.assertEqual(order.payment_ids[0].partner_bank_id, self.partner.bank_ids)
         order.open2generated()
         order.generated2uploaded()
         self.assertEqual(order.move_ids[0].date, order.payment_ids[0].date)
@@ -479,6 +481,33 @@ class TestPaymentOrderOutbound(TestPaymentOrderOutboundBase):
 
         self.assertEqual("F/1234 FR/1234", payment_order.payment_line_ids.communication)
 
+    def test_multiple_lines_without_move_line(self):
+        """Test that a payment order with multiple lines without related
+        journal items can be created"""
+        self.env["account.payment.order"].create(
+            {
+                "date_prefered": "due",
+                "payment_type": "outbound",
+                "payment_mode_id": self.mode.id,
+                "journal_id": self.bank_journal.id,
+                "description": "order with manual line",
+                "payment_line_ids": [
+                    Command.create(
+                        {
+                            "partner_id": self.partner.id,
+                            "amount_currency": 101.00,
+                        }
+                    ),
+                    Command.create(
+                        {
+                            "partner_id": self.partner.id,
+                            "amount_currency": 101.00,
+                        }
+                    ),
+                ],
+            }
+        )
+
     def test_supplier_manual_refund(self):
         """
         Confirm the supplier invoice with reference
@@ -516,3 +545,25 @@ class TestPaymentOrderOutbound(TestPaymentOrderOutboundBase):
         self.assertEqual(len(payment_order.payment_line_ids), 1)
 
         self.assertEqual("F1242 R1234", payment_order.payment_line_ids.communication)
+
+    def test_action_open_business_document(self):
+        # Open invoice
+        self.invoice.action_post()
+        # Add to payment order using the wizard
+        self.env["account.invoice.payment.line.multi"].with_context(
+            active_model="account.move", active_ids=self.invoice.ids
+        ).create({}).run()
+        order = self.env["account.payment.order"].search(self.domain)
+        # Create payment line without move line
+        vals = {
+            "order_id": order.id,
+            "partner_id": self.partner.id,
+            "currency_id": order.payment_mode_id.company_id.currency_id.id,
+            "amount_currency": 200.38,
+        }
+        self.env["account.payment.line"].create(vals)
+        invoice_action = order.payment_line_ids[0].action_open_business_doc()
+        self.assertEqual(invoice_action["res_model"], "account.move")
+        self.assertEqual(invoice_action["res_id"], self.invoice.id)
+        manual_line_action = order.payment_line_ids[1].action_open_business_doc()
+        self.assertFalse(manual_line_action)
