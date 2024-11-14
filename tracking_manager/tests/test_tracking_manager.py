@@ -1,4 +1,5 @@
 # Copyright 2022 Akretion (https://www.akretion.com).
+# Copyright 2024 Tecnativa - Víctor Martínez
 # @author Kévin Roche <kevin.roche@akretion.com>
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 
@@ -195,21 +196,11 @@ class TestTrackingManager(TransactionCase):
         self.assertEqual(self.messages.body.count("Changed"), 1)
 
     def test_o2m_update_m2o_indirectly(self):
-        self.partner.write(
-            {
-                "user_ids": [
-                    (
-                        1,
-                        self.partner.user_ids[0].id,
-                        {
-                            "action_id": self.env["ir.actions.actions"]
-                            .create({"name": "test", "type": "ir.actions.act_window"})
-                            .id
-                        },
-                    ),
-                ]
-            }
+        user = self.partner.user_ids[0]
+        action = self.env["ir.actions.act_window"].create(
+            {"name": "test", "type": "ir.actions.act_window", "res_model": user._name}
         )
+        self.partner.write({"user_ids": [(1, user.id, {"action_id": action.id})]})
         self.assertEqual(len(self.messages), 1)
         self.assertEqual(self.messages.body.count("Changed"), 1)
 
@@ -267,3 +258,11 @@ class TestTrackingManager(TransactionCase):
         self.assertEqual(len(self.messages), 1)
         self.assertEqual(self.messages.body.count("Change"), 0)
         self.assertEqual(self.messages.body.count("Delete"), 1)
+
+    def test_o2m_update_record(self):
+        self.env.ref("base.field_res_partner__child_ids").custom_tracking = True
+        child = self.env["res.partner"].create(
+            {"name": "Test child", "parent_id": self.partner.id}
+        )
+        child.write({"parent_id": False})
+        self.assertEqual(len(self.messages), 1)

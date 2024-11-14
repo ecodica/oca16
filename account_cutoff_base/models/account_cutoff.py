@@ -1,4 +1,5 @@
-# Copyright 2013-2021 Akretion (http://www.akretion.com/)
+# Copyright 2013 Akretion (http://www.akretion.com/)
+# Copyright 2018 Jacques-Etienne Baudoux (BCIM) <je@bcim.be>
 # @author: Alexis de Lattre <alexis.delattre@akretion.com>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
@@ -11,6 +12,19 @@ from odoo import _, api, fields, models
 from odoo.exceptions import UserError
 from odoo.tools import date_utils, float_is_zero
 from odoo.tools.misc import format_date
+
+
+class PosNeg:
+    def __init__(self, amount):
+        self.amount_pos = self.amount_neg = 0
+        self.__iadd__(amount)
+
+    def __iadd__(self, amount):
+        if amount < 0:
+            self.amount_neg += amount
+        else:
+            self.amount_pos += amount
+        return self
 
 
 class AccountCutoff(models.Model):
@@ -109,6 +123,24 @@ class AccountCutoff(models.Model):
         copy=False,
         check_company=True,
     )
+    auto_reverse = fields.Boolean(
+        help="Automatically reverse created move on following day. Use this "
+        "if you accrue a value end of period that you want to reverse "
+        "begin of next period",
+    )
+    move_reversal_id = fields.Many2one(
+        "account.move",
+        string="Cut-off Journal Entry Reversal",
+        compute="_compute_move_reversal_id",
+    )
+
+    @api.depends("move_id.reversal_move_id", "move_id.reversal_move_id.state")
+    def _compute_move_reversal_id(self):
+        for rec in self:
+            rec.move_reversal_id = rec.move_id.reversal_move_id.filtered(
+                lambda m: m.state != "cancel"
+            )[:1]
+
     move_ref = fields.Char(
         string="Reference of the Cut-off Journal Entry",
         states={"done": [("readonly", True)]},
@@ -191,6 +223,10 @@ class AccountCutoff(models.Model):
 
     def back2draft(self):
         self.ensure_one()
+        if self.move_reversal_id:
+            self.move_reversal_id.line_ids.remove_move_reconcile()
+            self.move_reversal_id.unlink()
+            self.move_id.line_ids.remove_move_reconcile()
         if self.move_id:
             self.move_id.unlink()
         self.write({"state": "draft"})
@@ -208,11 +244,18 @@ class AccountCutoff(models.Model):
     def _prepare_move(self, to_provision):
         self.ensure_one()
         movelines_to_create = []
-        amount_total = 0
+        amount_total_pos = 0
+        amount_total_neg = 0
         ref = self.move_ref
+        company_currency = self.company_id.currency_id
+        cur_rprec = company_currency.rounding
         merge_keys = self._get_merge_keys()
         for merge_values, amount in to_provision.items():
-            amount = self.company_currency_id.round(amount)
+            amount_total_neg += self.company_currency_id.round(amount.amount_neg)
+            amount_total_pos += self.company_currency_id.round(amount.amount_pos)
+            amount = amount.amount_pos + amount.amount_neg
+            if float_is_zero(amount, precision_rounding=cur_rprec):
+                continue
             vals = {
                 "debit": amount < 0 and amount * -1 or 0,
                 "credit": amount >= 0 and amount or 0,
@@ -226,20 +269,10 @@ class AccountCutoff(models.Model):
                 vals[k] = value
 
             movelines_to_create.append((0, 0, vals))
-            amount_total += amount
 
         # add counter-part
-        counterpart_amount = self.company_currency_id.round(amount_total * -1)
-        movelines_to_create.append(
-            (
-                0,
-                0,
-                {
-                    "account_id": self.cutoff_account_id.id,
-                    "debit": counterpart_amount < 0 and counterpart_amount * -1 or 0,
-                    "credit": counterpart_amount >= 0 and counterpart_amount or 0,
-                },
-            )
+        movelines_to_create += self._prepare_counterpart_moves(
+            to_provision, amount_total_pos, amount_total_neg
         )
 
         res = {
@@ -250,6 +283,26 @@ class AccountCutoff(models.Model):
             "line_ids": movelines_to_create,
         }
         return res
+
+    def _prepare_counterpart_moves(
+        self, to_provision, amount_total_pos, amount_total_neg
+    ):
+        amount = (amount_total_pos + amount_total_neg) * -1
+        company_currency = self.company_id.currency_id
+        cur_rprec = company_currency.rounding
+        if float_is_zero(amount, precision_rounding=cur_rprec):
+            return []
+        return [
+            (
+                0,
+                0,
+                {
+                    "account_id": self.cutoff_account_id.id,
+                    "debit": amount < 0 and amount * -1 or 0,
+                    "credit": amount >= 0 and amount or 0,
+                },
+            )
+        ]
 
     def _prepare_provision_line(self, cutoff_line):
         """Convert a cutoff line to elements of a move line.
@@ -295,7 +348,10 @@ class AccountCutoff(models.Model):
                 or provision_line.get(key)
                 for key in merge_keys
             )
-            to_provision[key] += provision_line["amount"]
+            if key in to_provision:
+                to_provision[key] += provision_line["amount"]
+            else:
+                to_provision[key] = PosNeg(provision_line["amount"])
         return to_provision
 
     def create_move(self):
@@ -325,6 +381,20 @@ class AccountCutoff(models.Model):
         move = move_obj.create(vals)
         if self.company_id.post_cutoff_move:
             move._post(soft=False)
+
+        if self.auto_reverse:
+            next_day = fields.Date.from_string(self.cutoff_date) + relativedelta(days=1)
+            rev_move = move._reverse_moves(
+                [
+                    {
+                        "date": next_day,
+                        "ref": _("reversal of: ") + move.ref,
+                    }
+                ]
+            )
+            if self.company_id.post_cutoff_move:
+                rev_move._post(soft=False)
+
         self.write({"move_id": move.id, "state": "done"})
         self.message_post(body=_("Journal entry generated"))
 

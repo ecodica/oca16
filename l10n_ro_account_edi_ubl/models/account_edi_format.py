@@ -35,6 +35,14 @@ class AccountEdiXmlCIUSRO(models.Model):
                 if old_attachment:
                     edi_document.sudo().attachment_id = False
                     old_attachment.unlink()
+                domain = [
+                    ("res_model", "=", "account.move"),
+                    ("res_id", "=", invoice.id),
+                    ("name", "=", xml_name),
+                ]
+                old_attachment = self.env["ir.attachment"].sudo().search(domain)
+                if old_attachment:
+                    old_attachment.unlink()
                 res = self.env["ir.attachment"].create(
                     {
                         "name": xml_name,
@@ -255,15 +263,13 @@ class AccountEdiXmlCIUSRO(models.Model):
     def _l10n_ro_post_invoice_step_1(self, invoice, attachment):
         anaf_config = invoice.company_id._l10n_ro_get_anaf_sync(scope="e-factura")
         standard = "UBL"
-        if invoice.move_type in ("out_refund", "in_refund"):
-            standard = "CN"
         params = {
             "standard": standard,
             "cif": invoice.company_id.partner_id.vat.replace("RO", ""),
         }
         if (
             invoice.journal_id.l10n_ro_partner_id
-            and invoice.journal_id.l10n_ro_sequence_type == "autoinv2"
+            and invoice.journal_id.l10n_ro_sequence_type != "invoice"
         ):
             params.update({"autofactura": "DA"})
         res = self._l10n_ro_anaf_call("/upload", anaf_config, params, attachment.raw)

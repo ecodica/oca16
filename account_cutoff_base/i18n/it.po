@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: Odoo Server 11.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-03-23 23:20+0000\n"
-"PO-Revision-Date: 2024-03-18 15:36+0000\n"
+"PO-Revision-Date: 2024-10-31 00:06+0000\n"
 "Last-Translator: mymage <stefano.consolaro@mymage.it>\n"
 "Language-Team: Italian (https://www.transifex.com/oca/teams/23907/it/)\n"
 "Language: it\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.17\n"
+"X-Generator: Weblate 5.6.2\n"
 
 #. module: account_cutoff_base
 #: model_terms:ir.ui.view,arch_db:account_cutoff_base.account_cutoff_form
@@ -47,7 +47,7 @@ msgstr "Scritture di fine periodo"
 #: model:ir.model,name:account_cutoff_base.model_account_cutoff_line
 #: model:ir.model.fields,field_description:account_cutoff_base.field_account_cutoff_tax_line__parent_id
 msgid "Account Cut-off Line"
-msgstr "Righe scritture fine periodo"
+msgstr "Riga scritture fine periodo"
 
 #. module: account_cutoff_base
 #: model:ir.model,name:account_cutoff_base.model_account_cutoff_mapping
@@ -170,6 +170,21 @@ msgid "Attachment Count"
 msgstr "Numero allegati"
 
 #. module: account_cutoff_base
+#: model:ir.model.fields,field_description:account_cutoff_base.field_account_cutoff__auto_reverse
+msgid "Auto Reverse"
+msgstr "Auto inversione"
+
+#. module: account_cutoff_base
+#: model:ir.model.fields,help:account_cutoff_base.field_account_cutoff__auto_reverse
+msgid ""
+"Automatically reverse created move on following day. Use this if you accrue "
+"a value end of period that you want to reverse begin of next period"
+msgstr ""
+"Inverte automaticamente il movimento creato il giorno seguente. Usarlo se si "
+"accumula un valore a fine periodo che si vuole invertire all'inizio del "
+"periodo successivo"
+
+#. module: account_cutoff_base
 #: model_terms:ir.ui.view,arch_db:account_cutoff_base.account_cutoff_form
 msgid "Back to Draft"
 msgstr "Ritorna a bozza"
@@ -268,12 +283,12 @@ msgstr "Mappatura conti separati"
 #. module: account_cutoff_base
 #: model:ir.model.fields,field_description:account_cutoff_base.field_account_cutoff_line__cutoff_amount
 msgid "Cut-off Amount"
-msgstr "Importo separato"
+msgstr "Valore fine periodo"
 
 #. module: account_cutoff_base
 #: model:ir.model.fields,help:account_cutoff_base.field_account_cutoff_line__cutoff_amount
 msgid "Cut-off Amount without taxes in the Company Currency."
-msgstr "Importo separato, imposte escluse, nella valuta aziendale."
+msgstr "Valore fine periodo senza imposte nella valuta dell'azienda."
 
 #. module: account_cutoff_base
 #: model_terms:ir.ui.view,arch_db:account_cutoff_base.account_cutoff_line_form
@@ -290,6 +305,11 @@ msgstr "Data di separazione"
 #: model:ir.model.fields,field_description:account_cutoff_base.field_account_cutoff__move_id
 msgid "Cut-off Journal Entry"
 msgstr "Registrazione separata"
+
+#. module: account_cutoff_base
+#: model:ir.model.fields,field_description:account_cutoff_base.field_account_cutoff__move_reversal_id
+msgid "Cut-off Journal Entry Reversal"
+msgstr "Inversione registrazioni contabili di fine periodo"
 
 #. module: account_cutoff_base
 #: model:ir.model.fields,field_description:account_cutoff_base.field_account_cutoff__line_ids
@@ -358,10 +378,22 @@ msgid "Default Account for Accrued Expenses"
 msgstr "Conto predefinito per ratei passivi"
 
 #. module: account_cutoff_base
+#: model:ir.model.fields,field_description:account_cutoff_base.field_res_company__default_accrued_expense_return_account_id
+#: model:ir.model.fields,field_description:account_cutoff_base.field_res_config_settings__dft_accrued_expense_return_account_id
+msgid "Default Account for Accrued Expenses Refunds"
+msgstr "Conto predefinito per i rimborsi ratei passivi"
+
+#. module: account_cutoff_base
 #: model:ir.model.fields,field_description:account_cutoff_base.field_res_company__default_accrued_revenue_account_id
 #: model:ir.model.fields,field_description:account_cutoff_base.field_res_config_settings__dft_accrued_revenue_account_id
 msgid "Default Account for Accrued Revenues"
 msgstr "Conto predefinito per ratei attivi"
+
+#. module: account_cutoff_base
+#: model:ir.model.fields,field_description:account_cutoff_base.field_res_company__default_accrued_revenue_return_account_id
+#: model:ir.model.fields,field_description:account_cutoff_base.field_res_config_settings__dft_accrued_revenue_return_account_id
+msgid "Default Account for Accrued Revenues Refunds"
+msgstr "Conto predefinito per i rimborsi ratei attivi"
 
 #. module: account_cutoff_base
 #: model:ir.model.fields,field_description:account_cutoff_base.field_res_company__default_prepaid_expense_account_id
@@ -473,6 +505,7 @@ msgstr "Se selezionata, nuovi messaggi richiedono attenzione."
 
 #. module: account_cutoff_base
 #: model:ir.model.fields,help:account_cutoff_base.field_account_cutoff__message_has_error
+#: model:ir.model.fields,help:account_cutoff_base.field_account_cutoff__message_has_sms_error
 msgid "If checked, some messages have a delivery error."
 msgstr "Se selezionata, alcuni messaggi hanno un errore di consegna."
 
@@ -694,6 +727,11 @@ msgid "Responsible User"
 msgstr "Utente responsabile"
 
 #. module: account_cutoff_base
+#: model:ir.model.fields,field_description:account_cutoff_base.field_account_cutoff__message_has_sms_error
+msgid "SMS Delivery error"
+msgstr "Errore consegna SMS"
+
+#. module: account_cutoff_base
 #: model:ir.model.fields,field_description:account_cutoff_base.field_account_cutoff_tax_line__sequence
 msgid "Sequence"
 msgstr "Sequenza"
@@ -824,8 +862,12 @@ msgstr ""
 "Impossibile eliminare record di separazione che non si trovano in stato "
 "completato."
 
-#~ msgid "SMS Delivery error"
-#~ msgstr "Errore consegna SMS"
+#. module: account_cutoff_base
+#. odoo-python
+#: code:addons/account_cutoff_base/models/account_cutoff.py:0
+#, python-format
+msgid "reversal of: "
+msgstr "inversione di : "
 
 #~ msgid "Number of messages which requires an action"
 #~ msgstr "Numero di messaggi che richiedono un'azione"

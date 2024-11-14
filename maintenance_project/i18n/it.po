@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-11-12 17:41+0000\n"
+"PO-Revision-Date: 2024-09-26 09:06+0000\n"
 "Last-Translator: mymage <stefano.consolaro@mymage.it>\n"
 "Language-Team: none\n"
 "Language: it\n"
@@ -14,7 +14,12 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.17\n"
+"X-Generator: Weblate 5.6.2\n"
+
+#. module: maintenance_project
+#: model_terms:ir.ui.view,arch_db:maintenance_project.hr_equipment_view_form
+msgid "<span class=\"fa fa-plus\"/><span> Create project</span>"
+msgstr "<span class=\"fa fa-plus\"/><span> Crea progetto</span>"
 
 #. module: maintenance_project
 #: model_terms:ir.ui.view,arch_db:maintenance_project.view_project_kanban
@@ -35,11 +40,6 @@ msgstr "<strong>Progetto:</strong>"
 #: model_terms:ir.ui.view,arch_db:maintenance_project.report_maintenance_request_document
 msgid "<strong>Task:</strong>"
 msgstr "<strong>Lavoro:</strong>"
-
-#. module: maintenance_project
-#: model:ir.model.fields,field_description:maintenance_project.field_maintenance_equipment__create_project_from_equipment
-msgid "Create Project From Equipment"
-msgstr "Crea un progetto dall'attrezzatura"
 
 #. module: maintenance_project
 #: model:ir.model.fields,field_description:maintenance_project.field_maintenance_equipment__preventive_default_task_id
@@ -124,6 +124,9 @@ msgstr "Lavoro"
 #: model:project.project,label_tasks:maintenance_project.project_project_1
 msgid "Tasks"
 msgstr "Lavori"
+
+#~ msgid "Create Project From Equipment"
+#~ msgstr "Crea un progetto dall'attrezzatura"
 
 #~ msgid "Display Name"
 #~ msgstr "Nome visualizzato"

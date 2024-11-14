@@ -90,15 +90,48 @@ class SaleReportDeliverd(models.Model):
             sub.picking_id,
             sum(signed_qty * unsigned_product_uom_qty) AS product_uom_qty,
             sum(signed_qty * unsigned_price_subtotal) AS price_subtotal,
-            sum(COALESCE(-sub.amount_cost, signed_qty *
-                ROUND(sub.unsigned_purchase_price * unsigned_product_uom_qty,
-                      sub.decimal_places))) AS amount_cost,
-            sum(signed_qty * unsigned_price_subtotal - COALESCE(-sub.amount_cost, signed_qty *
-                ROUND(sub.unsigned_purchase_price * unsigned_product_uom_qty,
-                      sub.decimal_places))) AS margin,
+            CASE
+                WHEN BOOL_OR(sub.amount_cost is not NULL)
+                    THEN sum(-sub.amount_cost)
+                ELSE sum(
+                    signed_qty * ROUND(
+                        sub.unsigned_purchase_price * unsigned_product_uom_qty,
+                        sub.decimal_places
+                    )
+                )
+            END AS amount_cost,
+            CASE
+                WHEN BOOL_OR(sub.amount_cost is not NULL)
+                    THEN sum(
+                        signed_qty * unsigned_price_subtotal + COALESCE(
+                            sub.amount_cost, 0.0
+                        )
+                    )
+                ELSE sum(
+                    signed_qty * unsigned_price_subtotal - (
+                        signed_qty * ROUND(
+                            sub.unsigned_purchase_price * unsigned_product_uom_qty,
+                            sub.decimal_places
+                        )
+                    )
+                )
+            END AS margin,
             0 AS margin_percent
         """
         return select_str
+
+    def _sub_select_signed_qty(self):
+        """Sub select to calculate the cases for the signed quantity"""
+        return """
+        WHEN source_location.usage = 'internal' AND dest_location.usage = 'customer'
+            THEN 1
+        WHEN source_location.usage = 'customer' AND dest_location.usage = 'internal'
+            THEN -1
+        WHEN source_location.usage = 'supplier' AND dest_location.usage = 'customer'
+            THEN 1
+        WHEN source_location.usage = 'customer' AND dest_location.usage = 'supplier'
+            THEN -1
+        """
 
     def _sub_select(self):
         sub_select_str = """
@@ -111,14 +144,7 @@ class SaleReportDeliverd(models.Model):
             CASE
               WHEN dest_location.usage IS NULL
                 THEN 1
-              WHEN source_location.usage = 'internal' AND dest_location.usage = 'customer'
-                THEN 1
-              WHEN source_location.usage = 'customer' AND dest_location.usage = 'internal'
-                THEN -1
-              WHEN source_location.usage = 'supplier' AND dest_location.usage = 'customer'
-                THEN 1
-              WHEN source_location.usage = 'customer' AND dest_location.usage = 'supplier'
-                THEN -1
+              {sub_select_signed_qty}
               ELSE 0
             END AS signed_qty,
             (CASE WHEN t.type IN ('product', 'consu') THEN COALESCE(sm.product_uom_qty, 0.0)
@@ -150,8 +176,10 @@ class SaleReportDeliverd(models.Model):
             s.id as order_id,
             sp.id as picking_id,
             sol.purchase_price AS unsigned_purchase_price,
-            ROUND(COALESCE(svl.value, 0.0), cur.decimal_places) AS amount_cost
-        """
+            ROUND(svl.value, cur.decimal_places) AS amount_cost
+        """.format(
+            sub_select_signed_qty=self._sub_select_signed_qty()
+        )
         return sub_select_str
 
     def _from(self):
@@ -175,8 +203,9 @@ class SaleReportDeliverd(models.Model):
         """
         return from_str
 
-    def _where(self):
-        """Take into account only stock moves from:
+    def _sub_where(self):
+        """
+        Take into account only stock moves from:
 
         Outgoing: Internal to Customer
         Returns: Customer to Internal + to_refund
@@ -184,16 +213,34 @@ class SaleReportDeliverd(models.Model):
         Dropship return: Customer to Supplier
         """
         return """
-            WHERE (sm.state = 'done' OR sm.state IS NULL) AND (
-                (source_location.usage = 'internal' AND dest_location.usage = 'customer') OR
-                (source_location.usage = 'customer' AND dest_location.usage = 'internal'
-                    AND sm.to_refund) OR
-                (source_location.usage = 'supplier' AND dest_location.usage = 'customer'
-                    AND svl.quantity < 0) OR
-                (source_location.usage = 'customer' AND dest_location.usage = 'supplier'
-                    AND svl.quantity > 0)
-            )
+        (
+            source_location.usage = 'internal' AND
+            dest_location.usage = 'customer'
+        ) OR
+        (
+            source_location.usage = 'customer' AND
+            dest_location.usage = 'internal' AND
+            sm.to_refund
+        ) OR
+        (
+            source_location.usage = 'supplier' AND
+            dest_location.usage = 'customer' AND
+            svl.quantity < 0
+        ) OR
+        (
+            source_location.usage = 'customer' AND
+            dest_location.usage = 'supplier' AND
+            svl.quantity > 0
+        )
         """
+
+    def _where(self):
+        """Where clause with only done mvoes or without state"""
+        return """
+            WHERE (sm.state = 'done' OR sm.state IS NULL) AND ({sub_where})
+        """.format(
+            sub_where=self._sub_where()
+        )
 
     def _group_by(self):
         group_by_str = """

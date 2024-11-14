@@ -1,5 +1,6 @@
 /** @odoo-module **/
 
+import {makeDynamicCols, makeDynamicRows} from "../utils/dynamic_generators.esm";
 import ListDataSource from "@spreadsheet/list/list_data_source";
 import PivotDataSource from "@spreadsheet/pivot/pivot_data_source";
 import {SpreadsheetControlPanel} from "./spreadsheet_controlpanel.esm";
@@ -7,7 +8,6 @@ import {SpreadsheetRenderer} from "./spreadsheet_renderer.esm";
 import {registry} from "@web/core/registry";
 import spreadsheet from "@spreadsheet/o_spreadsheet/o_spreadsheet_extended";
 import {useService} from "@web/core/utils/hooks";
-import {makeDynamicCols, makeDynamicRows} from "../utils/dynamic_generators.esm";
 
 const uuidGenerator = new spreadsheet.helpers.UuidGenerator();
 const actionRegistry = registry.category("actions");
@@ -28,13 +28,16 @@ export class ActionSpreadsheetOca extends Component {
             });
         });
         onWillStart(async () => {
+            // We need to load in case the data comes from an XLSX
             this.record =
-                (await this.orm.call(
-                    this.model,
-                    "get_spreadsheet_data",
-                    [[this.spreadsheetId]],
-                    {context: {bin_size: false}}
-                )) || {};
+                spreadsheet.load(
+                    await this.orm.call(
+                        this.model,
+                        "get_spreadsheet_data",
+                        [[this.spreadsheetId]],
+                        {context: {bin_size: false}}
+                    )
+                ) || {};
         });
         useSubEnv({
             saveRecord: this.saveRecord.bind(this),
@@ -52,7 +55,25 @@ export class ActionSpreadsheetOca extends Component {
             this.router.pushState({spreadsheet_id: this.spreadsheetId});
         }
     }
-
+    /**
+     * Clean SearchParams of conflictive keys.
+     *
+     * 1. Removed from context pivot conflictive keys.
+     * 2. Removed from context graph conflictive keys.
+     *
+     * @returns {Object}       Formated searchParams.
+     */
+    cleanSearchParams() {
+        const searchParams = this.import_data.searchParams;
+        const context = {};
+        for (var key of Object.keys(searchParams.context)) {
+            if (key.startsWith("pivot_") || key.startsWith("graph_")) {
+                continue;
+            }
+            context[key] = searchParams.context[key];
+        }
+        return {...searchParams, context};
+    }
     async importDataGraph(spreadsheet_model) {
         var sheetId = spreadsheet_model.getters.getActiveSheetId();
         var y = 0;
@@ -78,7 +99,7 @@ export class ActionSpreadsheetOca extends Component {
             background: "#FFFFFF",
             stacked: this.import_data.metaData.stacked,
             metaData: this.import_data.metaData,
-            searchParams: this.import_data.searchParams,
+            searchParams: this.cleanSearchParams(),
             dataSourceId: dataSourceId,
             legendPosition: "top",
             verticalAxisPosition: "left",
@@ -187,7 +208,7 @@ export class ActionSpreadsheetOca extends Component {
                 resModel: this.import_data.metaData.resModel,
                 sortedColumn: this.import_data.metaData.sortedColumn,
             },
-            searchParams: this.import_data.searchParams,
+            searchParams: this.cleanSearchParams(),
             name: this.import_data.name,
         };
         const dataSource = spreadsheet_model.config.dataSources.add(

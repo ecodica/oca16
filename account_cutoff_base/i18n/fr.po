@@ -170,6 +170,21 @@ msgid "Attachment Count"
 msgstr "Nombre de pièces jointes"
 
 #. module: account_cutoff_base
+#: model:ir.model.fields,field_description:account_cutoff_base.field_account_cutoff__auto_reverse
+msgid "Auto Reverse"
+msgstr "Extourne automatique"
+
+#. module: account_cutoff_base
+#: model:ir.model.fields,help:account_cutoff_base.field_account_cutoff__auto_reverse
+msgid ""
+"Automatically reverse created move on following day. Use this if you accrue "
+"a value end of period that you want to reverse begin of next period"
+msgstr ""
+"Extourner automatiquement le mouvement sur le jour suivant. Utilisez ceci si "
+"vous provisionnez un montant à la fin d'une période et que vous voulez "
+"l'extourner au début de la période suivante"
+
+#. module: account_cutoff_base
 #: model_terms:ir.ui.view,arch_db:account_cutoff_base.account_cutoff_form
 msgid "Back to Draft"
 msgstr "Remettre en brouillon"
@@ -294,6 +309,11 @@ msgid "Cut-off Journal Entry"
 msgstr "Pièce comptable de la provision"
 
 #. module: account_cutoff_base
+#: model:ir.model.fields,field_description:account_cutoff_base.field_account_cutoff__move_reversal_id
+msgid "Cut-off Journal Entry Reversal"
+msgstr "Pièce comptable de l'extourne"
+
+#. module: account_cutoff_base
 #: model:ir.model.fields,field_description:account_cutoff_base.field_account_cutoff__line_ids
 msgid "Cut-off Lines"
 msgstr "Lignes de provision"
@@ -360,9 +380,21 @@ msgid "Default Account for Accrued Expenses"
 msgstr "Compte par défaut pour les charges à payer"
 
 #. module: account_cutoff_base
+#: model:ir.model.fields,field_description:account_cutoff_base.field_res_company__default_accrued_expense_return_account_id
+#: model:ir.model.fields,field_description:account_cutoff_base.field_res_config_settings__dft_accrued_expense_return_account_id
+msgid "Default Account for Accrued Expenses Refunds"
+msgstr "Compte par défaut pour les notes de crédit à recevoir"
+
+#. module: account_cutoff_base
 #: model:ir.model.fields,field_description:account_cutoff_base.field_res_company__default_accrued_revenue_account_id
 #: model:ir.model.fields,field_description:account_cutoff_base.field_res_config_settings__dft_accrued_revenue_account_id
 msgid "Default Account for Accrued Revenues"
+msgstr "Compte par défaut pour les notes de crédit à établir"
+
+#. module: account_cutoff_base
+#: model:ir.model.fields,field_description:account_cutoff_base.field_res_company__default_accrued_revenue_return_account_id
+#: model:ir.model.fields,field_description:account_cutoff_base.field_res_config_settings__dft_accrued_revenue_return_account_id
+msgid "Default Account for Accrued Revenues Refunds"
 msgstr "Compte par défaut pour les produits à recevoir"
 
 #. module: account_cutoff_base
@@ -475,6 +507,7 @@ msgstr "Si activé, de nouveaux messages nécessitent votre attention."
 
 #. module: account_cutoff_base
 #: model:ir.model.fields,help:account_cutoff_base.field_account_cutoff__message_has_error
+#: model:ir.model.fields,help:account_cutoff_base.field_account_cutoff__message_has_sms_error
 msgid "If checked, some messages have a delivery error."
 msgstr "Si activé, des messages ont une erreur d'envoi."
 
@@ -693,6 +726,11 @@ msgid "Responsible User"
 msgstr "Utilisateur responsable"
 
 #. module: account_cutoff_base
+#: model:ir.model.fields,field_description:account_cutoff_base.field_account_cutoff__message_has_sms_error
+msgid "SMS Delivery error"
+msgstr "Erreur d'envoi du SMS"
+
+#. module: account_cutoff_base
 #: model:ir.model.fields,field_description:account_cutoff_base.field_account_cutoff_tax_line__sequence
 msgid "Sequence"
 msgstr "Séquence"
@@ -823,8 +861,12 @@ msgstr ""
 "Il n'est pas possible de supprimer les provisions qui sont à l'état "
 "'Terminé'."
 
-#~ msgid "SMS Delivery error"
-#~ msgstr "Erreur d'envoi du SMS"
+#. module: account_cutoff_base
+#. odoo-python
+#: code:addons/account_cutoff_base/models/account_cutoff.py:0
+#, python-format
+msgid "reversal of: "
+msgstr "extourne de: "
 
 #~ msgid "Number of messages which requires an action"
 #~ msgstr "Nombre de messages nécessitant une action"

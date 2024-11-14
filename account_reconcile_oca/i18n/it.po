@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 16.0\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-09-06 15:06+0000\n"
+"PO-Revision-Date: 2024-09-26 09:06+0000\n"
 "Last-Translator: mymage <stefano.consolaro@mymage.it>\n"
 "Language-Team: none\n"
 "Language: it\n"
@@ -297,6 +297,11 @@ msgid "Is Complete"
 msgstr "È completo"
 
 #. module: account_reconcile_oca
+#: model:ir.model.fields,field_description:account_reconcile_oca.field_account_bank_statement_line__manual_in_currency
+msgid "Is Manual in Currency?"
+msgstr "Il manuale è in valuta?"
+
+#. module: account_reconcile_oca
 #: model:ir.model.fields,field_description:account_reconcile_oca.field_account_account_reconcile__is_reconciled
 msgid "Is Reconciled"
 msgstr "È riconciliato"
@@ -393,7 +398,6 @@ msgid "Manual Exchange Counterpart"
 msgstr "Controparte scambio manuale"
 
 #. module: account_reconcile_oca
-#: model:ir.model.fields,field_description:account_reconcile_oca.field_account_bank_statement_line__manual_in_currency
 #: model:ir.model.fields,field_description:account_reconcile_oca.field_account_bank_statement_line__manual_in_currency_id
 msgid "Manual In Currency"
 msgstr "Manuale in valuta"

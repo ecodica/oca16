@@ -47,7 +47,11 @@ class AccountAccountReconcile(models.Model):
             SELECT
                 min(aml.id) as id,
                 MAX({account_name}) as name,
-                aml.partner_id,
+                CASE
+                    WHEN a.account_type in ('asset_receivable', 'liability_payable')
+                        THEN aml.partner_id
+                    ELSE NULL
+                    END as partner_id,
                 a.id as account_id,
                 FALSE as is_reconciled,
                 aml.currency_id as currency_id,
@@ -73,7 +77,14 @@ class AccountAccountReconcile(models.Model):
     def _groupby(self):
         return """
             GROUP BY
-                a.id, aml.partner_id, aml.currency_id, a.company_id
+                a.id,
+                CASE
+                    WHEN a.account_type in ('asset_receivable', 'liability_payable')
+                        THEN aml.partner_id
+                    ELSE NULL
+                END,
+                aml.currency_id,
+                a.company_id
         """
 
     def _having(self):
@@ -151,8 +162,9 @@ class AccountAccountReconcile(models.Model):
         counterparts = data["counterparts"]
         amount = 0.0
         for line_id in counterparts:
+            max_amount = amount if line_id == counterparts[-1] else 0
             lines = self._get_reconcile_line(
-                self.env["account.move.line"].browse(line_id), "other", True, amount
+                self.env["account.move.line"].browse(line_id), "other", True, max_amount
             )
             new_data["data"] += lines
             amount += sum(line["amount"] for line in lines)

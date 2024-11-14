@@ -117,9 +117,6 @@
                     groups="hr_timesheet.group_hr_timesheet_user"
                 />
             </div>
-            <xpath expr="//field[@name='partner_email']" position="after">
-                <field name="allow_timesheet" invisible="1" />
-            </xpath>
             <xpath expr="//page[@name='description']" position="after">
                 <page
                     string="Timesheets"
@@ -238,22 +235,36 @@
                     name="button_start_work"
                     title="Start work"
                     attrs="{'invisible': [('show_time_control', '!=', 'start')]}"
-                    class="o_kanban_inline_block fa fa-lg fa-play-circle text-success"
+                    class="o_kanban_inline_block text-success"
                     string="Start work"
                     tabindex="-1"
                     type="object"
                     groups="hr_timesheet.group_hr_timesheet_user"
-                />
+                >
+                    <div>
+                        <span class="o_label">
+                            <i class="fa fa-lg fa-play-circle text-success" />
+                            Start work
+                        </span>
+                    </div>
+                </a>
                 <a
                     name="button_end_work"
                     title="End work"
                     attrs="{'invisible': [('show_time_control', '!=', 'stop')]}"
-                    class="o_kanban_inline_block fa fa-lg fa-stop-circle text-warning"
+                    class="o_kanban_inline_block text-warning"
                     string="Stop work"
                     tabindex="-1"
                     type="object"
                     groups="hr_timesheet.group_hr_timesheet_user"
-                />
+                >
+                    <div>
+                        <span class="o_label">
+                            <i class="fa fa-lg fa-stop-circle text-warning" />
+                            Stop work
+                        </span>
+                    </div>
+                </a>
             </xpath>
         </field>
     </record>
@@ -262,11 +273,15 @@
         <field name="model">helpdesk.ticket</field>
         <field name="inherit_id" ref="helpdesk_mgmt_project.ticket_view_form" />
         <field name="arch" type="xml">
-            <field name="project_id" position="attributes">
+            <xpath expr="//field[@name='partner_email']" position="after">
+                <field name="allow_timesheet" invisible="1" />
+            </xpath>
+            <!-- It is important to apply the required attrs to the field which has groups !-->
+            <xpath expr="//field[@name='project_id'][2]" position="attributes">
                 <attribute
                     name="attrs"
                 >{'required': [('allow_timesheet', '=', True)]}</attribute>
-            </field>
+            </xpath>
         </field>
     </record>
 </data>

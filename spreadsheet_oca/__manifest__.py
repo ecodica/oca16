@@ -5,7 +5,7 @@
     "name": "Spreadsheet Oca",
     "summary": """
         Allow to edit spreadsheets""",
-    "version": "16.0.1.4.0",
+    "version": "16.0.1.8.0",
     "license": "AGPL-3",
     "author": "CreuBlanca,Odoo Community Association (OCA)",
     "website": "https://github.com/OCA/spreadsheet",
@@ -21,13 +21,29 @@
     "demo": ["demo/spreadsheet_spreadsheet.xml"],
     "assets": {
         "web.assets_backend": [
+            "spreadsheet_oca/static/src/spreadsheet_tree/spreadsheet_tree_view.esm.js",
+            "spreadsheet_oca/static/src/spreadsheet_tree/spreadsheet_tree_view.xml",
             "spreadsheet_oca/static/src/spreadsheet/spreadsheet.scss",
-            "spreadsheet_oca/static/src/spreadsheet/spreadsheet.xml",
             "spreadsheet_oca/static/src/spreadsheet/spreadsheet_action.esm.js",
             "spreadsheet_oca/static/src/spreadsheet/pivot_controller.esm.js",
             "spreadsheet_oca/static/src/spreadsheet/graph_controller.esm.js",
             "spreadsheet_oca/static/src/spreadsheet/list_controller.esm.js",
             "spreadsheet_oca/static/src/spreadsheet/list_renderer.esm.js",
+            (
+                "after",
+                "web/static/src/views/graph/graph_controller.xml",
+                "spreadsheet_oca/static/src/spreadsheet/graph_controller.xml",
+            ),
+            (
+                "after",
+                "web/static/src/views/list/list_controller.xml",
+                "spreadsheet_oca/static/src/spreadsheet/list_controller.xml",
+            ),
+            (
+                "after",
+                "web/static/src/views/pivot/pivot_controller.xml",
+                "spreadsheet_oca/static/src/spreadsheet/pivot_controller.xml",
+            ),
         ],
         "spreadsheet.o_spreadsheet": [
             "spreadsheet_oca/static/src/spreadsheet/bundle/spreadsheet.xml",

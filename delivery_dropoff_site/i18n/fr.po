@@ -851,13 +851,13 @@ msgid "Purchase Lines"
 msgstr ""
 
 #. module: delivery_dropoff_site
-#: model:ir.model.fields,field_description:delivery_dropoff_site.field_dropoff_site__purchase_warn
-msgid "Purchase Order"
+#: model:ir.model.fields,field_description:delivery_dropoff_site.field_dropoff_site__purchase_order_count
+msgid "Purchase Order Count"
 msgstr ""
 
 #. module: delivery_dropoff_site
-#: model:ir.model.fields,field_description:delivery_dropoff_site.field_dropoff_site__purchase_order_count
-msgid "Purchase Order Count"
+#: model:ir.model.fields,field_description:delivery_dropoff_site.field_dropoff_site__purchase_warn
+msgid "Purchase Order Warning"
 msgstr ""
 
 #. module: delivery_dropoff_site
@@ -1035,6 +1035,11 @@ msgstr ""
 #. module: delivery_dropoff_site
 #: model:ir.model.fields,field_description:delivery_dropoff_site.field_dropoff_site__vat
 msgid "Tax ID"
+msgstr ""
+
+#. module: delivery_dropoff_site
+#: model:ir.model.fields,field_description:delivery_dropoff_site.field_dropoff_site__vies_failed_message
+msgid "Technical field display a message to the user if the VIES check fails."
 msgstr ""
 
 #. module: delivery_dropoff_site

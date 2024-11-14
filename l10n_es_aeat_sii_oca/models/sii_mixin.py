@@ -1,8 +1,8 @@
 # Copyright 2021 Tecnativa - João Marques
 # Copyright 2022 ForgeFlow - Lois Rilo
-# Copyright 2011-2023 Tecnativa - Pedro M. Baeza
 # Copyright 2023 Aures Tic - Almudena de la Puente <almudena@aurestic.es>
 # Copyright 2023 Aures Tic - Jose Zambudio <jose@aurestic.es>
+# Copyright 2011,2024 Tecnativa - Pedro M. Baeza
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 import json
 import logging
@@ -183,7 +183,7 @@ class SiiMixin(models.AbstractModel):
         :param date: Date to map
         :return: Recordset with the corresponding codes
         """
-        map_obj = self.env["aeat.sii.map"].sudo()
+        map_obj = self.env["aeat.sii.map"].sudo().with_context(active_test=False)
         sii_map = map_obj.search(
             [
                 "|",
@@ -345,7 +345,12 @@ class SiiMixin(models.AbstractModel):
         return fields.Date.to_date(self._get_document_fiscal_date()).year
 
     def _get_document_period(self):
-        return "%02d" % fields.Date.to_date(self._get_document_fiscal_date()).month
+        month = fields.Date.to_date(self._get_document_fiscal_date()).month
+        if self.company_id.sii_period == "monthly":
+            period = "%02d" % month
+        else:
+            period = str(int(((month - 1) / 3) + 1)) + "T"
+        return period
 
     def _get_document_product_exempt(self, applied_taxes):
         raise NotImplementedError()

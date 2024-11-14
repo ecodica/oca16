@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 16.0\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-09-04 10:06+0000\n"
+"PO-Revision-Date: 2024-11-04 15:06+0000\n"
 "Last-Translator: mymage <stefano.consolaro@mymage.it>\n"
 "Language-Team: none\n"
 "Language: it\n"
@@ -44,8 +44,17 @@ msgstr "Aggiungi testo"
 
 #. module: spreadsheet_oca
 #. odoo-javascript
+#: code:addons/spreadsheet_oca/static/src/spreadsheet/list_controller.xml:0
+#, python-format
+msgid "Add to spreadesheet"
+msgstr "Aggiungi al foglio di calcolo"
+
+#. module: spreadsheet_oca
+#. odoo-javascript
+#: code:addons/spreadsheet_oca/static/src/spreadsheet/graph_controller.xml:0
+#: code:addons/spreadsheet_oca/static/src/spreadsheet/list_controller.xml:0
 #: code:addons/spreadsheet_oca/static/src/spreadsheet/pivot_controller.esm.js:0
-#: code:addons/spreadsheet_oca/static/src/spreadsheet/spreadsheet.xml:0
+#: code:addons/spreadsheet_oca/static/src/spreadsheet/pivot_controller.xml:0
 #: model:spreadsheet.spreadsheet.import.mode,name:spreadsheet_oca.spreadsheet_import_mode_add
 #, python-format
 msgid "Add to spreadsheet"
@@ -76,6 +85,12 @@ msgstr "Prima del precedente"
 #: model:ir.model.fields,field_description:spreadsheet_oca.field_spreadsheet_spreadsheet_import__can_be_dynamic
 msgid "Can Be Dynamic"
 msgstr "Può essere dinamico"
+
+#. module: spreadsheet_oca
+#: model:ir.model.fields,field_description:spreadsheet_oca.field_spreadsheet_select_row_number__can_have_dynamic_cols
+#: model:ir.model.fields,field_description:spreadsheet_oca.field_spreadsheet_spreadsheet_import__can_have_dynamic_cols
+msgid "Can Have Dynamic Cols"
+msgstr "Può avere colonne dinamiche"
 
 #. module: spreadsheet_oca
 #. odoo-javascript
@@ -477,7 +492,7 @@ msgstr "Aggiorna tutti i dati"
 #: code:addons/spreadsheet_oca/static/src/spreadsheet/bundle/spreadsheet.xml:0
 #, python-format
 msgid "Related model"
-msgstr "Modello collegato"
+msgstr "Modello correlato"
 
 #. module: spreadsheet_oca
 #. odoo-javascript
@@ -615,6 +630,13 @@ msgstr "Tipo"
 #, python-format
 msgid "Unnamed"
 msgstr "Senza nome"
+
+#. module: spreadsheet_oca
+#. odoo-javascript
+#: code:addons/spreadsheet_oca/static/src/spreadsheet_tree/spreadsheet_tree_view.xml:0
+#, python-format
+msgid "Upload XLSX"
+msgstr "Carica XLSX"
 
 #. module: spreadsheet_oca
 #: model:res.groups,name:spreadsheet_oca.group_user

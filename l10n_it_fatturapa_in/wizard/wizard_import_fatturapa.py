@@ -1,4 +1,5 @@
 #  Copyright 2022 Simone Rubino - TAKOBI
+#  Copyright 2024 Simone Rubino - Aion Tech
 #  License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 
 import logging
@@ -622,7 +623,10 @@ class WizardImportFatturapa(models.TransientModel):
         elif len(account.tax_ids) == 1:
             new_tax = account.tax_ids[0]
         line_tax = self.env["account.tax"]
-        if line_vals.get("tax_ids") and line_vals["tax_ids"][0] == fields.Command.SET:
+        if (
+            line_vals.get("tax_ids")
+            and line_vals["tax_ids"][0][0] == fields.Command.SET
+        ):
             line_tax_id = line_vals["tax_ids"][0][2][0]
             line_tax = self.env["account.tax"].browse(line_tax_id)
         if new_tax and line_tax and new_tax != line_tax:
@@ -816,48 +820,6 @@ class WizardImportFatturapa(models.TransientModel):
         line_unit = line_total / float(DettaglioLinea.Quantita)
         discount = (1 - (line_unit / float(DettaglioLinea.PrezzoUnitario))) * 100.0
         return discount
-
-    def _addGlobalDiscount(self, invoice_id, DatiGeneraliDocumento):
-        discount = 0.0
-        if (
-            DatiGeneraliDocumento.ScontoMaggiorazione
-            and self.e_invoice_detail_level == "2"
-        ):
-            invoice = self.env["account.move"].browse(invoice_id)
-            for DiscRise in DatiGeneraliDocumento.ScontoMaggiorazione:
-                if DiscRise.Percentuale:
-                    amount = invoice.amount_total * (float(DiscRise.Percentuale) / 100)
-                    if DiscRise.Tipo == "SC":
-                        discount -= amount
-                    elif DiscRise.Tipo == "MG":
-                        discount += amount
-                elif DiscRise.Importo:
-                    if DiscRise.Tipo == "SC":
-                        discount -= float(DiscRise.Importo)
-                    elif DiscRise.Tipo == "MG":
-                        discount += float(DiscRise.Importo)
-            company = invoice.company_id
-            global_discount_product = company.sconto_maggiorazione_product_id
-            credit_account = self.get_credit_account(
-                product=global_discount_product,
-            )
-            line_vals = {
-                "move_id": invoice_id,
-                "name": _("Global bill discount from document general data"),
-                "account_id": credit_account.id,
-                "price_unit": discount,
-                "quantity": 1,
-            }
-            if global_discount_product:
-                line_vals["product_id"] = global_discount_product.id
-                line_vals["name"] = global_discount_product.name
-                self.adjust_accounting_data(global_discount_product, line_vals)
-            else:
-                line_vals["tax_ids"] = [fields.Command.clear()]
-            self.env["account.move.line"].with_context(
-                check_move_validity=False
-            ).create(line_vals)
-        return True
 
     def _createPaymentsLine(self, payment_id, line, partner_id, invoice):
         details = line.DettaglioPagamento or False
@@ -1167,6 +1129,12 @@ class WizardImportFatturapa(models.TransientModel):
         received_date = received_date.date()
         return received_date
 
+    def _get_payment_term(self, partner):
+        payment_term_id = False
+        if partner.property_supplier_payment_term_id:
+            payment_term_id = partner.property_supplier_payment_term_id.id
+        return payment_term_id
+
     def _prepare_invoice_values(self, fatt, fatturapa_attachment, FatturaBody, partner):
         company = self.env.company
         currency = self._get_currency(FatturaBody)
@@ -1197,6 +1165,7 @@ class WizardImportFatturapa(models.TransientModel):
             partner,
             delivery=delivery_partner,
         )
+        payment_term_id = self._get_payment_term(partner)
 
         invoice_data = {
             "e_invoice_received_date": e_invoice_received_date,
@@ -1212,7 +1181,7 @@ class WizardImportFatturapa(models.TransientModel):
             "journal_id": purchase_journal.id,
             # 'origin': xmlData.datiOrdineAcquisto,
             "fiscal_position_id": fiscal_position.id,
-            "invoice_payment_term_id": partner.property_supplier_payment_term_id.id,
+            "invoice_payment_term_id": payment_term_id,
             "company_id": company.id,
             "fatturapa_attachment_in_id": fatturapa_attachment.id,
             "narration": comment,
@@ -1313,10 +1282,6 @@ class WizardImportFatturapa(models.TransientModel):
 
         # 2.5
         self.set_attachments_data(FatturaBody, invoice)
-
-        self._addGlobalDiscount(
-            invoice.id, FatturaBody.DatiGenerali.DatiGeneraliDocumento
-        )
 
         if self.e_invoice_detail_level != "1":
             self.set_roundings(FatturaBody, invoice)
@@ -1798,44 +1763,20 @@ class WizardImportFatturapa(models.TransientModel):
         return invoice_lines
 
     def check_invoice_amount(self, invoice, FatturaElettronicaBody):
-        dgd = FatturaElettronicaBody.DatiGenerali.DatiGeneraliDocumento
-        if dgd.ScontoMaggiorazione and dgd.ImportoTotaleDocumento:
-            # assuming that, if someone uses
-            # DatiGeneraliDocumento.ScontoMaggiorazione, also fills
-            # DatiGeneraliDocumento.ImportoTotaleDocumento
-            ImportoTotaleDocumento = float(dgd.ImportoTotaleDocumento)
-            if not float_is_zero(
-                invoice.amount_total - ImportoTotaleDocumento, precision_digits=2
-            ):
-                self.log_inconsistency(
-                    _(
-                        "Bill total %(amount_total)s is different "
-                        "from document total amount %(document_total_amount)s"
-                    )
-                    % {
-                        "amount_total": invoice.amount_total,
-                        "document_total_amount": ImportoTotaleDocumento,
-                    }
+        amount_untaxed = invoice.compute_xml_amount_untaxed(FatturaElettronicaBody)
+        if not float_is_zero(
+            invoice.amount_untaxed - amount_untaxed, precision_digits=2
+        ):
+            self.log_inconsistency(
+                _(
+                    "Computed amount untaxed %(amount_untaxed)s is "
+                    "different from summary data %(summary_data)s"
                 )
-        else:
-            # else, we can only check DatiRiepilogo if
-            # DatiGeneraliDocumento.ScontoMaggiorazione is not present,
-            # because otherwise DatiRiepilogo and odoo invoice total would
-            # differ
-            amount_untaxed = invoice.compute_xml_amount_untaxed(FatturaElettronicaBody)
-            if not float_is_zero(
-                invoice.amount_untaxed - amount_untaxed, precision_digits=2
-            ):
-                self.log_inconsistency(
-                    _(
-                        "Computed amount untaxed %(amount_untaxed)s is "
-                        "different from summary data %(summary_data)s"
-                    )
-                    % {
-                        "amount_untaxed": invoice.amount_untaxed,
-                        "summary_data": amount_untaxed,
-                    }
-                )
+                % {
+                    "amount_untaxed": invoice.amount_untaxed,
+                    "summary_data": amount_untaxed,
+                }
+            )
 
     def create_and_get_line_id(self, invoice_line_ids, invoice_line_model, upd_vals):
         invoice_line_id = (
