@@ -16,7 +16,7 @@ class WizardUpdateChartsAccount(models.TransientModel):
 
     def _get_lang_selection_options(self):
         """Only can translate in base language by default."""
-        en = self.env["res.lang"]._lang_get("en_US")
+        en = self.env.ref("base.lang_en")
         return [(en.code, en.name)]
 
     def _update_other_langs(self, templates):
@@ -31,8 +31,11 @@ class WizardUpdateChartsAccount(models.TransientModel):
             for key in self._diff_translate_fields(template, rec):
                 for lang in self._other_langs():
                     field = rec._fields[key]
-                    old_value = field._get_stored_translations(rec).get(
-                        rec.env.lang, "en_US"
+                    stored_translation_rec = field._get_stored_translations(rec)
+                    if not stored_translation_rec:
+                        continue
+                    old_value = (
+                        stored_translation_rec.get(rec.env.lang or "en_US") or ""
                     )
                     if old_value.startswith("<p>") and old_value.endswith("</p>"):
                         old_value = old_value[3:-4]

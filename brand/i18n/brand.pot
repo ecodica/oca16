@@ -541,6 +541,11 @@ msgid "Invoices"
 msgstr ""
 
 #. module: brand
+#: model:ir.model.fields,field_description:brand.field_res_brand__is_coa_installed
+msgid "Is Coa Installed"
+msgstr ""
+
+#. module: brand
 #: model:ir.model.fields,field_description:brand.field_res_brand__message_is_follower
 msgid "Is Follower"
 msgstr ""
@@ -782,13 +787,13 @@ msgid "Purchase Lines"
 msgstr ""
 
 #. module: brand
-#: model:ir.model.fields,field_description:brand.field_res_brand__purchase_warn
-msgid "Purchase Order"
+#: model:ir.model.fields,field_description:brand.field_res_brand__purchase_order_count
+msgid "Purchase Order Count"
 msgstr ""
 
 #. module: brand
-#: model:ir.model.fields,field_description:brand.field_res_brand__purchase_order_count
-msgid "Purchase Order Count"
+#: model:ir.model.fields,field_description:brand.field_res_brand__purchase_warn
+msgid "Purchase Order Warning"
 msgstr ""
 
 #. module: brand

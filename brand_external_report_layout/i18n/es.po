@@ -160,6 +160,7 @@ msgstr "ID (identificación)"
 
 #. module: brand_external_report_layout
 #: model:ir.model.fields,field_description:brand_external_report_layout.field_brand_document_layout__is_company_details_empty
+#: model:ir.model.fields,field_description:brand_external_report_layout.field_res_brand__is_company_details_empty
 msgid "Is Company Details Empty"
 msgstr "Están vacíos los detalles de la empresa"
 

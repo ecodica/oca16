@@ -58,7 +58,8 @@ class IrHttp(models.AbstractModel):
         # which will in turn use the updated value of the oauth token to compute
         # the session token, and the security check will not fail.
         registry = registry_get(http.request.env.cr.dbname)
-        with registry.cursor() as cr:
+        cr = registry.cursor()
+        try:
             last_version = cls._get_routing_map_last_version(cr)
             if not hasattr(cls, "_routing_map"):
                 _logger.debug(
@@ -71,6 +72,13 @@ class IrHttp(models.AbstractModel):
                 cls._routing_map = {}
                 cls._rewrite_len = {}
                 cls._endpoint_route_last_version = last_version
+        finally:
+            # No commit is needed here as nothing should be modified since
+            # this cursor is only here to read the last version of the routing
+            # map in a different cursor than the request one, see above comment.
+            cr.rollback()
+            cr.close()
+
         return super().routing_map(key=key)
 
     @classmethod

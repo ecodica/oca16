@@ -11,7 +11,7 @@ class AccountMove(models.Model):
     def get_payment_identifier(self):
         """This method is designed to be inherited in localization modules"""
         self.ensure_one()
-        return None
+        return self.payment_reference
 
     @api.model
     def _get_invoice_report_names(self):
@@ -35,3 +35,15 @@ class AccountMove(models.Model):
             return xml_format
         else:
             return False
+
+    def _get_unece_due_date_type_code(self):
+        """account.tax has a selection field 'tax_exigibility' with 2 possible values:
+        'on_invoice' or 'on_payment'.
+        As a consequence, tax exigibility is a property of the invoice line.
+        But, in real life (at least in France), tax exigibility is a property of the invoice,
+        not the invoice line!
+        This method is a hook to get the UNECE due date type code from the invoice instead
+        of the tax. If it returns None, Odoo will get it from the tax.
+        """
+        self.ensure_one()
+        return None

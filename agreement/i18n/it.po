@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-08-31 12:06+0000\n"
+"PO-Revision-Date: 2024-11-20 13:06+0000\n"
 "Last-Translator: mymage <stefano.consolaro@mymage.it>\n"
 "Language-Team: none\n"
 "Language: it\n"
@@ -406,7 +406,7 @@ msgstr "Tipo di attività eccezione sul record."
 #. module: agreement
 #: model:res.groups,name:agreement.group_use_agreement_template
 msgid "Use agreement template"
-msgstr "Utilizza modello accordo"
+msgstr "Utilizza modello contratto"
 
 #. module: agreement
 #: model:res.groups,name:agreement.group_use_agreement_type
