@@ -81,6 +81,7 @@ msgstr ""
 #. module: repair_type
 #: model:ir.model,name:repair_type.model_repair_type
 #: model:ir.model.fields,field_description:repair_type.field_repair_order__repair_type_id
+#: model_terms:ir.ui.view,arch_db:repair_type.view_repair_order_form_filter_inherit
 msgid "Repair Type"
 msgstr ""
 
