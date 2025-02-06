@@ -1,0 +1,1 @@
+astor==0.8.1 # needed for base_view_inheritance_extension module
